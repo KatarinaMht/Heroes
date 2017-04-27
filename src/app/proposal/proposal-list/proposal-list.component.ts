@@ -28,7 +28,9 @@ export class ProposalListComponent implements OnInit {
     getProposals(criteria: ProposalCriteria) {
 
         this.proposalService.getProposals(criteria).then (
-            proposals => this.proposals = proposals
+            proposals => { this.proposals = proposals; console.log(JSON.stringify(this.proposals)); }
         );
+
+        
     }
 }

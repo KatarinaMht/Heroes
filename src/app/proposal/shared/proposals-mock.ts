@@ -3,38 +3,35 @@ import { Proposal } from "./proposal.model";
 export const PROPOSALS: Proposal[] = [
     {
         id: 0,
-        id_user_account: 345,
-        id_manager: 678,
-        money_proposal: 10000,
-        company_profile: 'kkkkk',
-        national_work_profile: 'hhhhh',
+        userAccount: {firstName: 'Paja', lastName: 'Patak'},
+        manager: {firstName: 'Fabio', lastName: 'Staro'},
+        moneyProposal: 10000,
+        companyProfile: 'kkkkk',
+        nationalWorkProfile: 'hhhhh',
         motivation: 'eeeee',
-        centro_di_corso: 'Gjhgjh Hghjgj',
-        status: null,
-        date_request: null
+        status: 'Active',
+        dateRequest: null
     },
     {
         id: 0,
-        id_user_account: 789,
-        id_manager: 456,
-        money_proposal: 20000,
-        company_profile: 'hhhhh',
-        national_work_profile: 'sssss',
+        userAccount: {firstName: 'Miki', lastName: 'Maus'},
+        manager: {firstName: 'Alessandro', lastName: 'Avolio'},
+        moneyProposal: 20000,
+        companyProfile: 'hhhhh',
+        nationalWorkProfile: 'sssss',
         motivation: 'llllll',
-        centro_di_corso: 'lkhkjhkghg',
-        status: null,
-        date_request: null
+        status: 'Active',
+        dateRequest: null
     },
     {
         id: 0,
-        id_user_account: 999,
-        id_manager: 666,
-        money_proposal: 30000,
-        company_profile: 'dzdfzsdfzs',
-        national_work_profile: 'nbbmnbmn',
+        userAccount: {firstName: 'Sofronije', lastName: 'Petao'},
+        manager: {firstName: 'Alessandro', lastName: 'Avolio'},
+        moneyProposal: 30000,
+        companyProfile: 'dzdfzsdfzs',
+        nationalWorkProfile: 'nbbmnbmn',
         motivation: 'ytyutyuyut',
-        centro_di_corso: 'gvgfg gvfgkfg',
-        status: null,
-        date_request: null
+        status: 'Locked',
+        dateRequest: null
     }
 ];

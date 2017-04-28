@@ -1,12 +1,17 @@
 export class Proposal {
     id: number;
-    id_user_account: number;
-    id_manager: number;
-    money_proposal: number;
-    company_profile: string;
-    national_work_profile: string;
+    userAccount: {
+        firstName: string, 
+        lastName: string
+    };
+    manager: {
+        firstName: string, 
+        lastName: string
+    };
+    moneyProposal: number;
+    companyProfile: string;
+    nationalWorkProfile: string;
     motivation: string;
-    centro_di_corso: string;
     status: string;
-    date_request: Date;
+    dateRequest: Date;
 }

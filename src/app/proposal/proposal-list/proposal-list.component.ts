@@ -32,7 +32,7 @@ export class ProposalListComponent implements OnInit {
         this.sortingIcons = { 
             fisrtName: { asc: false, sort: false },
             lastName: { asc: false, sort: false },
-            managerFistName: { asc: false, sort: false },
+            managerFirstName: { asc: false, sort: false },
             managerLastName: { asc: false, sort: false },
             companyProfile: { asc: false, sort: false },
             nationalWorkProfile: { asc: false, sort: false }
@@ -91,7 +91,7 @@ console.log("Sort columnName: " + columnName + " columnNameIcon: " + columnNameI
         this.sortingIcons = { 
             fisrtName: { asc: false, sort: false },
             lastName: { asc: false, sort: false },
-            managerFistName: { asc: false, sort: false },
+            managerFirstName: { asc: false, sort: false },
             managerLastName: { asc: false, sort: false },
             companyProfile: { asc: false, sort: false },
             nationalWorkProfile: { asc: false, sort: false }

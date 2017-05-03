@@ -11,7 +11,7 @@
     <table id="proposalList-table" class="table table-striped table-bordered">
         <thead class="thead-primary">
             <tr>
-                <th class="text-center col-md-1" (click)="sortByColumn('userAccount.firstName', 'fisrtName'); evaluationSort();">
+                <th class="text-center col-md-1" (click)="sortByColumn('userAccount.firstName', 'fisrtName'); evaluationSort()">
                    <span> First Name
                        <span class="fa fa-lg" [ngClass]="{'fa-sort':!sortingIcons.fisrtName.sort,
                                                           'fa-sort-asc':sortingIcons.fisrtName.sort && sortingIcons.fisrtName.asc,
@@ -19,7 +19,7 @@
                        </span>
                    </span>
                 </th>
-                <th class="text-center col-md-1" (click)="sortByColumn('userAccount.lastName', 'lastName'); evaluationSort();">
+                <th class="text-center col-md-1" (click)="sortByColumn('userAccount.lastName', 'lastName'); evaluationSort()">
                    <span> Last Name
                        <span class="fa fa-lg" [ngClass]="{'fa-sort':!sortingIcons.lastName.sort,
                                                           'fa-sort-asc':sortingIcons.lastName.sort && sortingIcons.lastName.asc,
@@ -27,15 +27,19 @@
                        </span>
                    </span>
                 </th>
-                <th class="text-center col-md-1">
+                <th class="text-center col-md-1" (click)="sortByColumn('manager.firstName', 'managerFirstName'); evaluationSort();">
                     <span> Manager First Name
-                        <span class="fa fa-lg" [ngClass]="{'fa-sort': true}">
+                        <span class="fa fa-lg" [ngClass]="{'fa-sort':!sortingIcons.managerFirstName.sort,
+                                                          'fa-sort-asc':sortingIcons.managerFirstName.sort && sortingIcons.managerFirstName.asc,
+                                                          'fa-sort-desc':sortingIcons.managerFirstName.sort && !sortingIcons.managerFirstName.asc}">
                         </span>
                     </span>
                 </th>
-                <th class="text-center col-md-1">
+                <th class="text-center col-md-1" (click)="sortByColumn('manager.lastName', 'managerLastName'); evaluationSort();">
                     <span> Manager Last Name
-                        <span class="fa fa-lg" [ngClass]="{'fa-sort': true}">
+                        <span class="fa fa-lg" [ngClass]="{'fa-sort':!sortingIcons.managerLastName.sort,
+                                                          'fa-sort-asc':sortingIcons.managerLastName.sort && sortingIcons.managerLastName.asc,
+                                                          'fa-sort-desc':sortingIcons.managerLastName.sort && !sortingIcons.managerLastName.asc}">
                         </span>
                     </span>
                 </th>
@@ -43,15 +47,19 @@
                     <span> Money proposal
                    </span>
                 </th>
-                <th class="text-center col-md-1">
+                <th class="text-center col-md-1" (click)="sortByColumn('companyProfile', 'companyProfile'); evaluationSort();">
                     <span> Company profile
-                        <span class="fa fa-lg" [ngClass]="{'fa-sort': true}">
+                        <span class="fa fa-lg" [ngClass]="{'fa-sort':!sortingIcons.companyProfile.sort,
+                                                          'fa-sort-asc':sortingIcons.companyProfile.sort && sortingIcons.companyProfile.asc,
+                                                          'fa-sort-desc':sortingIcons.companyProfile.sort && !sortingIcons.companyProfile.asc}">
                        </span>
                    </span>
                 </th>
-                <th class="text-center col-md-1">
+                <th class="text-center col-md-1" (click)="sortByColumn('nationalWorkProfile', 'nationalWorkProfile'); evaluationSort();">
                     <span> National work profile
-                        <span class="fa fa-lg" [ngClass]="{'fa-sort': true}">
+                        <span class="fa fa-lg" [ngClass]="{'fa-sort':!sortingIcons.nationalWorkProfile.sort,
+                                                          'fa-sort-asc':sortingIcons.nationalWorkProfile.sort && sortingIcons.nationalWorkProfile.asc,
+                                                          'fa-sort-desc':sortingIcons.nationalWorkProfile.sort && !sortingIcons.nationalWorkProfile.asc}">
                        </span>
                    </span>
                 </th>

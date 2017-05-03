@@ -11,60 +11,82 @@
     <table id="proposalList-table" class="table table-striped table-bordered">
         <thead class="thead-primary">
             <tr>
-                <th class="text-center col-md-2">
-                   <span> Name
-                       <span class="fa fa-lg" [ngClass]="{'fa-sort': true}">
+                <th class="text-center col-md-1" (click)="sortByColumn('userAccount.firstName', 'fisrtName'); evaluationSort();">
+                   <span> First Name
+                       <span class="fa fa-lg" [ngClass]="{'fa-sort':!sortingIcons.fisrtName.sort,
+                                                          'fa-sort-asc':sortingIcons.fisrtName.sort && sortingIcons.fisrtName.asc,
+                                                          'fa-sort-desc':sortingIcons.fisrtName.sort && !sortingIcons.fisrtName.asc}">
                        </span>
                    </span>
                 </th>
-                <th class="text-center col-md-2">
-                    <span> Manager
+                <th class="text-center col-md-1" (click)="sortByColumn('userAccount.lastName', 'lastName'); evaluationSort();">
+                   <span> Last Name
+                       <span class="fa fa-lg" [ngClass]="{'fa-sort':!sortingIcons.lastName.sort,
+                                                          'fa-sort-asc':sortingIcons.lastName.sort && sortingIcons.lastName.asc,
+                                                          'fa-sort-desc':sortingIcons.lastName.sort && !sortingIcons.lastName.asc}">
+                       </span>
+                   </span>
+                </th>
+                <th class="text-center col-md-1">
+                    <span> Manager First Name
                         <span class="fa fa-lg" [ngClass]="{'fa-sort': true}">
                         </span>
                     </span>
                 </th>
-                <th class="text-center col-md-2">
+                <th class="text-center col-md-1">
+                    <span> Manager Last Name
+                        <span class="fa fa-lg" [ngClass]="{'fa-sort': true}">
+                        </span>
+                    </span>
+                </th>
+                <th class="text-center col-md-1">
                     <span> Money proposal
                    </span>
                 </th>
-                <th class="text-center col-md-2">
+                <th class="text-center col-md-1">
                     <span> Company profile
                         <span class="fa fa-lg" [ngClass]="{'fa-sort': true}">
                        </span>
                    </span>
                 </th>
-                <th class="text-center col-md-2">
+                <th class="text-center col-md-1">
                     <span> National work profile
                         <span class="fa fa-lg" [ngClass]="{'fa-sort': true}">
                        </span>
                    </span>
                 </th>
-                <th class="text-center col-md-2">
+                <th class="text-center col-md-1">
                     <span> Motivation
                    </span>
                 </th>
-                <th class="text-center col-md-2">               
+                <th class="text-center col-md-1">               
                 </th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let proposal of proposals">
-                <td class="text-center col-md-2">
-                    {{ proposal.userAccount.firstName }} {{ proposal.userAccount.lastName }}
+                <td class="text-center col-md-1">
+                    {{ proposal.userAccount.firstName }}
                 </td>
-                <td class="text-center col-md-2">
-                    {{ proposal.manager.firstName }} {{ proposal.manager.lastName }}
+                <td class="text-center col-md-1">
+                    {{ proposal.userAccount.lastName }}
                 </td>
-                <td class="text-center col-md-2">
+                <td class="text-center col-md-1">
+                    {{ proposal.manager.firstName }}
+                </td>
+                <td class="text-center col-md-1">
+                    {{ proposal.manager.lastName }}
+                </td>
+                <td class="text-center col-md-1">
                     {{ proposal.moneyProposal }}
                 </td>
-                <td class="text-center col-md-2">
+                <td class="text-center col-md-1">
                     {{ proposal.companyProfile }}
                 </td>
-                <td class="text-center col-md-2">
+                <td class="text-center col-md-1">
                     {{ proposal.nationalWorkProfile }}
                 </td>
-                <td class="text-center col-md-2">
+                <td class="text-center col-md-1">
                     {{ proposal.motivation }}
                 </td>
                 <td class="text-center col-md-1" *ngIf="proposal.status != 'Locked'">

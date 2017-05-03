@@ -8,10 +8,10 @@ export class SortService {
     sortByOrders: string[];
     sortingIcons: any;
 
-    sortArray(columnName: string, columnNameIcon: string, sortingIcons: any)  {
+    sortArray(array: any[], columnName: string, columnNameIcon: string, sortingIcons: any)  {
 
-        var index = this.sortByProperties.indexOf(columnName);
-        var isInSortArray =  index !== -1 ;
+        let index = this.sortByProperties.indexOf(columnName);
+        let isInSortArray =  index !== -1 ;
 
         if (isInSortArray) {
             if (this.sortByOrders[index] == 'asc') {
@@ -41,6 +41,8 @@ export class SortService {
             this.sortingIcons[columnNameIcon].asc = true;
             this.sortingIcons[columnNameIcon].sort = true;
         }
+
+        return  _.orderBy(array, this.sortByProperties, this.sortByOrders);
     }
 
     resetSortingIcons(sortingIcons: any){

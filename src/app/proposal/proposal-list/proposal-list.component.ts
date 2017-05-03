@@ -10,7 +10,7 @@ import { SortService } from '../../core/sort/sort.service';
   selector: 'esl-proposal-list',
   templateUrl: './proposal-list.component.html',
   styleUrls: ['./proposal-list.component.css'],
-  providers: [ ProposalService ]
+  providers: [ ProposalService, SortService ]
 })
 
 export class ProposalListComponent implements OnInit {
@@ -41,7 +41,7 @@ export class ProposalListComponent implements OnInit {
         };
     }
 
-    constructor(private proposalService: ProposalService) {}
+    constructor(private proposalService: ProposalService, private sortService: SortService) {}
 
     getProposals(criteria: ProposalCriteria) {
 
@@ -55,8 +55,10 @@ export class ProposalListComponent implements OnInit {
     // SORT
     sortByColumn(columnName: string, columnNameIcon: string) {
 
-        var index = this.sortByProperties.indexOf(columnName);
-        var isInSortArray =  index !== -1 ;
+        //this.proposalsSorted = this.sortService(this.proposals, columnName, columnNameIcon, this.sortingIcons);
+
+        let index = this.sortByProperties.indexOf(columnName);
+        let isInSortArray =  index !== -1;
 
         if (isInSortArray) {
             if (this.sortByOrders[index] == 'asc') {

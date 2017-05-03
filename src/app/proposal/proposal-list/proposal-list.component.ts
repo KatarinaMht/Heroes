@@ -4,6 +4,7 @@ import * as _ from "lodash";
 import { Proposal } from '../shared/proposal.model';
 import { ProposalService } from '../shared/proposal.service';
 import { ProposalCriteria } from '../shared/proposal-criteria.model';
+import { SortService } from '../../core/sort/sort.service';
 
 @Component({
   selector: 'esl-proposal-list',

@@ -17,6 +17,7 @@ export class ProposalListComponent implements OnInit {
     proposals: Proposal[];
     proposalCriteria: ProposalCriteria;
 
+    proposalsSorted: Proposal[]; 
     sortByProperties: string[];
     sortByOrders: string[];
     sortingIcons: any;
@@ -44,13 +45,15 @@ export class ProposalListComponent implements OnInit {
     getProposals(criteria: ProposalCriteria) {
 
         this.proposalService.getProposals(criteria).then (
-            proposals => { this.proposals = proposals; console.log(JSON.stringify(this.proposals)); }
+            proposals => { this.proposals = proposals; 
+                            this.proposalsSorted = proposals;
+                            console.log(JSON.stringify(this.proposals)); }
         );
     }
 
     // SORT
     sortByColumn(columnName: string, columnNameIcon: string) {
-console.log("Sort columnName: " + columnName + " columnNameIcon: " + columnNameIcon);
+
         var index = this.sortByProperties.indexOf(columnName);
         var isInSortArray =  index !== -1 ;
 
@@ -63,7 +66,6 @@ console.log("Sort columnName: " + columnName + " columnNameIcon: " + columnNameI
                 this.sortingIcons[columnNameIcon].sort = true;
             }
             else {
-                console.log("mot in isInSortArray");
                 _.pullAt(this.sortByProperties,[index]);
                 _.pullAt(this.sortByOrders,[index]);
 
@@ -71,7 +73,6 @@ console.log("Sort columnName: " + columnName + " columnNameIcon: " + columnNameI
                 this.sortingIcons[columnNameIcon].sort = false;
             }
         } else {
-            console.log("usao u else");
             // For one column sort:
             this.sortByProperties = [];
             this.sortByOrders = [];
@@ -87,7 +88,6 @@ console.log("Sort columnName: " + columnName + " columnNameIcon: " + columnNameI
     }
 
     resetSortingIcons() {
-        console.log("reset");
         this.sortingIcons = { 
             fisrtName: { asc: false, sort: false },
             lastName: { asc: false, sort: false },
@@ -99,7 +99,7 @@ console.log("Sort columnName: " + columnName + " columnNameIcon: " + columnNameI
     }
 
     evaluationSort() {
-        console.log("evaluationSort: sortByPropertie = " + this.sortByProperties + "sortByOrders = " + this.sortByOrders);
-      this.proposals = _.orderBy(this.proposals, this.sortByProperties, this.sortByOrders);  
+        this.proposalsSorted = this.proposals;
+        this.proposalsSorted = _.orderBy(this.proposals, this.sortByProperties, this.sortByOrders);  
     }    
 }

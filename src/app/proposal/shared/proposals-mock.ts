@@ -1,4 +1,4 @@
-import { Proposal } from "./proposal.model";
+import { Proposal } from "../../shared/models/proposal.model";
 
 export const PROPOSALS: Proposal[] = [
     {
@@ -13,7 +13,7 @@ export const PROPOSALS: Proposal[] = [
         dateRequest: null
     },
     {
-        id: 0,
+        id: 1,
         userAccount: {firstName: 'Miki', lastName: 'Maus'},
         manager: {firstName: 'Alessandro', lastName: 'Avolio'},
         moneyProposal: 20000,
@@ -24,7 +24,7 @@ export const PROPOSALS: Proposal[] = [
         dateRequest: null
     },
     {
-        id: 0,
+        id: 2 ,
         userAccount: {firstName: 'Sofronije', lastName: 'Petao'},
         manager: {firstName: 'Alessandro', lastName: 'Avolio'},
         moneyProposal: 30000,

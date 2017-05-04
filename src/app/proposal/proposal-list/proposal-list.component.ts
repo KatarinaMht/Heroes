@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import * as _ from "lodash";
 
-import { Proposal } from '../shared/models/proposal.model';
-import { ProposalCriteria } from '../shared/models/proposal-criteria.model';
-import { UserAccount } from '../shared/models/user-acount.model';
+import { Proposal } from '../../shared/models/proposal.model';
+import { ProposalCriteria } from '../../shared/models/proposal-criteria.model';
+import { UserAccount } from '../../shared/models/user-acount.model';
 
-import { ProposalService } from '../shared/services/proposal.service';
+import { ProposalService } from '../../shared/services/proposal.service';
 import { SortService } from '../../shared/services/sort/sort.service';
 import { FilterService } from '../../shared/services/filter/filter.service';
 
@@ -151,6 +151,6 @@ export class ProposalListComponent implements OnInit {
         // FILTER
         this.proposalSortedFiltered = this.filterService.filterBy(this.proposals, this.proposalFilter);
         // SORT
-        this.proposalSortedFiltered = _.orderBy(this.proposals, this.sortByProperties, this.sortByOrders);  
+        this.proposalSortedFiltered = _.orderBy(this.proposalSortedFiltered, this.sortByProperties, this.sortByOrders);  
     }    
 }

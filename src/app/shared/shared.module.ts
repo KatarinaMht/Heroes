@@ -1,7 +1,9 @@
 import { NgModule }     from '@angular/core';
+import { FormsModule }  from '@angular/forms';
 
 @NgModule({
-    imports: [],
+    imports: [ FormsModule ],
+    exports: [ FormsModule ],
     declarations: [],
     providers: []
 })

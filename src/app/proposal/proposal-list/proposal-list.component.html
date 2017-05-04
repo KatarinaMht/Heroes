@@ -1,9 +1,35 @@
 <h1> Proposal list </h1>
 
 <div class="row">
-    <div class="col-md-12 col-xs-12">
-        <div class="col-md-1 col-xs-2"> Proposal list </div>
-    </div>
+    <span class="col-md-1 col-2"> First Name </span>
+    <span class="col-md-1 col-3">
+        <input type="text" [(ngModel)]="filterFirstName" (ngModelChange)="proposalSortAndFilter()" class="form-control">
+    </span>
+
+    <span class="col-md-1 col-2"> Last Name </span>
+    <span class="col-md-1 col-3">
+        <input type="text" [(ngModel)]="filterLastName" (ngModelChange)="proposalSortAndFilter()" class="form-control">
+    </span>
+
+    <span class="col-md-1 col-2"> Manager First Name </span>
+    <span class="col-md-1 col-3">
+        <input type="text" [(ngModel)]="filterManagerFirstName" (ngModelChange)="proposalSortAndFilter()" class="form-control">
+    </span>
+
+    <span class="col-md-1 col-2"> Manager Last Name </span>
+    <span class="col-md-1 col-3">
+        <input type="text" [(ngModel)]="filterManagerLastName" (ngModelChange)="proposalSortAndFilter()" class="form-control">
+    </span>
+
+    <span class="col-md-1 col-2"> Company profile </span>
+    <span class="col-md-1 col-3">
+        <input type="text" [(ngModel)]="filterCompanyProfile" (ngModelChange)="proposalSortAndFilter()" class="form-control">
+    </span>
+
+    <span class="col-md-1 col-2"> National work profile </span>
+    <span class="col-md-1 col-3">
+        <input type="text" [(ngModel)]="filterNationalWorkProfile" (ngModelChange)="proposalSortAndFilter()" class="form-control">
+    </span>
 </div>
 <hr>
 
@@ -11,7 +37,7 @@
     <table id="proposalList-table" class="table table-striped table-bordered">
         <thead class="thead-primary">
             <tr>
-                <th class="text-center col-md-1" (click)="sortByColumn('userAccount.firstName', 'fisrtName'); evaluationSort()">
+                <th class="text-center col-md-1" (click)="sortByColumn('userAccount.firstName', 'fisrtName'); proposalSortAndFilter()">
                    <span> First Name
                        <span class="fa fa-lg" [ngClass]="{'fa-sort':!sortingIcons.fisrtName.sort,
                                                           'fa-sort-asc':sortingIcons.fisrtName.sort && sortingIcons.fisrtName.asc,
@@ -19,7 +45,7 @@
                        </span>
                    </span>
                 </th>
-                <th class="text-center col-md-1" (click)="sortByColumn('userAccount.lastName', 'lastName'); evaluationSort()">
+                <th class="text-center col-md-1" (click)="sortByColumn('userAccount.lastName', 'lastName'); proposalSortAndFilter()">
                    <span> Last Name
                        <span class="fa fa-lg" [ngClass]="{'fa-sort':!sortingIcons.lastName.sort,
                                                           'fa-sort-asc':sortingIcons.lastName.sort && sortingIcons.lastName.asc,
@@ -27,7 +53,7 @@
                        </span>
                    </span>
                 </th>
-                <th class="text-center col-md-1" (click)="sortByColumn('manager.firstName', 'managerFirstName'); evaluationSort();">
+                <th class="text-center col-md-1" (click)="sortByColumn('manager.firstName', 'managerFirstName'); proposalSortAndFilter();">
                     <span> Manager First Name
                         <span class="fa fa-lg" [ngClass]="{'fa-sort':!sortingIcons.managerFirstName.sort,
                                                           'fa-sort-asc':sortingIcons.managerFirstName.sort && sortingIcons.managerFirstName.asc,
@@ -35,7 +61,7 @@
                         </span>
                     </span>
                 </th>
-                <th class="text-center col-md-1" (click)="sortByColumn('manager.lastName', 'managerLastName'); evaluationSort();">
+                <th class="text-center col-md-1" (click)="sortByColumn('manager.lastName', 'managerLastName'); proposalSortAndFilter();">
                     <span> Manager Last Name
                         <span class="fa fa-lg" [ngClass]="{'fa-sort':!sortingIcons.managerLastName.sort,
                                                           'fa-sort-asc':sortingIcons.managerLastName.sort && sortingIcons.managerLastName.asc,
@@ -47,7 +73,7 @@
                     <span> Money proposal
                    </span>
                 </th>
-                <th class="text-center col-md-1" (click)="sortByColumn('companyProfile', 'companyProfile'); evaluationSort();">
+                <th class="text-center col-md-1" (click)="sortByColumn('companyProfile', 'companyProfile'); proposalSortAndFilter();">
                     <span> Company profile
                         <span class="fa fa-lg" [ngClass]="{'fa-sort':!sortingIcons.companyProfile.sort,
                                                           'fa-sort-asc':sortingIcons.companyProfile.sort && sortingIcons.companyProfile.asc,
@@ -55,7 +81,7 @@
                        </span>
                    </span>
                 </th>
-                <th class="text-center col-md-1" (click)="sortByColumn('nationalWorkProfile', 'nationalWorkProfile'); evaluationSort();">
+                <th class="text-center col-md-1" (click)="sortByColumn('nationalWorkProfile', 'nationalWorkProfile'); proposalSortAndFilter();">
                     <span> National work profile
                         <span class="fa fa-lg" [ngClass]="{'fa-sort':!sortingIcons.nationalWorkProfile.sort,
                                                           'fa-sort-asc':sortingIcons.nationalWorkProfile.sort && sortingIcons.nationalWorkProfile.asc,
@@ -72,7 +98,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let proposal of proposalsSorted">
+            <tr *ngFor="let proposal of proposalSortedFiltered">
                 <td class="text-center col-md-1">
                     {{ proposal.userAccount.firstName }}
                 </td>

@@ -1,16 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import * as _ from "lodash";
 
-import { Proposal } from '../shared/proposal.model';
-import { ProposalService } from '../shared/proposal.service';
-import { ProposalCriteria } from '../shared/proposal-criteria.model';
-import { SortService } from '../../core/sort/sort.service';
+import { Proposal } from '../shared/models/proposal.model';
+import { ProposalCriteria } from '../shared/models/proposal-criteria.model';
+import { UserAccount } from '../shared/models/user-acount.model';
+
+import { ProposalService } from '../shared/services/proposal.service';
+import { SortService } from '../../shared/services/sort/sort.service';
+import { FilterService } from '../../shared/services/filter/filter.service';
 
 @Component({
   selector: 'esl-proposal-list',
   templateUrl: './proposal-list.component.html',
   styleUrls: ['./proposal-list.component.css'],
-  providers: [ ProposalService, SortService ]
+  providers: [ ProposalService, SortService, FilterService ]
 })
 
 export class ProposalListComponent implements OnInit {
@@ -18,10 +21,18 @@ export class ProposalListComponent implements OnInit {
     proposals: Proposal[];
     proposalCriteria: ProposalCriteria;
 
-    proposalsSorted: Proposal[]; 
+    proposalSortedFiltered: Proposal[]; 
     sortByProperties: string[];
     sortByOrders: string[];
     sortingIcons: any;
+
+    proposalFilter: Proposal;
+    filterFirstName: string;
+    filterLastName: string;
+    filterManagerFirstName: string;
+    filterManagerLastName: string;
+    filterCompanyProfile: string;
+    filterNationalWorkProfile: string;
 
     ngOnInit(): void {
 
@@ -39,23 +50,38 @@ export class ProposalListComponent implements OnInit {
             companyProfile: { asc: false, sort: false },
             nationalWorkProfile: { asc: false, sort: false }
         };
+
+        this.proposalFilter = new Proposal();
+        this.proposalFilter.userAccount = new UserAccount();
+        this.proposalFilter.manager = new UserAccount();
     }
 
-    constructor(private proposalService: ProposalService, private sortService: SortService) {}
+    constructor(private proposalService: ProposalService, private sortService: SortService, private filterService: FilterService) {}
 
+    /**
+     * Get list of proposlas.
+     * 
+     * @param criteria ProposalCriteria
+     */
     getProposals(criteria: ProposalCriteria) {
 
         this.proposalService.getProposals(criteria).then (
             proposals => { this.proposals = proposals; 
-                            this.proposalsSorted = proposals;
+                            this.proposalSortedFiltered = proposals;
                             console.log(JSON.stringify(this.proposals)); }
         );
     }
 
-    // SORT
+    /**
+     * Set sorting state arrays sortByProperties and sortByOrders by given parameters. 
+     * 
+     * @param columnName string; Variabile to add sort para,eter to sortByProperties array.
+     * @param columnNameIcon string; Variable to manage the state of fa-sort icon.
+     */
     sortByColumn(columnName: string, columnNameIcon: string) {
 
-        //this.proposalsSorted = this.sortService(this.proposals, columnName, columnNameIcon, this.sortingIcons);
+        // this.proposalsSorted = this.sortService.sortArray(this.proposals, columnName, columnNameIcon,
+        //                                                      this.sortByProperties, this.sortByOrders, this.sortingIcons);
 
         let index = this.sortByProperties.indexOf(columnName);
         let isInSortArray =  index !== -1;
@@ -90,6 +116,9 @@ export class ProposalListComponent implements OnInit {
         }
     }
 
+    /**
+     * Reset state of fa-sort icons in sortingIcons object to default values.
+     */
     resetSortingIcons() {
         this.sortingIcons = { 
             fisrtName: { asc: false, sort: false },
@@ -101,8 +130,27 @@ export class ProposalListComponent implements OnInit {
         };
     }
 
-    evaluationSort() {
-        this.proposalsSorted = this.proposals;
-        this.proposalsSorted = _.orderBy(this.proposals, this.sortByProperties, this.sortByOrders);  
+    /**
+     * Sort and filter proposal array.
+     */
+    proposalSortAndFilter() {
+        this.proposalSortedFiltered = this.proposals;
+
+        // Create filter object.
+        this.proposalFilter = new Proposal();
+        this.proposalFilter.userAccount = new UserAccount();
+        this.proposalFilter.manager = new UserAccount();
+        this.proposalFilter.userAccount.firstName = this.filterFirstName;
+        this.proposalFilter.userAccount.lastName = this.filterLastName;
+        this.proposalFilter.manager.firstName = this.filterManagerFirstName;
+        this.proposalFilter.manager.lastName = this.filterManagerLastName;
+        this.proposalFilter.companyProfile = this.filterCompanyProfile;
+        this.proposalFilter.nationalWorkProfile = this.filterNationalWorkProfile;
+        console.log('proposalFilter: ' + JSON.stringify(this.proposalFilter));
+
+        // FILTER
+        this.proposalSortedFiltered = this.filterService.filterBy(this.proposals, this.proposalFilter);
+        // SORT
+        this.proposalSortedFiltered = _.orderBy(this.proposals, this.sortByProperties, this.sortByOrders);  
     }    
 }

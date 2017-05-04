@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
-import { Proposal } from './proposal.model';
-import { ProposalCriteria } from './proposal-criteria.model';
-import { PROPOSALS } from './proposals-mock';
+import { Proposal } from '../models/proposal.model';
+import { ProposalCriteria } from '../models/proposal-criteria.model';
+import { PROPOSALS } from '../proposals-mock';
 
 @Injectable()
 export class ProposalService {

@@ -1,13 +1,9 @@
+import { UserAccount } from './user-acount.model';
+
 export class Proposal {
     id: number;
-    userAccount: {
-        firstName: string, 
-        lastName: string
-    };
-    manager: {
-        firstName: string, 
-        lastName: string
-    };
+    userAccount: UserAccount;
+    manager: UserAccount;
     moneyProposal: number;
     companyProfile: string;
     nationalWorkProfile: string;

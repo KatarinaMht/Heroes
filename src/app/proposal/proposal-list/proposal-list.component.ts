@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import * as _ from "lodash";
 
 import { Proposal } from '../../shared/models/proposal.model';
@@ -17,6 +17,8 @@ import { FilterService } from '../../shared/services/filter/filter.service';
 })
 
 export class ProposalListComponent implements OnInit {
+
+    @Output() onEdit: EventEmitter<string> = new EventEmitter<string>();
 
     proposals: Proposal[];
     proposalCriteria: ProposalCriteria;
@@ -70,6 +72,13 @@ export class ProposalListComponent implements OnInit {
                             this.proposalSortedFiltered = proposals;
                             console.log(JSON.stringify(this.proposals)); }
         );
+    }
+
+    /**
+     * Opens edit modal on button click.
+     */
+    openEditModal() {
+        this.onEdit.emit("Edit button clicked!");
     }
 
     /**

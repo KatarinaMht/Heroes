@@ -1,3 +1,7 @@
 <h1> Proposals page </h1>
 
-<esl-proposal-list> </esl-proposal-list>
+<esl-proposal-list (onEdit)="onEditClick($event)"> </esl-proposal-list>
+
+<br>
+<br>
+{{editMessage}}

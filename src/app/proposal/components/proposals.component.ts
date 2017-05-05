@@ -8,7 +8,13 @@ import { Component, OnInit } from '@angular/core';
 
 export class ProposalsComponent implements OnInit {
 
+    editMessage: string;
+
     ngOnInit(): void {}
 
     constructor() {}
+
+    onEditClick(message: string) {
+      this.editMessage = message;
+    }
 }

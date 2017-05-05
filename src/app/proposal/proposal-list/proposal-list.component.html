@@ -124,7 +124,7 @@
                     {{ proposal.motivation }}
                 </td>
                 <td class="text-center col-md-1" *ngIf="proposal.status != 'Locked'">
-                    <button class="btn btn-primary" (click)="openEditModal(proposal)" data-toggle="modal" data-target="#myModal">
+                    <button class="btn btn-primary" (click)="openEditModal(proposal)">
                         <span class="fa fa-pencil" aria-hidden="true"></span>
                     </button>
                 </td>

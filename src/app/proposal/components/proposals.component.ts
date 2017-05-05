@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { Proposal } from '../../shared/models/proposal.model';
+
 @Component({
   selector: 'esl-proposals',
   templateUrl: './proposals.component.html',
@@ -8,13 +10,15 @@ import { Component, OnInit } from '@angular/core';
 
 export class ProposalsComponent implements OnInit {
 
-    editMessage: string;
+    editProposal: Proposal;
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+      this.editProposal = null;
+    }
 
     constructor() {}
 
-    onEditClick(message: string) {
-      this.editMessage = message;
+    onEditClick(proposal: Proposal) {
+      this.editProposal = proposal;
     }
 }

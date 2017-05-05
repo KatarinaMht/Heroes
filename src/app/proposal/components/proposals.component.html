@@ -4,4 +4,29 @@
 
 <br>
 <br>
-{{editMessage}}
+<tr *ngIf="editProposal">
+                <td class="text-center col-md-1">
+                    {{ editProposal.userAccount.firstName }}
+                </td>
+                <td class="text-center col-md-1">
+                    {{ editProposal.userAccount.lastName }}
+                </td>
+                <td class="text-center col-md-1">
+                    {{ editProposal.manager.firstName }}
+                </td>
+                <td class="text-center col-md-1">
+                    {{ editProposal.manager.lastName }}
+                </td>
+                <td class="text-center col-md-1">
+                    {{ editProposal.moneyProposal }}
+                </td>
+                <td class="text-center col-md-1">
+                    {{ editProposal.companyProfile }}
+                </td>
+                <td class="text-center col-md-1">
+                    {{ editProposal.nationalWorkProfile }}
+                </td>
+                <td class="text-center col-md-1">
+                    {{ editProposal.motivation }}
+                </td>
+</tr>

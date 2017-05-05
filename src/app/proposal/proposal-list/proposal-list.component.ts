@@ -18,7 +18,7 @@ import { FilterService } from '../../shared/services/filter/filter.service';
 
 export class ProposalListComponent implements OnInit {
 
-    @Output() onEdit: EventEmitter<string> = new EventEmitter<string>();
+    @Output() onEdit: EventEmitter<Proposal> = new EventEmitter<Proposal>();
 
     proposals: Proposal[];
     proposalCriteria: ProposalCriteria;
@@ -77,8 +77,8 @@ export class ProposalListComponent implements OnInit {
     /**
      * Opens edit modal on button click.
      */
-    openEditModal() {
-        this.onEdit.emit("Edit button clicked!");
+    openEditModal(proposal: Proposal) {
+        this.onEdit.emit(proposal);
     }
 
     /**

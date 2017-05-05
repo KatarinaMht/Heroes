@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as $ from 'jquery';
 
 import { Proposal } from '../../shared/models/proposal.model';
 

@@ -79,6 +79,7 @@ export class ProposalListComponent implements OnInit {
      */
     openEditModal(proposal: Proposal) {
         this.onEdit.emit(proposal);
+        //$('#myModal').modal('show');
     }
 
     /**

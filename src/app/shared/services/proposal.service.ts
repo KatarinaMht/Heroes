@@ -13,7 +13,8 @@ export class ProposalService {
     }
 
     updateProposal(proposal: Proposal): Promise<Proposal> {
-        return null;
+        console.log("updateProposal: " + JSON.stringify(proposal));
+        return Promise.resolve(proposal);
     }
 
     insertProposal(proposal: Proposal): Promise<Proposal> {

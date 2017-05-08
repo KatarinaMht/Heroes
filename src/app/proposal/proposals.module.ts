@@ -1,22 +1,27 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { SharedModule } from '../shared/shared.module';
 import { ProposalsComponent } from './components/proposals.component';
 import { ProposalListComponent } from './proposal-list/proposal-list.component';
+import { ProposalEditComponent } from './proposal-edit/proposal-edit.component';
 
 @NgModule({
     imports: [ 
         CommonModule,
-        SharedModule 
+        SharedModule,
+        ReactiveFormsModule 
     ],
     exports:  [ 
         ProposalsComponent,
-        ProposalListComponent
+        ProposalListComponent,
+        ProposalEditComponent
     ],
     declarations: [ 
         ProposalsComponent, 
-        ProposalListComponent 
+        ProposalListComponent,
+        ProposalEditComponent 
     ],
     providers: []
 })

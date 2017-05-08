@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import * as $ from 'jquery';
 
 import { Proposal } from '../../shared/models/proposal.model';
@@ -17,9 +18,10 @@ export class ProposalsComponent implements OnInit {
       this.editProposal = null;
     }
 
-    constructor() {}
+    constructor(private router: Router) {}
 
     onEditClick(proposal: Proposal) {
       this.editProposal = proposal;
+      this.router.navigate(['/proposal-edit']);
     }
 }

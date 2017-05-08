@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import * as _ from "lodash";
+import * as $ from 'jquery';
 
 import { Proposal } from '../../shared/models/proposal.model';
 import { ProposalCriteria } from '../../shared/models/proposal-criteria.model';
@@ -80,7 +81,7 @@ export class ProposalListComponent implements OnInit {
     openEditModal(proposal: Proposal) {
         this.onEdit.emit(proposal);
         //$('#myModal').modal('show');
-    }
+    } 
 
     /**
      * Set sorting state arrays sortByProperties and sortByOrders by given parameters. 

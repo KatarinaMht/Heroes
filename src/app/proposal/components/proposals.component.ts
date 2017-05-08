@@ -22,6 +22,6 @@ export class ProposalsComponent implements OnInit {
 
     onEditClick(proposal: Proposal) {
       this.editProposal = proposal;
-      this.router.navigate(['/proposal-edit']);
+      this.router.navigate(['/proposal-edit', proposal.id]);
     }
 }

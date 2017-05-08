@@ -1,28 +1,61 @@
 <h1> Edit Porposal </h1>
 
-<tr *ngIf="editProposal">
-                <td class="text-center col-md-1">
-                    {{ editProposal.userAccount.firstName }}
-                </td>
-                <td class="text-center col-md-1">
-                    {{ editProposal.userAccount.lastName }}
-                </td>
-                <td class="text-center col-md-1">
-                    {{ editProposal.manager.firstName }}
-                </td>
-                <td class="text-center col-md-1">
-                    {{ editProposal.manager.lastName }}
-                </td>
-                <td class="text-center col-md-1">
-                    {{ editProposal.moneyProposal }}
-                </td>
-                <td class="text-center col-md-1">
-                    {{ editProposal.companyProfile }}
-                </td>
-                <td class="text-center col-md-1">
-                    {{ editProposal.nationalWorkProfile }}
-                </td>
-                <td class="text-center col-md-1">
-                    {{ editProposal.motivation }}
-                </td>
-</tr>
+<form [formGroup]="proposalForm" novalidate>
+    <div *ngIf="editProposal" class="form-group">
+    
+        <tr> 
+            <td class="text-center col-md-1">
+                <label>  First Name: 
+                    <input type="text" class="form-control" value="{{ editProposal.userAccount.firstName }}" disabled="true">
+                </label>
+            </td>
+            <td class="text-center col-md-1">
+                <label> Last Name:
+                    <input type="text" class="form-control" value="{{ editProposal.userAccount.lastName }}" disabled="true">
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td class="text-center col-md-1">
+                <label> Manager First Name:
+                    <input type="text" class="form-control" value="{{ editProposal.manager.firstName }}" disabled="true">
+                </label>
+            </td>
+            <td class="text-center col-md-1">
+                <label> Manager Last Name:
+                    <input type="text" class="form-control" value="{{ editProposal.manager.lastName }}" disabled="true">
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td class="text-center col-md-1">
+                <label> Company Profile:
+                    <input type="text" class="form-control" value="{{ editProposal.companyProfile }}" disabled="true">
+                </label>
+            </td>
+            <td class="text-center col-md-1">
+                <label> National Work Profile: 
+                    <input type="text" class="form-control" value="{{ editProposal.nationalWorkProfile }}" disabled="true">
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td class="text-center col-md-1">
+                <label> Money Proposal:
+                    <input type="text" class="form-control" value="{{ editProposal.moneyProposal }}" formControlName="moneyProposal">
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td class="text-center col-md-1">
+                <label> Motivation:
+                    <input type="text" class="form-control" value="{{ editProposal.motivation }}" formControlName="motivation">
+                </label>
+            </td>
+        </tr>
+    </div>
+</form>
+
+
+    <p> Form value: {{ proposalForm.value | json }} </p>
+    <p> Form status: {{ proposalForm.status | json }} </p>

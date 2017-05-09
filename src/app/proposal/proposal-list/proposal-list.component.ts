@@ -11,7 +11,7 @@ import { SortService } from '../../shared/services/sort/sort.service';
 import { FilterService } from '../../shared/services/filter/filter.service';
 
 @Component({
- moduleId: module.id
+ moduleId: module.id,
   selector: 'esl-proposal-list',
   templateUrl: 'proposal-list.component.html',
   styleUrls: ['proposal-list.component.css'],

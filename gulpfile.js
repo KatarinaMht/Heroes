@@ -45,6 +45,7 @@ var paths = {
             'src/**/*.json'
         ],
         css: [
+             'src/main.css'
            
         ],
         fonts: [
@@ -154,7 +155,7 @@ gulp.task('start', function (done) {
     runSequence(
         'logs',
         'clean:dist',
-        ['copy:assets:images', 'copy:assets:src'], // lancia in sequenza i seguenti task
+        ['copy:assets:images', 'copy:assets:src','copy:assets:css'], // lancia in sequenza i seguenti task
         'copy:configurations',
         ['copy:systemjs:polyfills', 'copy:systemjs:config'], // lancia in sequenza i seguenti task
         'sass:start',

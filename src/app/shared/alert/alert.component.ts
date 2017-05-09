@@ -3,6 +3,7 @@ import { Input, Component, OnInit } from '@angular/core';
 import { Alert } from './shared/alert.model';
 
 @Component({
+     moduleId: module.id,
     selector: 'esl-alert',
     templateUrl: './alert.component.html',
     styleUrls: ['./alert.component.css']

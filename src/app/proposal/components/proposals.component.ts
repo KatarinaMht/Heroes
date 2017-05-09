@@ -6,7 +6,7 @@ import { Proposal } from '../../shared/models/proposal.model';
 import { Alert } from '../../shared/alert/shared/alert.model';
 
 @Component({
-  moduleId: module.id
+  moduleId: module.id,
   selector: 'esl-proposals',
   templateUrl: 'proposals.component.html',
   styleUrls: ['proposals.component.css']

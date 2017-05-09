@@ -8,7 +8,7 @@ import { ProposalService } from '../../shared/services/proposal.service';
 import { MONEY_PROPOSAL, COMPANY_PROFILE, NATIONAL_WORK_PROFILE } from '../shared/proposals-mock';
 
 @Component({
-  moduleId: module.id
+  moduleId: module.id,
   selector: 'esl-proposal-edit',
   templateUrl: 'proposal-edit.component.html',
   styleUrls: ['proposal-edit.component.css'],

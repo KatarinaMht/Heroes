@@ -26,6 +26,7 @@ __decorate([
 ], AlertComponent.prototype, "alerts", void 0);
 AlertComponent = __decorate([
     core_1.Component({
+        moduleId: module.id,
         selector: 'esl-alert',
         templateUrl: './alert.component.html',
         styleUrls: ['./alert.component.css']

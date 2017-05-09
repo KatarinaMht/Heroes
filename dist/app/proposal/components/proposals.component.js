@@ -10,16 +10,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
+var alert_model_1 = require("../../shared/alert/shared/alert.model");
 var ProposalsComponent = (function () {
     function ProposalsComponent(router) {
         this.router = router;
+        this.alerts = [];
     }
     ProposalsComponent.prototype.ngOnInit = function () {
+        console.log("ngOninit proposal");
         this.editProposal = null;
+        this.alerts = [];
+        // test
+        this.onError("Test error!");
     };
     ProposalsComponent.prototype.onEditClick = function (proposal) {
         this.editProposal = proposal;
         this.router.navigate(['/proposal-edit', proposal.id]);
+    };
+    ProposalsComponent.prototype.onError = function (errorMessage) {
+        this.alerts.push(new alert_model_1.Alert(alert_model_1.Alert.TYPE_DANGER, errorMessage));
     };
     return ProposalsComponent;
 }());

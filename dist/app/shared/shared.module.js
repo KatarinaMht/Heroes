@@ -7,6 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
+var alert_component_1 = require("./alert/alert.component");
 var SharedModule = (function () {
     function SharedModule() {
     }
@@ -15,8 +16,10 @@ var SharedModule = (function () {
 SharedModule = __decorate([
     core_1.NgModule({
         imports: [forms_1.FormsModule],
-        exports: [forms_1.FormsModule],
-        declarations: [],
+        exports: [forms_1.FormsModule,
+            alert_component_1.AlertComponent
+        ],
+        declarations: [alert_component_1.AlertComponent],
         providers: []
     })
 ], SharedModule);

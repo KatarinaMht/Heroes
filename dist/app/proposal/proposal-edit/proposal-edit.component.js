@@ -13,6 +13,7 @@ var forms_1 = require("@angular/forms");
 var router_1 = require("@angular/router");
 var _ = require("lodash");
 var proposal_service_1 = require("../../shared/services/proposal.service");
+var proposals_mock_1 = require("../shared/proposals-mock");
 var ProposalEditComponent = (function () {
     function ProposalEditComponent(proposalService, router, fb) {
         this.proposalService = proposalService;
@@ -20,28 +21,37 @@ var ProposalEditComponent = (function () {
         this.fb = fb;
         this.createForm();
     }
-    ProposalEditComponent.prototype.createForm = function () {
-        this.proposalForm = this.fb.group({
-            moneyProposal: ['', forms_1.Validators.required],
-            motivation: ['', forms_1.Validators.required] // Validators.maxLength(200)
-        });
-    };
     ProposalEditComponent.prototype.ngOnInit = function () {
         // Mock  
         this.editProposal = {
             id: 0,
             userAccount: { firstName: 'Paja', lastName: 'Patak' },
             manager: { firstName: 'Fabio', lastName: 'Staro' },
-            moneyProposal: 10000,
-            companyProfile: 'kkkkk',
-            nationalWorkProfile: 'hhhhh',
+            moneyProposal: 'Variabile',
+            companyProfile: 'Nulla',
+            nationalWorkProfile: 'Aumento di livello',
             motivation: 'eeeee',
             status: 'Active',
             dateRequest: null
         };
+        this.moneyProposalList = proposals_mock_1.MONEY_PROPOSAL;
+        this.companyProfileList = proposals_mock_1.COMPANY_PROFILE;
+        this.nationalWorkProfileList = proposals_mock_1.NATIONAL_WORK_PROFILE;
+        console.log("companyProfileList: " + JSON.stringify(this.companyProfileList));
+        // Mock
         this.proposalForm.setValue({
+            companyProfile: this.editProposal.companyProfile,
+            nationalWorkProfile: this.editProposal.nationalWorkProfile,
             moneyProposal: this.editProposal.moneyProposal,
             motivation: this.editProposal.motivation
+        });
+    };
+    ProposalEditComponent.prototype.createForm = function () {
+        this.proposalForm = this.fb.group({
+            companyProfile: [''],
+            nationalWorkProfile: [''],
+            moneyProposal: [''],
+            motivation: ['', forms_1.Validators.required] // Validators.maxLength(200)
         });
     };
     ProposalEditComponent.prototype.onSubmit = function () {

@@ -61,6 +61,12 @@ var ProposalListComponent = (function () {
         //$('#myModal').modal('show');
     };
     /**
+     * Delets selected propsal.
+     */
+    ProposalListComponent.prototype.deleteProposal = function (proposal) {
+        this.proposalService.deleteProposal(proposal).then(function (proposal) { }, function (reason) { });
+    };
+    /**
      * Set sorting state arrays sortByProperties and sortByOrders by given parameters.
      *
      * @param columnName string; Variabile to add sort para,eter to sortByProperties array.

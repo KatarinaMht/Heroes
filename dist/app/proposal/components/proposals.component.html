@@ -1,0 +1,37 @@
+<div class="jumbotron">
+  <h1 class="display-3">Benvenuto</h1>
+  <p class="lead">Da questa web app è possibile gestire le proposte di bla bla bla.</p>
+  
+</div>
+<esl-proposal-list (onEdit)="onEditClick($event)"> </esl-proposal-list>
+
+<!-- Test code-->
+<br>
+<br>
+<tr *ngIf="editProposal">
+                <td class="text-center col-md-1">
+                    {{ editProposal.userAccount.firstName }}
+                </td>
+                <td class="text-center col-md-1">
+                    {{ editProposal.userAccount.lastName }}
+                </td>
+                <td class="text-center col-md-1">
+                    {{ editProposal.manager.firstName }}
+                </td>
+                <td class="text-center col-md-1">
+                    {{ editProposal.manager.lastName }}
+                </td>
+                <td class="text-center col-md-1">
+                    {{ editProposal.moneyProposal }}
+                </td>
+                <td class="text-center col-md-1">
+                    {{ editProposal.companyProfile }}
+                </td>
+                <td class="text-center col-md-1">
+                    {{ editProposal.nationalWorkProfile }}
+                </td>
+                <td class="text-center col-md-1">
+                    {{ editProposal.motivation }}
+                </td>
+</tr>
+<!-- Test code-->

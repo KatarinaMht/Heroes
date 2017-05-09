@@ -7,9 +7,10 @@ import { Proposal } from '../../shared/models/proposal.model';
 import { ProposalService } from '../../shared/services/proposal.service';
 
 @Component({
+  moduleId: module.id
   selector: 'esl-proposal-edit',
-  templateUrl: './proposal-edit.component.html',
-  styleUrls: ['./proposal-edit.component.css'],
+  templateUrl: 'proposal-edit.component.html',
+  styleUrls: ['proposal-edit.component.css'],
   providers: [ ProposalService ]
 })
 

@@ -5,9 +5,10 @@ import * as $ from 'jquery';
 import { Proposal } from '../../shared/models/proposal.model';
 
 @Component({
+  moduleId: module.id
   selector: 'esl-proposals',
-  templateUrl: './proposals.component.html',
-  styleUrls: ['./proposals.component.css']
+  templateUrl: 'proposals.component.html',
+  styleUrls: ['proposals.component.css']
 })
 
 export class ProposalsComponent implements OnInit {

@@ -1,0 +1,70 @@
+<h1> Edit Porposal </h1>
+
+<form [formGroup]="proposalForm" (ngSubmit)="onSubmit()" novalidate>
+    <div *ngIf="editProposal" class="form-group">
+    
+        <tr> 
+            <td class="text-center col-md-1">
+                <label>  First Name: 
+                    <input type="text" class="form-control" value="{{ editProposal.userAccount.firstName }}" disabled="true">
+                </label>
+            </td>
+            <td class="text-center col-md-1">
+                <label> Last Name:
+                    <input type="text" class="form-control" value="{{ editProposal.userAccount.lastName }}" disabled="true">
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td class="text-center col-md-1">
+                <label> Manager First Name:
+                    <input type="text" class="form-control" value="{{ editProposal.manager.firstName }}" disabled="true">
+                </label>
+            </td>
+            <td class="text-center col-md-1">
+                <label> Manager Last Name:
+                    <input type="text" class="form-control" value="{{ editProposal.manager.lastName }}" disabled="true">
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td class="text-center col-md-1">
+                <label> Company Profile:
+                    <input type="text" class="form-control" value="{{ editProposal.companyProfile }}" disabled="true">
+                </label>
+            </td>
+            <td class="text-center col-md-1">
+                <label> National Work Profile: 
+                    <input type="text" class="form-control" value="{{ editProposal.nationalWorkProfile }}" disabled="true">
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td class="text-center col-md-1">
+                <label> Money Proposal:
+                    <input type="text" class="form-control" value="{{ editProposal.moneyProposal }}" formControlName="moneyProposal"
+                    [ngClass]="proposalForm.controls['moneyProposal'].hasError('required') ? 'borderValidation' : ''">
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td class="text-center col-md-1" >
+                <label> Motivation:
+                    <textarea type="text" class="form-control" value="{{ editProposal.motivation }}" formControlName="motivation"
+                        [ngClass]="proposalForm.controls['motivation'].hasError('required') ? 'borderValidation' : ''">
+                    </textarea>
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td class="text-center col-md-1">
+                <button type="submit" class="btn btn-primary" [disabled]="proposalForm.pristine || proposalForm.invalid"> <span class="fa fa-check" aria-hidden="true"></span> </button>
+                <button type="button" class="btn btn-danger" (click)="revert()"> <span class="fa fa-times" aria-hidden="true"></span></button>
+            </td>
+        </tr>
+    </div>
+</form>
+
+
+    <p> Form value: {{ proposalForm.value | json }} </p>
+    <p> Form status: {{ proposalForm.status  }} </p>

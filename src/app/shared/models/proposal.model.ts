@@ -4,7 +4,7 @@ export class Proposal {
     id: number;
     userAccount: UserAccount;
     manager: UserAccount;
-    moneyProposal: number;
+    moneyProposal: string;
     companyProfile: string;
     nationalWorkProfile: string;
     motivation: string;

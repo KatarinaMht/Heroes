@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import * as $ from 'jquery';
 
 import { Proposal } from '../../shared/models/proposal.model';
+import { Alert } from '../../shared/alert/shared/alert.model';
 
 @Component({
   moduleId: module.id
@@ -14,9 +15,14 @@ import { Proposal } from '../../shared/models/proposal.model';
 export class ProposalsComponent implements OnInit {
 
     editProposal: Proposal;
+    public alerts: Array<Alert> = [];
 
     ngOnInit(): void {
+      console.log("ngOninit proposal");
       this.editProposal = null;
+      this.alerts = [];
+      // test
+      this.onError("Test error!");
     }
 
     constructor(private router: Router) {}
@@ -25,4 +31,8 @@ export class ProposalsComponent implements OnInit {
       this.editProposal = proposal;
       this.router.navigate(['/proposal-edit', proposal.id]);
     }
+
+    onError(errorMessage: string) {
+         this.alerts.push(new Alert(Alert.TYPE_DANGER, errorMessage));
+     }
 }

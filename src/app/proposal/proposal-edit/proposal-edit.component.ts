@@ -5,6 +5,7 @@ import * as _ from "lodash";
 
 import { Proposal } from '../../shared/models/proposal.model';
 import { ProposalService } from '../../shared/services/proposal.service';
+import { MONEY_PROPOSAL, COMPANY_PROFILE, NATIONAL_WORK_PROFILE } from '../shared/proposals-mock';
 
 @Component({
   moduleId: module.id
@@ -22,15 +23,12 @@ export class ProposalEditComponent implements OnInit {
     // })
     proposalForm: FormGroup;
 
+    moneyProposalList: string[];
+    companyProfileList: string[];
+    nationalWorkProfileList: string[];
+
     constructor(private proposalService: ProposalService, private router: Router, private fb: FormBuilder) {
         this.createForm();
-    }
-
-    createForm() {
-        this.proposalForm = this.fb.group({
-            moneyProposal: [ '', Validators.required ], // Validators.maxLength(5)
-            motivation: [ '', Validators.required  ] // Validators.maxLength(200)
-        });
     }
 
     ngOnInit(): void {
@@ -39,18 +37,36 @@ export class ProposalEditComponent implements OnInit {
                                 id: 0,
                                 userAccount: {firstName: 'Paja', lastName: 'Patak'},
                                 manager: {firstName: 'Fabio', lastName: 'Staro'},
-                                moneyProposal: 10000,
-                                companyProfile: 'kkkkk',
-                                nationalWorkProfile: 'hhhhh',
+                                moneyProposal: 'Variabile',
+                                companyProfile: 'Nulla',
+                                nationalWorkProfile: 'Aumento di livello',
                                 motivation: 'eeeee',
                                 status: 'Active',
                                 dateRequest: null
                             };
 
+        this.moneyProposalList = MONEY_PROPOSAL;
+        this.companyProfileList = COMPANY_PROFILE;
+        this.nationalWorkProfileList = NATIONAL_WORK_PROFILE;
+
+        console.log("companyProfileList: " + JSON.stringify(this.companyProfileList));
+        // Mock
+
         this.proposalForm.setValue({
+            companyProfile: this.editProposal.companyProfile,
+            nationalWorkProfile: this.editProposal.nationalWorkProfile,
             moneyProposal: this.editProposal.moneyProposal,
             motivation: this.editProposal.motivation
         });        
+    }
+
+    createForm() {
+        this.proposalForm = this.fb.group({
+            companyProfile: [''],
+            nationalWorkProfile: [''],
+            moneyProposal: [ '' ], // Validators.maxLength(5)
+            motivation: [ '', Validators.required ] // Validators.maxLength(200)
+        });
     }
 
     onSubmit() {

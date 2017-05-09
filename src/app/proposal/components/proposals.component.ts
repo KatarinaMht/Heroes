@@ -17,6 +17,7 @@ export class ProposalsComponent implements OnInit {
     public alerts: Array<Alert> = [];
 
     ngOnInit(): void {
+      console.log("ngOninit proposal");
       this.editProposal = null;
       this.alerts = [];
       // test

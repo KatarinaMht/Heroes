@@ -71,7 +71,8 @@ export class ProposalListComponent implements OnInit {
         this.proposalService.getProposals(criteria).then (
             proposals => { this.proposals = proposals; 
                             this.proposalSortedFiltered = proposals;
-                            console.log(JSON.stringify(this.proposals)); }
+                            console.log(JSON.stringify(this.proposals)); 
+                        }
         );
     }
 
@@ -82,6 +83,17 @@ export class ProposalListComponent implements OnInit {
         this.onEdit.emit(proposal);
         //$('#myModal').modal('show');
     } 
+
+    /**
+     * Delets selected propsal.
+     */
+    deleteProposal(proposal: Proposal) {
+        
+        this.proposalService.deleteProposal(proposal).then (
+            proposal => {},
+            reason => {}
+        );
+    }
 
     /**
      * Set sorting state arrays sortByProperties and sortByOrders by given parameters. 

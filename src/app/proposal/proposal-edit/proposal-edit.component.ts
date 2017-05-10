@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import * as _ from "lodash";
 
 import { Proposal } from '../../shared/models/proposal.model';
@@ -18,6 +18,7 @@ import { MONEY_PROPOSAL, COMPANY_PROFILE, NATIONAL_WORK_PROFILE } from '../share
 export class ProposalEditComponent implements OnInit {
 
     editProposal: Proposal;
+    proposalId: number;
     // proposalFormGroup = new FormGroup ({
     //     formControlMoneyProposal: new FormControl()
     // })
@@ -27,37 +28,53 @@ export class ProposalEditComponent implements OnInit {
     companyProfileList: string[];
     nationalWorkProfileList: string[];
 
-    constructor(private proposalService: ProposalService, private router: Router, private fb: FormBuilder) {
+    constructor(private proposalService: ProposalService, private router: Router, public route: ActivatedRoute, private fb: FormBuilder) {
         this.createForm();
     }
 
     ngOnInit(): void {
       // Mock  
-      this.editProposal = {
-                                id: 0,
-                                userAccount: {firstName: 'Paja', lastName: 'Patak'},
-                                manager: {firstName: 'Fabio', lastName: 'Staro'},
-                                moneyProposal: 'Variabile',
-                                companyProfile: 'Nulla',
-                                nationalWorkProfile: 'Aumento di livello',
-                                motivation: 'eeeee',
-                                status: 'Active',
-                                dateRequest: null
-                            };
+    //   this.editProposal = {
+    //                             id: 0,
+    //                             userAccount: {firstName: 'Paja', lastName: 'Patak'},
+    //                             manager: 'Staro Fabio',
+    //                             moneyProposal: 'Variabile',
+    //                             companyProfile: 'Nulla',
+    //                             nationalWorkProfile: 'Aumento di livello',
+    //                             motivation: 'eeeee',
+    //                             status: 'Active',
+    //                             dateRequest: null
+    //                         };
 
         this.moneyProposalList = MONEY_PROPOSAL;
         this.companyProfileList = COMPANY_PROFILE;
         this.nationalWorkProfileList = NATIONAL_WORK_PROFILE;
-
-        console.log("companyProfileList: " + JSON.stringify(this.companyProfileList));
         // Mock
 
-        this.proposalForm.setValue({
-            companyProfile: this.editProposal.companyProfile,
-            nationalWorkProfile: this.editProposal.nationalWorkProfile,
-            moneyProposal: this.editProposal.moneyProposal,
-            motivation: this.editProposal.motivation
-        });        
+        this.route
+            .params
+            .subscribe(params => {
+                this.proposalId = params['id'];
+            });
+
+         console.log("this.proposalId = " + this.proposalId); 
+
+         this.proposalService.getProposalById(this.proposalId).then(
+            proposal => { 
+
+                this.editProposal = _.cloneDeep(proposal);
+                this.proposalForm.setValue({
+                    companyProfile: this.editProposal.companyProfile,
+                    nationalWorkProfile: this.editProposal.nationalWorkProfile,
+                    moneyProposal: this.editProposal.moneyProposal,
+                    motivation: this.editProposal.motivation
+                }); 
+            },
+
+            reason => { console.log("error: this.proposalService.getProposalById"); }
+        );
+
+               
     }
 
     createForm() {

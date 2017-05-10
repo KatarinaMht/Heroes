@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import * as _ from "lodash";
 
 import { Proposal } from '../../shared/models/proposal.model';
 import { ProposalCriteria } from '../../shared/models/proposal-criteria.model';
@@ -8,12 +9,39 @@ import { PROPOSALS } from '../../proposal/shared/proposals-mock';
 @Injectable()
 export class ProposalService {
 
+    proposalList: Proposal[];
+
+    constructor(){
+        this.proposalList = PROPOSALS;
+    }
+
     getProposals(criteria: ProposalCriteria): Promise<Array<Proposal>> {
-        return Promise.resolve(PROPOSALS);
+        return Promise.resolve(this.proposalList);
+    }
+
+    getProposalById(id: number): Promise<Proposal> {
+
+        let proposal = null;
+        for (let prop of this.proposalList) {
+            console.log(JSON.stringify(prop)); 
+            if (prop.id == id) {
+                    proposal = _.cloneDeep(prop);
+            }
+        }
+
+        return Promise.resolve(proposal);
     }
 
     updateProposal(proposal: Proposal): Promise<Proposal> {
-        console.log("updateProposal: " + JSON.stringify(proposal));
+        
+        let index = -1;
+        for (let prop of this.proposalList) { 
+            if (prop.id === proposal.id) {
+                    index = this.proposalList.indexOf(prop);
+                }
+        }
+        this.proposalList.splice(index, 1, proposal);
+
         return Promise.resolve(proposal);
     }
 

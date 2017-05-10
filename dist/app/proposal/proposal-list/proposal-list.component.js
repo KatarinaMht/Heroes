@@ -31,14 +31,12 @@ var ProposalListComponent = (function () {
         this.sortingIcons = {
             fisrtName: { asc: false, sort: false },
             lastName: { asc: false, sort: false },
-            managerFirstName: { asc: false, sort: false },
-            managerLastName: { asc: false, sort: false },
+            manager: { asc: false, sort: false },
             companyProfile: { asc: false, sort: false },
             nationalWorkProfile: { asc: false, sort: false }
         };
         this.proposalFilter = new proposal_model_1.Proposal();
         this.proposalFilter.userAccount = new user_acount_model_1.UserAccount();
-        this.proposalFilter.manager = new user_acount_model_1.UserAccount();
     };
     /**
      * Get list of proposlas.
@@ -109,8 +107,7 @@ var ProposalListComponent = (function () {
         this.sortingIcons = {
             fisrtName: { asc: false, sort: false },
             lastName: { asc: false, sort: false },
-            managerFirstName: { asc: false, sort: false },
-            managerLastName: { asc: false, sort: false },
+            manager: { asc: false, sort: false },
             companyProfile: { asc: false, sort: false },
             nationalWorkProfile: { asc: false, sort: false }
         };
@@ -123,11 +120,9 @@ var ProposalListComponent = (function () {
         // Create filter object.
         this.proposalFilter = new proposal_model_1.Proposal();
         this.proposalFilter.userAccount = new user_acount_model_1.UserAccount();
-        this.proposalFilter.manager = new user_acount_model_1.UserAccount();
         this.proposalFilter.userAccount.firstName = this.filterFirstName;
         this.proposalFilter.userAccount.lastName = this.filterLastName;
-        this.proposalFilter.manager.firstName = this.filterManagerFirstName;
-        this.proposalFilter.manager.lastName = this.filterManagerLastName;
+        this.proposalFilter.manager = this.filterManagerName;
         this.proposalFilter.companyProfile = this.filterCompanyProfile;
         this.proposalFilter.nationalWorkProfile = this.filterNationalWorkProfile;
         console.log('proposalFilter: ' + JSON.stringify(this.proposalFilter));

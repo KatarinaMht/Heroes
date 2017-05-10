@@ -15,36 +15,46 @@ var _ = require("lodash");
 var proposal_service_1 = require("../../shared/services/proposal.service");
 var proposals_mock_1 = require("../shared/proposals-mock");
 var ProposalEditComponent = (function () {
-    function ProposalEditComponent(proposalService, router, fb) {
+    function ProposalEditComponent(proposalService, router, route, fb) {
         this.proposalService = proposalService;
         this.router = router;
+        this.route = route;
         this.fb = fb;
         this.createForm();
     }
     ProposalEditComponent.prototype.ngOnInit = function () {
         // Mock  
-        this.editProposal = {
-            id: 0,
-            userAccount: { firstName: 'Paja', lastName: 'Patak' },
-            manager: { firstName: 'Fabio', lastName: 'Staro' },
-            moneyProposal: 'Variabile',
-            companyProfile: 'Nulla',
-            nationalWorkProfile: 'Aumento di livello',
-            motivation: 'eeeee',
-            status: 'Active',
-            dateRequest: null
-        };
+        //   this.editProposal = {
+        //                             id: 0,
+        //                             userAccount: {firstName: 'Paja', lastName: 'Patak'},
+        //                             manager: 'Staro Fabio',
+        //                             moneyProposal: 'Variabile',
+        //                             companyProfile: 'Nulla',
+        //                             nationalWorkProfile: 'Aumento di livello',
+        //                             motivation: 'eeeee',
+        //                             status: 'Active',
+        //                             dateRequest: null
+        //                         };
+        var _this = this;
         this.moneyProposalList = proposals_mock_1.MONEY_PROPOSAL;
         this.companyProfileList = proposals_mock_1.COMPANY_PROFILE;
         this.nationalWorkProfileList = proposals_mock_1.NATIONAL_WORK_PROFILE;
-        console.log("companyProfileList: " + JSON.stringify(this.companyProfileList));
         // Mock
-        this.proposalForm.setValue({
-            companyProfile: this.editProposal.companyProfile,
-            nationalWorkProfile: this.editProposal.nationalWorkProfile,
-            moneyProposal: this.editProposal.moneyProposal,
-            motivation: this.editProposal.motivation
+        this.route
+            .params
+            .subscribe(function (params) {
+            _this.proposalId = params['id'];
         });
+        console.log("this.proposalId = " + this.proposalId);
+        this.proposalService.getProposalById(this.proposalId).then(function (proposal) {
+            _this.editProposal = _.cloneDeep(proposal);
+            _this.proposalForm.setValue({
+                companyProfile: _this.editProposal.companyProfile,
+                nationalWorkProfile: _this.editProposal.nationalWorkProfile,
+                moneyProposal: _this.editProposal.moneyProposal,
+                motivation: _this.editProposal.motivation
+            });
+        }, function (reason) { console.log("error: this.proposalService.getProposalById"); });
     };
     ProposalEditComponent.prototype.createForm = function () {
         this.proposalForm = this.fb.group({
@@ -81,7 +91,7 @@ ProposalEditComponent = __decorate([
         styleUrls: ['proposal-edit.component.css'],
         providers: [proposal_service_1.ProposalService]
     }),
-    __metadata("design:paramtypes", [proposal_service_1.ProposalService, router_1.Router, forms_1.FormBuilder])
+    __metadata("design:paramtypes", [proposal_service_1.ProposalService, router_1.Router, router_1.ActivatedRoute, forms_1.FormBuilder])
 ], ProposalEditComponent);
 exports.ProposalEditComponent = ProposalEditComponent;
 

@@ -33,8 +33,7 @@ export class ProposalListComponent implements OnInit {
     proposalFilter: Proposal;
     filterFirstName: string;
     filterLastName: string;
-    filterManagerFirstName: string;
-    filterManagerLastName: string;
+    filterManagerName: string;
     filterCompanyProfile: string;
     filterNationalWorkProfile: string;
 
@@ -49,15 +48,13 @@ export class ProposalListComponent implements OnInit {
         this.sortingIcons = { 
             fisrtName: { asc: false, sort: false },
             lastName: { asc: false, sort: false },
-            managerFirstName: { asc: false, sort: false },
-            managerLastName: { asc: false, sort: false },
+            manager: { asc: false, sort: false },
             companyProfile: { asc: false, sort: false },
             nationalWorkProfile: { asc: false, sort: false }
         };
 
         this.proposalFilter = new Proposal();
         this.proposalFilter.userAccount = new UserAccount();
-        this.proposalFilter.manager = new UserAccount();
     }
 
     constructor(private proposalService: ProposalService, private sortService: SortService, private filterService: FilterService) {}
@@ -147,8 +144,7 @@ export class ProposalListComponent implements OnInit {
         this.sortingIcons = { 
             fisrtName: { asc: false, sort: false },
             lastName: { asc: false, sort: false },
-            managerFirstName: { asc: false, sort: false },
-            managerLastName: { asc: false, sort: false },
+            manager: { asc: false, sort: false },
             companyProfile: { asc: false, sort: false },
             nationalWorkProfile: { asc: false, sort: false }
         };
@@ -163,11 +159,9 @@ export class ProposalListComponent implements OnInit {
         // Create filter object.
         this.proposalFilter = new Proposal();
         this.proposalFilter.userAccount = new UserAccount();
-        this.proposalFilter.manager = new UserAccount();
         this.proposalFilter.userAccount.firstName = this.filterFirstName;
         this.proposalFilter.userAccount.lastName = this.filterLastName;
-        this.proposalFilter.manager.firstName = this.filterManagerFirstName;
-        this.proposalFilter.manager.lastName = this.filterManagerLastName;
+        this.proposalFilter.manager = this.filterManagerName;
         this.proposalFilter.companyProfile = this.filterCompanyProfile;
         this.proposalFilter.nationalWorkProfile = this.filterNationalWorkProfile;
         console.log('proposalFilter: ' + JSON.stringify(this.proposalFilter));

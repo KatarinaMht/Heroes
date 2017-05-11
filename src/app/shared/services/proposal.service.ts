@@ -61,6 +61,22 @@ export class ProposalService {
         }
 
         return Promise.resolve(proposal);
+
+        // let index = -1;
+        // let promposalDeleted = null;
+        // for (let prop of this.proposalList) { 
+        //     if (prop.id === proposal.id) {
+        //             index = this.proposalList.indexOf(prop);
+        //             promposalDeleted = _.cloneDeep(prop);
+        //             promposalDeleted.companyProfile = 'N.A.';
+        //             promposalDeleted.nationalWorkProfile = 'N.A.';
+        //             promposalDeleted.moneyProposal = 'N.A.';
+        //             promposalDeleted.motivation = '';
+        //         }
+        // }
+        // this.proposalList.splice(index, 1, promposalDeleted);
+
+        // return Promise.resolve(proposal);
     }
 
 }

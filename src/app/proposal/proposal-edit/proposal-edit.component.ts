@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import * as _ from "lodash";
@@ -18,7 +18,8 @@ import { MONEY_PROPOSAL, COMPANY_PROFILE, NATIONAL_WORK_PROFILE } from '../share
 export class ProposalEditComponent implements OnInit {
 
     editProposal: Proposal;
-    proposalId: number;
+    private _proposalId: number;
+
     // proposalFormGroup = new FormGroup ({
     //     formControlMoneyProposal: new FormControl()
     // })
@@ -30,36 +31,37 @@ export class ProposalEditComponent implements OnInit {
 
     constructor(private proposalService: ProposalService, private router: Router, public route: ActivatedRoute, private fb: FormBuilder) {
         this.createForm();
+        console.log(" form constructor");
     }
 
     ngOnInit(): void {
-      // Mock  
-    //   this.editProposal = {
-    //                             id: 0,
-    //                             userAccount: {firstName: 'Paja', lastName: 'Patak'},
-    //                             manager: 'Staro Fabio',
-    //                             moneyProposal: 'Variabile',
-    //                             companyProfile: 'Nulla',
-    //                             nationalWorkProfile: 'Aumento di livello',
-    //                             motivation: 'eeeee',
-    //                             status: 'Active',
-    //                             dateRequest: null
-    //                         };
 
         this.moneyProposalList = MONEY_PROPOSAL;
         this.companyProfileList = COMPANY_PROFILE;
         this.nationalWorkProfileList = NATIONAL_WORK_PROFILE;
-        // Mock
 
-        this.route
-            .params
-            .subscribe(params => {
-                this.proposalId = params['id'];
-            });
+        console.log("this.proposalId = " + this.proposalId);
 
-         console.log("this.proposalId = " + this.proposalId); 
+        //this.getProposalById(this.proposalId);              // why this??????
+    }
 
-         this.proposalService.getProposalById(this.proposalId).then(
+    @Input()
+    set proposalId(id: number) {
+       this._proposalId = id;
+       this.getProposalById(this._proposalId); 
+    }
+
+    get proposalId(): number {
+        return this._proposalId;
+    }
+
+    /**
+     * Gets proposal object by id
+     * 
+     * @param proposalId number
+     */
+    getProposalById(id: number) {
+        this.proposalService.getProposalById(id).then(
             proposal => { 
 
                 this.editProposal = _.cloneDeep(proposal);
@@ -72,17 +74,15 @@ export class ProposalEditComponent implements OnInit {
             },
 
             reason => { console.log("error: this.proposalService.getProposalById"); }
-        );
-
-               
+        );    
     }
 
     createForm() {
         this.proposalForm = this.fb.group({
             companyProfile: [''],
             nationalWorkProfile: [''],
-            moneyProposal: [ '' ], // Validators.maxLength(5)
-            motivation: [ '', Validators.required ] // Validators.maxLength(200)
+            moneyProposal: [ '' ],
+            motivation: [ '', Validators.required ]
         });
     }
 
@@ -98,14 +98,18 @@ export class ProposalEditComponent implements OnInit {
             (proposal:Proposal) => { console.log("sucess on edit: " + JSON.stringify(proposal))},
             (reason: any) => { console.log("error on edit")}
         );
-        this.router.navigate(['/proposals']);
+
+        $('#myModal').modal('hide');
     }
 
     revert() {
-        // this.proposalForm.setValue({
-        //     moneyProposal: this.editProposal.moneyProposal,
-        //     motivation: this.editProposal.motivation 
-        // });
-        this.router.navigate(['/proposals']);
+        this.proposalForm.setValue({
+                    companyProfile: this.editProposal.companyProfile,
+                    nationalWorkProfile: this.editProposal.nationalWorkProfile,
+                    moneyProposal: this.editProposal.moneyProposal,
+                    motivation: this.editProposal.motivation
+                }); 
+
+        $('#myModal').modal('hide');
     }
 }

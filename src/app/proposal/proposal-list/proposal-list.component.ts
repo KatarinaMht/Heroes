@@ -11,7 +11,7 @@ import { SortService } from '../../shared/services/sort/sort.service';
 import { FilterService } from '../../shared/services/filter/filter.service';
 
 @Component({
- moduleId: module.id,
+  moduleId: module.id,
   selector: 'esl-proposal-list',
   templateUrl: 'proposal-list.component.html',
   styleUrls: ['proposal-list.component.css'],
@@ -37,6 +37,8 @@ export class ProposalListComponent implements OnInit {
     filterCompanyProfile: string;
     filterNationalWorkProfile: string;
 
+    constructor(private proposalService: ProposalService, private sortService: SortService, private filterService: FilterService) {}
+
     ngOnInit(): void {
 
         // change proposalCriteria!!!
@@ -57,8 +59,6 @@ export class ProposalListComponent implements OnInit {
         this.proposalFilter.userAccount = new UserAccount();
     }
 
-    constructor(private proposalService: ProposalService, private sortService: SortService, private filterService: FilterService) {}
-
     /**
      * Get list of proposlas.
      * 
@@ -75,11 +75,10 @@ export class ProposalListComponent implements OnInit {
     }
 
     /**
-     * Opens edit modal on button click.
+     * Emits proposal for the edit modal.
      */
     openEditModal(proposal: Proposal) {
         this.onEdit.emit(proposal);
-        //$('#myModal').modal('show');
     } 
 
     /**

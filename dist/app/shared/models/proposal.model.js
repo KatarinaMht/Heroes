@@ -5,5 +5,4 @@ var Proposal = (function () {
     return Proposal;
 }());
 exports.Proposal = Proposal;
-
 //# sourceMappingURL=proposal.model.js.map

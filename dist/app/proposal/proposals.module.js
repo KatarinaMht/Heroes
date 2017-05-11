@@ -38,5 +38,4 @@ ProposalsModule = __decorate([
     })
 ], ProposalsModule);
 exports.ProposalsModule = ProposalsModule;
-
 //# sourceMappingURL=proposals.module.js.map

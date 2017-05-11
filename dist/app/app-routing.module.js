@@ -21,10 +21,9 @@ var AppRoutingModule = (function () {
 }());
 AppRoutingModule = __decorate([
     core_1.NgModule({
-        imports: [router_1.RouterModule.forRoot(routes, { useHash: true })],
+        imports: [router_1.RouterModule.forRoot(routes)],
         exports: [router_1.RouterModule]
     })
 ], AppRoutingModule);
 exports.AppRoutingModule = AppRoutingModule;
-
 //# sourceMappingURL=app-routing.module.js.map

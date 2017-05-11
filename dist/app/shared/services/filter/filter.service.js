@@ -121,5 +121,4 @@ FilterService = __decorate([
     __metadata("design:paramtypes", [])
 ], FilterService);
 exports.FilterService = FilterService;
-
 //# sourceMappingURL=filter.service.js.map

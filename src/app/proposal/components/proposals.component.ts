@@ -15,6 +15,7 @@ import { Alert } from '../../shared/alert/shared/alert.model';
 export class ProposalsComponent implements OnInit {
 
     editProposal: Proposal;
+    proposalEditId: number;
     public alerts: Array<Alert> = [];
 
     ngOnInit(): void {
@@ -27,11 +28,24 @@ export class ProposalsComponent implements OnInit {
 
     constructor(private router: Router) {}
 
+    /**
+     * Opens Edit Modal
+     * 
+     * @param Proposal proposal to be edited
+     */
     onEditClick(proposal: Proposal) {
-      this.editProposal = proposal;
-      this.router.navigate(['/proposal-edit', proposal.id]);
+      //this.editProposal = proposal;
+      console.log("this.proposalEditId = " + proposal.id);
+      this.proposalEditId = proposal.id;
+      $('#myModal').modal('show');
+      //this.router.navigate(['/proposal-edit', proposal.id]);
     }
 
+    /**
+     * Handles errors from server.
+     * 
+     * @param string errorMessage to display to user
+     */
     onError(errorMessage: string) {
          this.alerts.push(new Alert(Alert.TYPE_DANGER, errorMessage));
      }

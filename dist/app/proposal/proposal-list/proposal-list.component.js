@@ -31,12 +31,14 @@ var ProposalListComponent = (function () {
         this.sortingIcons = {
             fisrtName: { asc: false, sort: false },
             lastName: { asc: false, sort: false },
-            manager: { asc: false, sort: false },
+            managerFirstName: { asc: false, sort: false },
+            managerLastName: { asc: false, sort: false },
             companyProfile: { asc: false, sort: false },
             nationalWorkProfile: { asc: false, sort: false }
         };
         this.proposalFilter = new proposal_model_1.Proposal();
         this.proposalFilter.userAccount = new user_acount_model_1.UserAccount();
+        this.proposalFilter.manager = new user_acount_model_1.UserAccount();
     };
     /**
      * Get list of proposlas.
@@ -107,7 +109,8 @@ var ProposalListComponent = (function () {
         this.sortingIcons = {
             fisrtName: { asc: false, sort: false },
             lastName: { asc: false, sort: false },
-            manager: { asc: false, sort: false },
+            managerFirstName: { asc: false, sort: false },
+            managerLastName: { asc: false, sort: false },
             companyProfile: { asc: false, sort: false },
             nationalWorkProfile: { asc: false, sort: false }
         };
@@ -120,9 +123,11 @@ var ProposalListComponent = (function () {
         // Create filter object.
         this.proposalFilter = new proposal_model_1.Proposal();
         this.proposalFilter.userAccount = new user_acount_model_1.UserAccount();
+        this.proposalFilter.manager = new user_acount_model_1.UserAccount();
         this.proposalFilter.userAccount.firstName = this.filterFirstName;
         this.proposalFilter.userAccount.lastName = this.filterLastName;
-        this.proposalFilter.manager = this.filterManagerName;
+        this.proposalFilter.manager.firstName = this.filterManagerFirstName;
+        this.proposalFilter.manager.lastName = this.filterManagerLastName;
         this.proposalFilter.companyProfile = this.filterCompanyProfile;
         this.proposalFilter.nationalWorkProfile = this.filterNationalWorkProfile;
         console.log('proposalFilter: ' + JSON.stringify(this.proposalFilter));
@@ -148,5 +153,4 @@ ProposalListComponent = __decorate([
     __metadata("design:paramtypes", [proposal_service_1.ProposalService, sort_service_1.SortService, filter_service_1.FilterService])
 ], ProposalListComponent);
 exports.ProposalListComponent = ProposalListComponent;
-
 //# sourceMappingURL=proposal-list.component.js.map

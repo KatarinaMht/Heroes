@@ -24,5 +24,4 @@ SharedModule = __decorate([
     })
 ], SharedModule);
 exports.SharedModule = SharedModule;
-
 //# sourceMappingURL=shared.module.js.map

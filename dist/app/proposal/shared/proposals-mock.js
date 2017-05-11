@@ -3,7 +3,7 @@ exports.PROPOSALS = [
     {
         id: 0,
         userAccount: { firstName: 'Paja', lastName: 'Patak' },
-        manager: 'Staro Fabio',
+        manager: { firstName: 'Fabio', lastName: 'Staro' },
         moneyProposal: 'Variabile',
         companyProfile: 'Nulla',
         nationalWorkProfile: 'Aumento di livello',
@@ -14,7 +14,7 @@ exports.PROPOSALS = [
     {
         id: 1,
         userAccount: { firstName: 'Miki', lastName: 'Maus' },
-        manager: 'Avolio Alessandro',
+        manager: { firstName: 'Alessandro', lastName: 'Avolio' },
         moneyProposal: 'Premio Una tantum',
         companyProfile: 'Aumento di livello',
         nationalWorkProfile: 'N.A.',
@@ -25,7 +25,7 @@ exports.PROPOSALS = [
     {
         id: 2,
         userAccount: { firstName: 'Sofronije', lastName: 'Petao' },
-        manager: 'Avolio Alessandro',
+        manager: { firstName: 'Alessandro', lastName: 'Avolio' },
         moneyProposal: 'Aumento di stipendio',
         companyProfile: 'Nulla',
         nationalWorkProfile: 'Aumento di livello',
@@ -54,5 +54,4 @@ exports.NATIONAL_WORK_PROFILE = [
     'Nulla',
     'Aumento di livello'
 ];
-
 //# sourceMappingURL=proposals-mock.js.map

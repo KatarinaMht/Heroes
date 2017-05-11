@@ -11,5 +11,4 @@ Alert.TYPE_SUCCESS = 'success';
 Alert.TYPE_INFO = 'info';
 Alert.TYPE_WARNING = 'warning';
 exports.Alert = Alert;
-
 //# sourceMappingURL=alert.model.js.map

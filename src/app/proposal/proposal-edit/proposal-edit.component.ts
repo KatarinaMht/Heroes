@@ -20,6 +20,16 @@ export class ProposalEditComponent implements OnInit {
     editProposal: Proposal;
     private _proposalId: number;
 
+    @Input()
+    set proposalId(id: number) {
+       this._proposalId = id;
+       this.getProposalById(this._proposalId); 
+    }
+
+    get proposalId(): number {
+        return this._proposalId;
+    }
+
     // proposalFormGroup = new FormGroup ({
     //     formControlMoneyProposal: new FormControl()
     // })
@@ -40,19 +50,9 @@ export class ProposalEditComponent implements OnInit {
         this.companyProfileList = COMPANY_PROFILE;
         this.nationalWorkProfileList = NATIONAL_WORK_PROFILE;
 
+        if (this.proposalId == undefined) { this.getProposalIdFromRoute(); }
+
         console.log("this.proposalId = " + this.proposalId);
-
-        //this.getProposalById(this.proposalId);              // why this??????
-    }
-
-    @Input()
-    set proposalId(id: number) {
-       this._proposalId = id;
-       this.getProposalById(this._proposalId); 
-    }
-
-    get proposalId(): number {
-        return this._proposalId;
     }
 
     /**
@@ -61,6 +61,7 @@ export class ProposalEditComponent implements OnInit {
      * @param proposalId number
      */
     getProposalById(id: number) {
+
         this.proposalService.getProposalById(id).then(
             proposal => { 
 
@@ -77,6 +78,15 @@ export class ProposalEditComponent implements OnInit {
         );    
     }
 
+    getProposalIdFromRoute() {
+
+        this.route
+            .params
+            .subscribe(params => {
+                this._proposalId = params['id']; 
+        });
+    }
+
     createForm() {
         this.proposalForm = this.fb.group({
             companyProfile: [''],
@@ -90,9 +100,12 @@ export class ProposalEditComponent implements OnInit {
         // deep copy
         const formModel = this.proposalForm.value;
         const editProposalCopy = _.cloneDeep(this.editProposal);
-        console.log("onSumbit, editProposalCopy: " + JSON.stringify(editProposalCopy));
+        
+        editProposalCopy.companyProfile = formModel.companyProfile;
+        editProposalCopy.nationalWorkProfile = formModel.nationalWorkProfile;
         editProposalCopy.moneyProposal = formModel.moneyProposal;
         editProposalCopy.motivation = formModel.motivation;
+        console.log("onSumbit, editProposalCopy: " + JSON.stringify(editProposalCopy));
 
         this.proposalService.updateProposal(editProposalCopy).then( 
             (proposal:Proposal) => { console.log("sucess on edit: " + JSON.stringify(proposal))},

@@ -50,7 +50,17 @@ export class ProposalService {
     }
 
     deleteProposal(proposal: Proposal): Promise<Proposal> {
-        return null;
+
+        for (let prop of this.proposalList) { 
+            if (prop.id === proposal.id) {
+                    prop.companyProfile = 'N.A.';
+                    prop.nationalWorkProfile = 'N.A.';
+                    prop.moneyProposal = 'N.A.';
+                    prop.motivation = '';
+                }
+        }
+
+        return Promise.resolve(proposal);
     }
 
 }

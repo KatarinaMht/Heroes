@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
+var $ = require("jquery");
 var alert_model_1 = require("../../shared/alert/shared/alert.model");
 var ProposalsComponent = (function () {
     function ProposalsComponent(router) {
@@ -23,10 +24,23 @@ var ProposalsComponent = (function () {
         // test
         this.onError("Test error!");
     };
+    /**
+     * Opens Edit Modal
+     *
+     * @param Proposal proposal to be edited
+     */
     ProposalsComponent.prototype.onEditClick = function (proposal) {
-        this.editProposal = proposal;
-        this.router.navigate(['/proposal-edit', proposal.id]);
+        //this.editProposal = proposal;
+        console.log("this.proposalEditId = " + proposal.id);
+        this.proposalEditId = proposal.id;
+        $('#myModal').modal('show');
+        //this.router.navigate(['/proposal-edit', proposal.id]);
     };
+    /**
+     * Handles errors from server.
+     *
+     * @param string errorMessage to display to user
+     */
     ProposalsComponent.prototype.onError = function (errorMessage) {
         this.alerts.push(new alert_model_1.Alert(alert_model_1.Alert.TYPE_DANGER, errorMessage));
     };
@@ -42,4 +56,5 @@ ProposalsComponent = __decorate([
     __metadata("design:paramtypes", [router_1.Router])
 ], ProposalsComponent);
 exports.ProposalsComponent = ProposalsComponent;
+
 //# sourceMappingURL=proposals.component.js.map

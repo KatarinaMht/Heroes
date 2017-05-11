@@ -51,4 +51,5 @@ SortService = __decorate([
     core_1.Injectable()
 ], SortService);
 exports.SortService = SortService;
+
 //# sourceMappingURL=sort.service.js.map

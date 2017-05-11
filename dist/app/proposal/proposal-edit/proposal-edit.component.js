@@ -15,35 +15,57 @@ var _ = require("lodash");
 var proposal_service_1 = require("../../shared/services/proposal.service");
 var proposals_mock_1 = require("../shared/proposals-mock");
 var ProposalEditComponent = (function () {
-    function ProposalEditComponent(proposalService, router, fb) {
+    function ProposalEditComponent(proposalService, router, route, fb) {
         this.proposalService = proposalService;
         this.router = router;
+        this.route = route;
         this.fb = fb;
         this.createForm();
+        console.log(" form constructor");
     }
+    Object.defineProperty(ProposalEditComponent.prototype, "proposalId", {
+        get: function () {
+            return this._proposalId;
+        },
+        set: function (id) {
+            this._proposalId = id;
+            this.getProposalById(this._proposalId);
+        },
+        enumerable: true,
+        configurable: true
+    });
     ProposalEditComponent.prototype.ngOnInit = function () {
-        // Mock  
-        this.editProposal = {
-            id: 0,
-            userAccount: { firstName: 'Paja', lastName: 'Patak' },
-            manager: { firstName: 'Fabio', lastName: 'Staro' },
-            moneyProposal: 'Variabile',
-            companyProfile: 'Nulla',
-            nationalWorkProfile: 'Aumento di livello',
-            motivation: 'eeeee',
-            status: 'Active',
-            dateRequest: null
-        };
         this.moneyProposalList = proposals_mock_1.MONEY_PROPOSAL;
         this.companyProfileList = proposals_mock_1.COMPANY_PROFILE;
         this.nationalWorkProfileList = proposals_mock_1.NATIONAL_WORK_PROFILE;
-        console.log("companyProfileList: " + JSON.stringify(this.companyProfileList));
-        // Mock
-        this.proposalForm.setValue({
-            companyProfile: this.editProposal.companyProfile,
-            nationalWorkProfile: this.editProposal.nationalWorkProfile,
-            moneyProposal: this.editProposal.moneyProposal,
-            motivation: this.editProposal.motivation
+        if (this.proposalId == undefined) {
+            this.getProposalIdFromRoute();
+        }
+        console.log("this.proposalId = " + this.proposalId);
+    };
+    /**
+     * Gets proposal object by id
+     *
+     * @param proposalId number
+     */
+    ProposalEditComponent.prototype.getProposalById = function (id) {
+        var _this = this;
+        this.proposalService.getProposalById(id).then(function (proposal) {
+            _this.editProposal = _.cloneDeep(proposal);
+            _this.proposalForm.setValue({
+                companyProfile: _this.editProposal.companyProfile,
+                nationalWorkProfile: _this.editProposal.nationalWorkProfile,
+                moneyProposal: _this.editProposal.moneyProposal,
+                motivation: _this.editProposal.motivation
+            });
+        }, function (reason) { console.log("error: this.proposalService.getProposalById"); });
+    };
+    ProposalEditComponent.prototype.getProposalIdFromRoute = function () {
+        var _this = this;
+        this.route
+            .params
+            .subscribe(function (params) {
+            _this._proposalId = params['id'];
         });
     };
     ProposalEditComponent.prototype.createForm = function () {
@@ -51,28 +73,37 @@ var ProposalEditComponent = (function () {
             companyProfile: [''],
             nationalWorkProfile: [''],
             moneyProposal: [''],
-            motivation: ['', forms_1.Validators.required] // Validators.maxLength(200)
+            motivation: ['', forms_1.Validators.required]
         });
     };
     ProposalEditComponent.prototype.onSubmit = function () {
         // deep copy
         var formModel = this.proposalForm.value;
         var editProposalCopy = _.cloneDeep(this.editProposal);
-        console.log("onSumbit, editProposalCopy: " + JSON.stringify(editProposalCopy));
+        editProposalCopy.companyProfile = formModel.companyProfile;
+        editProposalCopy.nationalWorkProfile = formModel.nationalWorkProfile;
         editProposalCopy.moneyProposal = formModel.moneyProposal;
         editProposalCopy.motivation = formModel.motivation;
+        console.log("onSumbit, editProposalCopy: " + JSON.stringify(editProposalCopy));
         this.proposalService.updateProposal(editProposalCopy).then(function (proposal) { console.log("sucess on edit: " + JSON.stringify(proposal)); }, function (reason) { console.log("error on edit"); });
-        this.router.navigate(['/proposals']);
+        $('#myModal').modal('hide');
     };
     ProposalEditComponent.prototype.revert = function () {
-        // this.proposalForm.setValue({
-        //     moneyProposal: this.editProposal.moneyProposal,
-        //     motivation: this.editProposal.motivation 
-        // });
-        this.router.navigate(['/proposals']);
+        this.proposalForm.setValue({
+            companyProfile: this.editProposal.companyProfile,
+            nationalWorkProfile: this.editProposal.nationalWorkProfile,
+            moneyProposal: this.editProposal.moneyProposal,
+            motivation: this.editProposal.motivation
+        });
+        $('#myModal').modal('hide');
     };
     return ProposalEditComponent;
 }());
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Number),
+    __metadata("design:paramtypes", [Number])
+], ProposalEditComponent.prototype, "proposalId", null);
 ProposalEditComponent = __decorate([
     core_1.Component({
         moduleId: module.id,
@@ -81,7 +112,8 @@ ProposalEditComponent = __decorate([
         styleUrls: ['proposal-edit.component.css'],
         providers: [proposal_service_1.ProposalService]
     }),
-    __metadata("design:paramtypes", [proposal_service_1.ProposalService, router_1.Router, forms_1.FormBuilder])
+    __metadata("design:paramtypes", [proposal_service_1.ProposalService, router_1.Router, router_1.ActivatedRoute, forms_1.FormBuilder])
 ], ProposalEditComponent);
 exports.ProposalEditComponent = ProposalEditComponent;
+
 //# sourceMappingURL=proposal-edit.component.js.map

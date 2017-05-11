@@ -34,4 +34,5 @@ AlertComponent = __decorate([
     __metadata("design:paramtypes", [])
 ], AlertComponent);
 exports.AlertComponent = AlertComponent;
+
 //# sourceMappingURL=alert.component.js.map

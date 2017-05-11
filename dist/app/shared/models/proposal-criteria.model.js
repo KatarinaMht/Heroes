@@ -5,4 +5,5 @@ var ProposalCriteria = (function () {
     return ProposalCriteria;
 }());
 exports.ProposalCriteria = ProposalCriteria;
+
 //# sourceMappingURL=proposal-criteria.model.js.map

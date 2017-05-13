@@ -3,7 +3,7 @@
   <p class="lead">Da questa web app è possibile gestire le proposte di bla bla bla.</p>
 </div>
 
-<esl-proposal-list (onEdit)="onEditClick($event)"> </esl-proposal-list>
+<esl-proposal-list #proposalList (onEdit)="onEditClick($event)"> </esl-proposal-list>
 
 
 
@@ -15,9 +15,9 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">Edit Porposal:</h4>
       </div>
-      <div class="modal-body" *ngIf="proposalEditId != null">
+      <div class="modal-body" >
 
-        <esl-proposal-edit [proposalId]="proposalEditId"> </esl-proposal-edit>
+        <esl-proposal-edit [proposalId]="proposalEditId" (onSummit)="onEditedProposalSubmitted($event)"> </esl-proposal-edit>
 
       </div>
       <!--<div class="modal-footer">

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import * as _ from "lodash";
@@ -22,13 +22,15 @@ export class ProposalEditComponent implements OnInit {
 
     @Input()
     set proposalId(id: number) {
+        if(id===undefined) return;
        this._proposalId = id;
+       console.log('new id',id);
        this.getProposalById(this._proposalId); 
     }
 
-    get proposalId(): number {
-        return this._proposalId;
-    }
+    //EHI we forget to comunicate to parent that you have submitted something
+     @Output('onSummit') onSubmitOutput: EventEmitter<Proposal> = new EventEmitter<Proposal>();
+
 
     // proposalFormGroup = new FormGroup ({
     //     formControlMoneyProposal: new FormControl()
@@ -65,7 +67,8 @@ export class ProposalEditComponent implements OnInit {
         this.proposalService.getProposalById(id).then(
             proposal => { 
 
-                this.editProposal = _.cloneDeep(proposal);
+                this.editProposal = proposal;
+                console.log('proposal to edit',this.editProposal);
                 this.proposalForm.setValue({
                     companyProfile: this.editProposal.companyProfile,
                     nationalWorkProfile: this.editProposal.nationalWorkProfile,
@@ -83,7 +86,8 @@ export class ProposalEditComponent implements OnInit {
         this.route
             .params
             .subscribe(params => {
-                this._proposalId = params['id']; 
+                console.log('hi');
+                this.proposalId = params['id']; 
         });
     }
 
@@ -108,11 +112,12 @@ export class ProposalEditComponent implements OnInit {
         console.log("onSumbit, editProposalCopy: " + JSON.stringify(editProposalCopy));
 
         this.proposalService.updateProposal(editProposalCopy).then( 
-            (proposal:Proposal) => { console.log("sucess on edit: " + JSON.stringify(proposal))},
-            (reason: any) => { console.log("error on edit")}
+            (proposal:Proposal) => { console.log("sucess on edit: " + JSON.stringify(proposal));
+          this.onSubmitOutput.emit(proposal);},
+            (reason: any) => { console.log("error on edit");  this.onSubmitOutput.emit(undefined); }
         );
 
-        $('#myModal').modal('hide');
+       
     }
 
     revert() {

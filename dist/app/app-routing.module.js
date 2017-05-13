@@ -12,7 +12,7 @@ var proposal_edit_component_1 = require("./proposal/proposal-edit/proposal-edit.
 var routes = [
     { path: '', redirectTo: '/proposals', pathMatch: 'full' },
     { path: 'proposals', component: proposals_component_1.ProposalsComponent },
-    { path: 'proposal-edit/:id', component: proposal_edit_component_1.ProposalEditComponent }
+    { path: 'proposals/:id/edit', component: proposal_edit_component_1.ProposalEditComponent }
 ];
 var AppRoutingModule = (function () {
     function AppRoutingModule() {

@@ -108,7 +108,8 @@ var ProposalListComponent = (function () {
             lastName: { asc: false, sort: false },
             manager: { asc: false, sort: false },
             companyProfile: { asc: false, sort: false },
-            nationalWorkProfile: { asc: false, sort: false }
+            nationalWorkProfile: { asc: false, sort: false },
+            moneyProposal: { asc: false, sort: false }
         };
     };
     /**
@@ -129,6 +130,9 @@ var ProposalListComponent = (function () {
         this.proposalSortedFiltered = this.filterService.filterBy(this.proposals, this.proposalFilter);
         // SORT
         this.proposalSortedFiltered = _.orderBy(this.proposalSortedFiltered, this.sortByProperties, this.sortByOrders);
+    };
+    ProposalListComponent.prototype.reload = function () {
+        this.getProposals(this.proposalCriteria);
     };
     return ProposalListComponent;
 }());

@@ -145,7 +145,8 @@ export class ProposalListComponent implements OnInit {
             lastName: { asc: false, sort: false },
             manager: { asc: false, sort: false },
             companyProfile: { asc: false, sort: false },
-            nationalWorkProfile: { asc: false, sort: false }
+            nationalWorkProfile: { asc: false, sort: false },
+            moneyProposal: { asc: false, sort: false }
         };
     }
 
@@ -170,4 +171,9 @@ export class ProposalListComponent implements OnInit {
         // SORT
         this.proposalSortedFiltered = _.orderBy(this.proposalSortedFiltered, this.sortByProperties, this.sortByOrders);  
     }    
+
+
+    public reload(){
+        this.getProposals(this.proposalCriteria);
+    }
 }

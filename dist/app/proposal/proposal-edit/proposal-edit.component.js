@@ -20,15 +20,17 @@ var ProposalEditComponent = (function () {
         this.router = router;
         this.route = route;
         this.fb = fb;
+        //EHI we forget to comunicate to parent that you have submitted something
+        this.onSubmitOutput = new core_1.EventEmitter();
         this.createForm();
         console.log(" form constructor");
     }
     Object.defineProperty(ProposalEditComponent.prototype, "proposalId", {
-        get: function () {
-            return this._proposalId;
-        },
         set: function (id) {
+            if (id === undefined)
+                return;
             this._proposalId = id;
+            console.log('new id', id);
             this.getProposalById(this._proposalId);
         },
         enumerable: true,
@@ -51,7 +53,8 @@ var ProposalEditComponent = (function () {
     ProposalEditComponent.prototype.getProposalById = function (id) {
         var _this = this;
         this.proposalService.getProposalById(id).then(function (proposal) {
-            _this.editProposal = _.cloneDeep(proposal);
+            _this.editProposal = proposal;
+            console.log('proposal to edit', _this.editProposal);
             _this.proposalForm.setValue({
                 companyProfile: _this.editProposal.companyProfile,
                 nationalWorkProfile: _this.editProposal.nationalWorkProfile,
@@ -65,7 +68,8 @@ var ProposalEditComponent = (function () {
         this.route
             .params
             .subscribe(function (params) {
-            _this._proposalId = params['id'];
+            console.log('hi');
+            _this.proposalId = params['id'];
         });
     };
     ProposalEditComponent.prototype.createForm = function () {
@@ -77,6 +81,7 @@ var ProposalEditComponent = (function () {
         });
     };
     ProposalEditComponent.prototype.onSubmit = function () {
+        var _this = this;
         // deep copy
         var formModel = this.proposalForm.value;
         var editProposalCopy = _.cloneDeep(this.editProposal);
@@ -85,8 +90,10 @@ var ProposalEditComponent = (function () {
         editProposalCopy.moneyProposal = formModel.moneyProposal;
         editProposalCopy.motivation = formModel.motivation;
         console.log("onSumbit, editProposalCopy: " + JSON.stringify(editProposalCopy));
-        this.proposalService.updateProposal(editProposalCopy).then(function (proposal) { console.log("sucess on edit: " + JSON.stringify(proposal)); }, function (reason) { console.log("error on edit"); });
-        $('#myModal').modal('hide');
+        this.proposalService.updateProposal(editProposalCopy).then(function (proposal) {
+            console.log("sucess on edit: " + JSON.stringify(proposal));
+            _this.onSubmitOutput.emit(proposal);
+        }, function (reason) { console.log("error on edit"); _this.onSubmitOutput.emit(undefined); });
     };
     ProposalEditComponent.prototype.revert = function () {
         this.proposalForm.setValue({
@@ -104,6 +111,10 @@ __decorate([
     __metadata("design:type", Number),
     __metadata("design:paramtypes", [Number])
 ], ProposalEditComponent.prototype, "proposalId", null);
+__decorate([
+    core_1.Output('onSummit'),
+    __metadata("design:type", core_1.EventEmitter)
+], ProposalEditComponent.prototype, "onSubmitOutput", void 0);
 ProposalEditComponent = __decorate([
     core_1.Component({
         moduleId: module.id,

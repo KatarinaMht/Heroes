@@ -46,6 +46,7 @@ var ProposalService = (function () {
     ProposalService.prototype.deleteProposal = function (proposal) {
         for (var _i = 0, _a = this.proposalList; _i < _a.length; _i++) {
             var prop = _a[_i];
+            console.log('check', prop, prop.id === proposal.id);
             if (prop.id === proposal.id) {
                 prop.companyProfile = 'N.A.';
                 prop.nationalWorkProfile = 'N.A.';
@@ -53,6 +54,7 @@ var ProposalService = (function () {
                 prop.motivation = '';
             }
         }
+        console.log('new List', this.proposalList);
         return Promise.resolve(proposal);
         // let index = -1;
         // let promposalDeleted = null;

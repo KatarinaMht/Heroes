@@ -7,7 +7,7 @@ import { ProposalEditComponent } from './proposal/proposal-edit/proposal-edit.co
 const routes: Routes = [
     { path: '', redirectTo: '/proposals', pathMatch: 'full' },
     { path: 'proposals',  component: ProposalsComponent },
-    { path: 'proposal-edit/:id',  component: ProposalEditComponent }
+    { path: 'proposals/:id/edit',  component: ProposalEditComponent }
 ];
 
 @NgModule({

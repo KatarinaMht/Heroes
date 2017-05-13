@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var proposal_list_component_1 = require("./../proposal-list/proposal-list.component");
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var $ = require("jquery");
@@ -44,8 +45,19 @@ var ProposalsComponent = (function () {
     ProposalsComponent.prototype.onError = function (errorMessage) {
         this.alerts.push(new alert_model_1.Alert(alert_model_1.Alert.TYPE_DANGER, errorMessage));
     };
+    ProposalsComponent.prototype.onEditedProposalSubmitted = function (proposalUpdated) {
+        if (proposalUpdated) {
+            this.proposalList.reload();
+        }
+        $('#myModal').modal('hide');
+        this.proposalEditId = undefined;
+    };
     return ProposalsComponent;
 }());
+__decorate([
+    core_1.ViewChild('proposalList'),
+    __metadata("design:type", proposal_list_component_1.ProposalListComponent)
+], ProposalsComponent.prototype, "proposalList", void 0);
 ProposalsComponent = __decorate([
     core_1.Component({
         moduleId: module.id,

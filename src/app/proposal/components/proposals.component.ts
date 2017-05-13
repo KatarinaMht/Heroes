@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { ProposalListComponent } from './../proposal-list/proposal-list.component';
+import { Component, OnInit,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import * as $ from 'jquery';
 
@@ -17,6 +18,7 @@ export class ProposalsComponent implements OnInit {
     editProposal: Proposal;
     proposalEditId: number;
     public alerts: Array<Alert> = [];
+     @ViewChild('proposalList') proposalList: ProposalListComponent;
 
     ngOnInit(): void {
       console.log("ngOninit proposal");
@@ -48,5 +50,13 @@ export class ProposalsComponent implements OnInit {
      */
     onError(errorMessage: string) {
          this.alerts.push(new Alert(Alert.TYPE_DANGER, errorMessage));
+     }
+
+     onEditedProposalSubmitted(proposalUpdated:Proposal){
+       if(proposalUpdated){ //if itsn't undefineed
+          this.proposalList.reload();
+       }
+        $('#myModal').modal('hide');
+        this.proposalEditId=undefined;
      }
 }

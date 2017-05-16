@@ -112,8 +112,10 @@ export class ProposalEditComponent implements OnInit {
         console.log("onSumbit, editProposalCopy: " + JSON.stringify(editProposalCopy));
 
         this.proposalService.updateProposal(editProposalCopy).then( 
-            (proposal:Proposal) => { console.log("sucess on edit: " + JSON.stringify(proposal));
-          this.onSubmitOutput.emit(proposal);},
+            (proposal:Proposal) => { 
+                console.log("sucess on edit: " + JSON.stringify(proposal));
+                this.onSubmitOutput.emit(proposal);
+            },
             (reason: any) => { console.log("error on edit");  this.onSubmitOutput.emit(undefined); }
         );
 

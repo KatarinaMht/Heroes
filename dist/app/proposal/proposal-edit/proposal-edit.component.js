@@ -93,22 +93,24 @@ var ProposalEditComponent = (function () {
         //     }
         // }
         // return null;
-        return function (control) {
-            console.log("validateForm 1");
-            var companyProfile = group.controls['companyProfile'];
-            var nationalWorkProfile = group.controls['nationalWorkProfile'];
-            var moneyProposal = group.controls['moneyProposal'];
-            var motivation = group.controls['motivation'];
-            if (companyProfile.touched || nationalWorkProfile.touched || moneyProposal.touched) {
-                console.log("validateForm 2");
-                if (motivation.value == '') {
-                    console.log("validateForm 3");
-                    return { validateForm: true };
-                }
+        // return (control: AbstractControl): {[key: string]: boolean} => {
+        console.log("validateForm 1");
+        var companyProfile = group.controls['companyProfile'];
+        var nationalWorkProfile = group.controls['nationalWorkProfile'];
+        var moneyProposal = group.controls['moneyProposal'];
+        var motivation = group.controls['motivation'];
+        if (companyProfile.touched || nationalWorkProfile.touched || moneyProposal.touched) {
+            console.log("validateForm 2");
+            if (motivation.value == '') {
+                console.log("validateForm 3");
+                // moneyProposal.valid=false;
+                return { errorr: true };
             }
-            console.log("validateForm 4");
-            return null;
-        };
+        }
+        return false;
+        // console.log("validateForm 4");
+        //     return null;
+        // }
     };
     ProposalEditComponent.prototype.onSubmit = function () {
         var _this = this;

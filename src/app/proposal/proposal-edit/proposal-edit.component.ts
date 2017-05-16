@@ -117,8 +117,8 @@ export class ProposalEditComponent implements OnInit {
 
         // return null;
 
-        return (control: AbstractControl): {[key: string]: boolean} => {
-
+        // return (control: AbstractControl): {[key: string]: boolean} => {
+            
             console.log("validateForm 1");
             let companyProfile = group.controls['companyProfile'];
             let nationalWorkProfile = group.controls['nationalWorkProfile'];
@@ -129,13 +129,16 @@ export class ProposalEditComponent implements OnInit {
                 console.log("validateForm 2");
                 if (motivation.value == '') {
                     console.log("validateForm 3");
-                    return {validateForm: true};
+                    // moneyProposal.valid=false;
+                    return {errorr:true};
                 }
             }
-        console.log("validateForm 4");
-            return null;
 
-        }
+            return false;
+        // console.log("validateForm 4");
+        //     return null;
+
+        // }
     }
 
     onSubmit() {

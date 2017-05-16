@@ -31,9 +31,13 @@ var ProposalsComponent = (function () {
      * @param Proposal proposal to be edited
      */
     ProposalsComponent.prototype.onEditClick = function (proposal) {
+        var _this = this;
         //this.editProposal = proposal;
         console.log("this.proposalEditId = " + proposal.id);
         this.proposalEditId = proposal.id;
+        $('#myModal').on('hide.bs.modal', function () {
+            _this.proposalEditId = undefined;
+        });
         $('#myModal').modal('show');
         //this.router.navigate(['/proposal-edit', proposal.id]);
     };

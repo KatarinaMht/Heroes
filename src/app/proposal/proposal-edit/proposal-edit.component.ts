@@ -125,7 +125,7 @@ export class ProposalEditComponent implements OnInit {
             let moneyProposal = group.controls['moneyProposal'];
             let motivation = group.controls['motivation'];
 
-            if (companyProfile.touched || nationalWorkProfile.touched || moneyProposal.touched) {
+            if (companyProfile.dirty || nationalWorkProfile.dirty || moneyProposal.dirty) {
                 console.log("validateForm 2");
                 if (motivation.value == '') {
                     console.log("validateForm 3");

@@ -36,7 +36,8 @@
                 <!--[ngClass]="proposalForm.controls['motivation'].hasError('required') && !proposalForm.controls['motivation'].untouched ? 'borderValidation' : ''">-->
             </textarea>
         </label> <br>
-
+        {{proposalForm.valid}}
+        
         <button type="submit" class="btn btn-primary" [disabled]="proposalForm.pristine || proposalForm.invalid"> <span class="fa fa-check" aria-hidden="true"></span> </button>
         <button type="button" class="btn btn-danger" (click)="revert()"> <span class="fa fa-times" aria-hidden="true"></span></button>
 

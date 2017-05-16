@@ -99,7 +99,7 @@ var ProposalEditComponent = (function () {
         var nationalWorkProfile = group.controls['nationalWorkProfile'];
         var moneyProposal = group.controls['moneyProposal'];
         var motivation = group.controls['motivation'];
-        if (companyProfile.touched || nationalWorkProfile.touched || moneyProposal.touched) {
+        if (companyProfile.dirty || nationalWorkProfile.dirty || moneyProposal.dirty) {
             console.log("validateForm 2");
             if (motivation.value == '') {
                 console.log("validateForm 3");

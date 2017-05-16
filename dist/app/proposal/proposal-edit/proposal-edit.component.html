@@ -32,7 +32,8 @@
 
         <label> <b> Motivation: </b>
             <textarea type="text" class="form-control" value="{{ editProposal.motivation }}" formControlName="motivation" style="width:500px;"
-                [ngClass]="proposalForm.controls['motivation'].hasError('required') && !proposalForm.controls['motivation'].untouched ? 'borderValidation' : ''">
+                [ngClass]="proposalForm.controls['motivation'].hasError('validateForm') && proposalForm.controls['motivation'].touched ? 'borderValidation' : ''">
+                <!--[ngClass]="proposalForm.controls['motivation'].hasError('required') && !proposalForm.controls['motivation'].untouched ? 'borderValidation' : ''">-->
             </textarea>
         </label> <br>
 

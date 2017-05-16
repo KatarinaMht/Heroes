@@ -77,8 +77,38 @@ var ProposalEditComponent = (function () {
             companyProfile: [''],
             nationalWorkProfile: [''],
             moneyProposal: [''],
-            motivation: ['', forms_1.Validators.required]
+            motivation: ['']
+        }, {
+            validator: this.validateForm
         });
+    };
+    ProposalEditComponent.prototype.validateForm = function (group) {
+        // let companyProfile = group.controls['companyProfile'];
+        // let nationalWorkProfile = group.controls['nationalWorkProfile'];
+        // let moneyProposal = group.controls['moneyProposal'];
+        // let motivation = group.controls['motivation'];
+        // if (companyProfile.touched || nationalWorkProfile.touched || moneyProposal.touched) {
+        //     if (motivation.value == '') {
+        //         motivation.setErrors({validateForm: true});
+        //     }
+        // }
+        // return null;
+        return function (control) {
+            console.log("validateForm 1");
+            var companyProfile = group.controls['companyProfile'];
+            var nationalWorkProfile = group.controls['nationalWorkProfile'];
+            var moneyProposal = group.controls['moneyProposal'];
+            var motivation = group.controls['motivation'];
+            if (companyProfile.touched || nationalWorkProfile.touched || moneyProposal.touched) {
+                console.log("validateForm 2");
+                if (motivation.value == '') {
+                    console.log("validateForm 3");
+                    return { validateForm: true };
+                }
+            }
+            console.log("validateForm 4");
+            return null;
+        };
     };
     ProposalEditComponent.prototype.onSubmit = function () {
         var _this = this;

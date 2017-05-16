@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import * as _ from "lodash";
 
@@ -96,8 +96,46 @@ export class ProposalEditComponent implements OnInit {
             companyProfile: [''],
             nationalWorkProfile: [''],
             moneyProposal: [ '' ],
-            motivation: [ '', Validators.required ]
+            motivation: [ '' ]
+        }, 
+        {
+            validator: this.validateForm
         });
+    }
+
+    validateForm(group: FormGroup) {
+        // let companyProfile = group.controls['companyProfile'];
+        // let nationalWorkProfile = group.controls['nationalWorkProfile'];
+        // let moneyProposal = group.controls['moneyProposal'];
+        // let motivation = group.controls['motivation'];
+
+        // if (companyProfile.touched || nationalWorkProfile.touched || moneyProposal.touched) {
+        //     if (motivation.value == '') {
+        //         motivation.setErrors({validateForm: true});
+        //     }
+        // }
+
+        // return null;
+
+        return (control: AbstractControl): {[key: string]: boolean} => {
+
+            console.log("validateForm 1");
+            let companyProfile = group.controls['companyProfile'];
+            let nationalWorkProfile = group.controls['nationalWorkProfile'];
+            let moneyProposal = group.controls['moneyProposal'];
+            let motivation = group.controls['motivation'];
+
+            if (companyProfile.touched || nationalWorkProfile.touched || moneyProposal.touched) {
+                console.log("validateForm 2");
+                if (motivation.value == '') {
+                    console.log("validateForm 3");
+                    return {validateForm: true};
+                }
+            }
+        console.log("validateForm 4");
+            return null;
+
+        }
     }
 
     onSubmit() {

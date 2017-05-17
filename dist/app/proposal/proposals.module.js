@@ -12,6 +12,7 @@ var shared_module_1 = require("../shared/shared.module");
 var proposals_component_1 = require("./proposals.component");
 var proposal_list_component_1 = require("./components/proposal-list/proposal-list.component");
 var proposal_edit_component_1 = require("./components/proposal-edit/proposal-edit.component");
+var proposals_routing_module_1 = require("./proposals-routing.module");
 var ProposalsModule = (function () {
     function ProposalsModule() {
     }
@@ -22,7 +23,8 @@ ProposalsModule = __decorate([
         imports: [
             common_1.CommonModule,
             shared_module_1.SharedModule,
-            forms_1.ReactiveFormsModule
+            forms_1.ReactiveFormsModule,
+            proposals_routing_module_1.ProposalsRoutingModule
         ],
         exports: [
             proposals_component_1.ProposalsComponent,

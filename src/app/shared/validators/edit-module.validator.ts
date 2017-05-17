@@ -8,12 +8,12 @@ export const editValidator = (control: AbstractControl): {[key: string]: boolean
     let moneyProposal = control.get('moneyProposal');
     let motivation = control.get('motivation');
 
-    //if (companyProfile.dirty || nationalWorkProfile.dirty || moneyProposal.dirty) {
+    if (companyProfile.dirty || nationalWorkProfile.dirty || moneyProposal.dirty) {
         
         if (motivation.value == '') {
             //motivation.valid = false;
             return { motivationNotEmpty: true };
         }
-   // }
+    }
     return null;
 };

@@ -10,11 +10,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var _ = require("lodash");
-var proposal_model_1 = require("../../shared/models/proposal.model");
-var user_acount_model_1 = require("../../shared/models/user-acount.model");
-var proposal_service_1 = require("../../shared/services/proposal.service");
-var sort_service_1 = require("../../shared/services/sort/sort.service");
-var filter_service_1 = require("../../shared/services/filter/filter.service");
+var proposal_model_1 = require("../../../shared/models/proposal.model");
+var user_acount_model_1 = require("../../../shared/models/user-acount.model");
+var proposal_service_1 = require("../../../shared/services/proposal.service");
+var sort_service_1 = require("../../../shared/services/sort/sort.service");
+var filter_service_1 = require("../../../shared/services/filter/filter.service");
 var ProposalListComponent = (function () {
     function ProposalListComponent(proposalService, sortService, filterService) {
         this.proposalService = proposalService;

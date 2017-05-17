@@ -9,9 +9,9 @@ var core_1 = require("@angular/core");
 var common_1 = require("@angular/common");
 var forms_1 = require("@angular/forms");
 var shared_module_1 = require("../shared/shared.module");
-var proposals_component_1 = require("./components/proposals.component");
-var proposal_list_component_1 = require("./proposal-list/proposal-list.component");
-var proposal_edit_component_1 = require("./proposal-edit/proposal-edit.component");
+var proposals_component_1 = require("./proposals.component");
+var proposal_list_component_1 = require("./components/proposal-list/proposal-list.component");
+var proposal_edit_component_1 = require("./components/proposal-edit/proposal-edit.component");
 var ProposalsModule = (function () {
     function ProposalsModule() {
     }

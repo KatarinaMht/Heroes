@@ -1,10 +1,10 @@
-import { ProposalListComponent } from './../proposal-list/proposal-list.component';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import * as $ from 'jquery';
 
-import { Proposal } from '../../shared/models/proposal.model';
-import { Alert } from '../../shared/alert/shared/alert.model';
+import { Proposal } from '../shared/models/proposal.model';
+import { ProposalListComponent } from './components/proposal-list/proposal-list.component';
+import { Alert } from '../shared/alert/shared/alert.model';
 
 @Component({
   moduleId: module.id,
@@ -38,12 +38,13 @@ export class ProposalsComponent implements OnInit {
   onEditClick(proposal: Proposal) {
     //this.editProposal = proposal;
     console.log("this.proposalEditId = " + proposal.id);
+
+    this.proposalEditId = proposal.id; 
     
-     
-      this.proposalEditId = proposal.id; 
-         $('#myModal').on('hide.bs.modal',()=>{
-           this.proposalEditId=undefined;
-         });
+    $('#myModal').on('hide.bs.modal',()=>{
+      this.proposalEditId=undefined;
+    });
+
     $('#myModal').modal('show');
     
     //this.router.navigate(['/proposal-edit', proposal.id]);

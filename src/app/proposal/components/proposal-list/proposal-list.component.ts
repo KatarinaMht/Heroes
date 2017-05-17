@@ -2,13 +2,13 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import * as _ from "lodash";
 import * as $ from 'jquery';
 
-import { Proposal } from '../../shared/models/proposal.model';
-import { ProposalCriteria } from '../../shared/models/proposal-criteria.model';
-import { UserAccount } from '../../shared/models/user-acount.model';
+import { Proposal } from '../../../shared/models/proposal.model';
+import { ProposalCriteria } from '../../../shared/models/proposal-criteria.model';
+import { UserAccount } from '../../../shared/models/user-acount.model';
 
-import { ProposalService } from '../../shared/services/proposal.service';
-import { SortService } from '../../shared/services/sort/sort.service';
-import { FilterService } from '../../shared/services/filter/filter.service';
+import { ProposalService } from '../../../shared/services/proposal.service';
+import { SortService } from '../../../shared/services/sort/sort.service';
+import { FilterService } from '../../../shared/services/filter/filter.service';
 
 @Component({
   moduleId: module.id,

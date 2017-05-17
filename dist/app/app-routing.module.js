@@ -7,8 +7,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
-var proposals_component_1 = require("./proposal/components/proposals.component");
-var proposal_edit_component_1 = require("./proposal/proposal-edit/proposal-edit.component");
+var proposals_component_1 = require("./proposal/proposals.component");
+var proposal_edit_component_1 = require("./proposal/components/proposal-edit/proposal-edit.component");
 var routes = [
     { path: '', redirectTo: '/proposals', pathMatch: 'full' },
     { path: 'proposals', component: proposals_component_1.ProposalsComponent },

@@ -3,9 +3,9 @@ import { FormControl, FormGroup, FormBuilder, Validators, AbstractControl } from
 import { Router, ActivatedRoute } from '@angular/router';
 import * as _ from "lodash";
 
-import { Proposal } from '../../shared/models/proposal.model';
-import { ProposalService } from '../../shared/services/proposal.service';
-import { MONEY_PROPOSAL, COMPANY_PROFILE, NATIONAL_WORK_PROFILE } from '../shared/proposals-mock';
+import { Proposal } from '../../../shared/models/proposal.model';
+import { ProposalService } from '../../../shared/services/proposal.service';
+import { MONEY_PROPOSAL, COMPANY_PROFILE, NATIONAL_WORK_PROFILE } from '../../shared/proposals-mock';
 
 @Component({
   moduleId: module.id,

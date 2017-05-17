@@ -12,8 +12,8 @@ var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var router_1 = require("@angular/router");
 var _ = require("lodash");
-var proposal_service_1 = require("../../shared/services/proposal.service");
-var proposals_mock_1 = require("../shared/proposals-mock");
+var proposal_service_1 = require("../../../shared/services/proposal.service");
+var proposals_mock_1 = require("../../shared/proposals-mock");
 var ProposalEditComponent = (function () {
     function ProposalEditComponent(proposalService, router, route, fb) {
         this.proposalService = proposalService;

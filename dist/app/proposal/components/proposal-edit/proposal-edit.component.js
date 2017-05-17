@@ -75,19 +75,25 @@ var ProposalEditComponent = (function () {
     };
     ProposalEditComponent.prototype.createForm = function () {
         this.proposalForm = this.fb.group({
-            companyProfile: [''],
-            nationalWorkProfile: [''],
-            moneyProposal: [''],
-            motivation: ['']
-        }, {
-            validator: edit_module_validator_1.editValidator
+            notUsedGroup: this.fb.group({
+                address: ['']
+            }),
+            proposalCombo: this.fb.group({
+                companyProfile: [''],
+                nationalWorkProfile: [''],
+                moneyProposal: [''],
+                motivation: ['']
+            }, {
+                validator: edit_module_validator_1.editValidator
+            })
         });
+        console.log('form', this.proposalForm);
     };
     ProposalEditComponent.prototype.onSubmit = function () {
         var _this = this;
         // deep copy
         var formModel = this.proposalForm.value;
-        var editProposalCopy = _.cloneDeep(this.editProposal);
+        var editProposalCopy = _.cloneDeep(this.editProposal); //if you do a deep copy in service you don't have to do here
         editProposalCopy.companyProfile = formModel.companyProfile;
         editProposalCopy.nationalWorkProfile = formModel.nationalWorkProfile;
         editProposalCopy.moneyProposal = formModel.moneyProposal;

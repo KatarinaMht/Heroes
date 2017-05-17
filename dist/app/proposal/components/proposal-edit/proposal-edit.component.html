@@ -1,7 +1,7 @@
 <!--<h3> Edit Porposal for: </h3>
 <br> <br>-->
 
-<form [formGroup]="proposalForm" (ngSubmit)="onSubmit()" novalidate>
+<form [formGroup]="proposalForm.controls.proposalCombo" (ngSubmit)="onSubmit()" novalidate>
     <div *ngIf="editProposal" class="form-group">
 
         <label> <b> Employee: </b>

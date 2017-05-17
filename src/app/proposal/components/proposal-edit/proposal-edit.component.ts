@@ -9,11 +9,11 @@ import { MONEY_PROPOSAL, COMPANY_PROFILE, NATIONAL_WORK_PROFILE } from '../../sh
 import { editValidator } from '../../../shared/validators/edit-module.validator';
 
 @Component({
-  moduleId: module.id,
-  selector: 'esl-proposal-edit',
-  templateUrl: 'proposal-edit.component.html',
-  styleUrls: ['proposal-edit.component.css'],
-  providers: [ ProposalService ]
+    moduleId: module.id,
+    selector: 'esl-proposal-edit',
+    templateUrl: 'proposal-edit.component.html',
+    styleUrls: ['proposal-edit.component.css'],
+    providers: [ProposalService]
 })
 
 export class ProposalEditComponent implements OnInit {
@@ -23,14 +23,14 @@ export class ProposalEditComponent implements OnInit {
 
     @Input()
     set proposalId(id: number) {
-        if(id===undefined) return;
-       this._proposalId = id;
-       console.log('new id',id);
-       this.getProposalById(this._proposalId); 
+        if (id === undefined) return;
+        this._proposalId = id;
+        console.log('new id', id);
+        this.getProposalById(this._proposalId);
     }
 
     //EHI we forget to comunicate to parent that you have submitted something
-     @Output('onSummit') onSubmitOutput: EventEmitter<Proposal> = new EventEmitter<Proposal>();
+    @Output('onSummit') onSubmitOutput: EventEmitter<Proposal> = new EventEmitter<Proposal>();
 
 
     // proposalFormGroup = new FormGroup ({
@@ -66,20 +66,20 @@ export class ProposalEditComponent implements OnInit {
     getProposalById(id: number) {
 
         this.proposalService.getProposalById(id).then(
-            proposal => { 
+            proposal => {
 
                 this.editProposal = proposal;
-                console.log('proposal to edit',this.editProposal);
+                console.log('proposal to edit', this.editProposal);
                 this.proposalForm.setValue({
                     companyProfile: this.editProposal.companyProfile,
                     nationalWorkProfile: this.editProposal.nationalWorkProfile,
                     moneyProposal: this.editProposal.moneyProposal,
                     motivation: this.editProposal.motivation
-                }); 
+                });
             },
 
             reason => { console.log("error: this.proposalService.getProposalById"); }
-        );    
+        );
     }
 
     getProposalIdFromRoute() {
@@ -88,52 +88,60 @@ export class ProposalEditComponent implements OnInit {
             .params
             .subscribe(params => {
                 console.log('hi');
-                this.proposalId = params['id']; 
-        });
+                this.proposalId = params['id'];
+            });
     }
 
     createForm() {
         this.proposalForm = this.fb.group({
-            companyProfile: [''],
-            nationalWorkProfile: [''],
-            moneyProposal: [ '' ],
-            motivation: [ '' ]
-        }, 
-        {
-            validator: editValidator
+            notUsedGroup: this.fb.group({
+
+                address: ['']
+            }),
+            proposalCombo: this.fb.group({
+                companyProfile: [''],
+                nationalWorkProfile: [''],
+                moneyProposal: [''],
+                motivation: ['']
+            },
+                {
+                    validator: editValidator
+                })
         });
+        console.log('form', this.proposalForm);
     }
+
 
 
     onSubmit() {
         // deep copy
         const formModel = this.proposalForm.value;
-        const editProposalCopy = _.cloneDeep(this.editProposal);
-        
+        const editProposalCopy = _.cloneDeep(this.editProposal); //if you do a deep copy in service you don't have to do here
+
         editProposalCopy.companyProfile = formModel.companyProfile;
         editProposalCopy.nationalWorkProfile = formModel.nationalWorkProfile;
         editProposalCopy.moneyProposal = formModel.moneyProposal;
         editProposalCopy.motivation = formModel.motivation;
         console.log("onSumbit, editProposalCopy: " + JSON.stringify(editProposalCopy));
 
-        this.proposalService.updateProposal(editProposalCopy).then( 
-            (proposal:Proposal) => { 
+        this.proposalService.updateProposal(editProposalCopy).then(
+            (proposal: Proposal) => {
                 console.log("sucess on edit: " + JSON.stringify(proposal));
                 this.onSubmitOutput.emit(proposal);
             },
-            (reason: any) => { console.log("error on edit");  this.onSubmitOutput.emit(undefined); }
+            (reason: any) => { console.log("error on edit"); this.onSubmitOutput.emit(undefined); }
         );
 
-       
+
     }
 
     revert() {
         this.proposalForm.setValue({
-                    companyProfile: this.editProposal.companyProfile,
-                    nationalWorkProfile: this.editProposal.nationalWorkProfile,
-                    moneyProposal: this.editProposal.moneyProposal,
-                    motivation: this.editProposal.motivation
-                }); 
+            companyProfile: this.editProposal.companyProfile,
+            nationalWorkProfile: this.editProposal.nationalWorkProfile,
+            moneyProposal: this.editProposal.moneyProposal,
+            motivation: this.editProposal.motivation
+        });
 
         $('#myModal').modal('hide');
     }

@@ -56,7 +56,7 @@ var ProposalEditComponent = (function () {
         this.proposalService.getProposalById(id).then(function (proposal) {
             _this.editProposal = proposal;
             console.log('proposal to edit', _this.editProposal);
-            _this.proposalForm.setValue({
+            _this.proposalForm.controls.proposalCombo.setValue({
                 companyProfile: _this.editProposal.companyProfile,
                 nationalWorkProfile: _this.editProposal.nationalWorkProfile,
                 moneyProposal: _this.editProposal.moneyProposal,
@@ -79,9 +79,9 @@ var ProposalEditComponent = (function () {
                 address: ['']
             }),
             proposalCombo: this.fb.group({
-                companyProfile: [''],
-                nationalWorkProfile: [''],
-                moneyProposal: [''],
+                companyProfile: ['Nulla'],
+                nationalWorkProfile: ['Nulla'],
+                moneyProposal: ['Nulla'],
                 motivation: ['']
             }, {
                 validator: edit_module_validator_1.editValidator

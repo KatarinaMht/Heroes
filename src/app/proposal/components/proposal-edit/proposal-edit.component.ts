@@ -6,6 +6,7 @@ import * as _ from "lodash";
 import { Proposal } from '../../../shared/models/proposal.model';
 import { ProposalService } from '../../../shared/services/proposal.service';
 import { MONEY_PROPOSAL, COMPANY_PROFILE, NATIONAL_WORK_PROFILE } from '../../shared/proposals-mock';
+import { editValidator } from '../../../shared/validators/edit-module.validator';
 
 @Component({
   moduleId: module.id,
@@ -99,47 +100,10 @@ export class ProposalEditComponent implements OnInit {
             motivation: [ '' ]
         }, 
         {
-            validator: this.validateForm
+            validator: editValidator
         });
     }
 
-    validateForm(group: FormGroup) {
-        // let companyProfile = group.controls['companyProfile'];
-        // let nationalWorkProfile = group.controls['nationalWorkProfile'];
-        // let moneyProposal = group.controls['moneyProposal'];
-        // let motivation = group.controls['motivation'];
-
-        // if (companyProfile.touched || nationalWorkProfile.touched || moneyProposal.touched) {
-        //     if (motivation.value == '') {
-        //         motivation.setErrors({validateForm: true});
-        //     }
-        // }
-
-        // return null;
-
-        // return (control: AbstractControl): {[key: string]: boolean} => {
-            
-            console.log("validateForm 1");
-            let companyProfile = group.controls['companyProfile'];
-            let nationalWorkProfile = group.controls['nationalWorkProfile'];
-            let moneyProposal = group.controls['moneyProposal'];
-            let motivation = group.controls['motivation'];
-
-            if (companyProfile.dirty || nationalWorkProfile.dirty || moneyProposal.dirty) {
-                console.log("validateForm 2");
-                if (motivation.value == '') {
-                    console.log("validateForm 3");
-                    // moneyProposal.valid=false;
-                    return {errorr:true};
-                }
-            }
-
-            return false;
-        // console.log("validateForm 4");
-        //     return null;
-
-        // }
-    }
 
     onSubmit() {
         // deep copy

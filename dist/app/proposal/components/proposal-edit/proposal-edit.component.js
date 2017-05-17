@@ -14,6 +14,7 @@ var router_1 = require("@angular/router");
 var _ = require("lodash");
 var proposal_service_1 = require("../../../shared/services/proposal.service");
 var proposals_mock_1 = require("../../shared/proposals-mock");
+var edit_module_validator_1 = require("../../../shared/validators/edit-module.validator");
 var ProposalEditComponent = (function () {
     function ProposalEditComponent(proposalService, router, route, fb) {
         this.proposalService = proposalService;
@@ -79,38 +80,8 @@ var ProposalEditComponent = (function () {
             moneyProposal: [''],
             motivation: ['']
         }, {
-            validator: this.validateForm
+            validator: edit_module_validator_1.editValidator
         });
-    };
-    ProposalEditComponent.prototype.validateForm = function (group) {
-        // let companyProfile = group.controls['companyProfile'];
-        // let nationalWorkProfile = group.controls['nationalWorkProfile'];
-        // let moneyProposal = group.controls['moneyProposal'];
-        // let motivation = group.controls['motivation'];
-        // if (companyProfile.touched || nationalWorkProfile.touched || moneyProposal.touched) {
-        //     if (motivation.value == '') {
-        //         motivation.setErrors({validateForm: true});
-        //     }
-        // }
-        // return null;
-        // return (control: AbstractControl): {[key: string]: boolean} => {
-        console.log("validateForm 1");
-        var companyProfile = group.controls['companyProfile'];
-        var nationalWorkProfile = group.controls['nationalWorkProfile'];
-        var moneyProposal = group.controls['moneyProposal'];
-        var motivation = group.controls['motivation'];
-        if (companyProfile.dirty || nationalWorkProfile.dirty || moneyProposal.dirty) {
-            console.log("validateForm 2");
-            if (motivation.value == '') {
-                console.log("validateForm 3");
-                // moneyProposal.valid=false;
-                return { errorr: true };
-            }
-        }
-        return false;
-        // console.log("validateForm 4");
-        //     return null;
-        // }
     };
     ProposalEditComponent.prototype.onSubmit = function () {
         var _this = this;

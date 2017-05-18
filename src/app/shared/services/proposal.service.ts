@@ -1,9 +1,9 @@
-import { ProposalCriteria } from './../models/proposal-criteria.model';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import * as _ from "lodash";
 
 import { Proposal } from '../../shared/models/proposal.model';
+import { ProposalCriteria } from './../models/proposal-criteria.model';
 import { PROPOSALS } from '../../proposal/shared/proposals-mock';
 
 @Injectable()

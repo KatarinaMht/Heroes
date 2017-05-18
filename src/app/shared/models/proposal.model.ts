@@ -8,6 +8,6 @@ export class Proposal {
     companyProfile: string;
     nationalWorkProfile: string;
     motivation: string;
-    status: string;
+    status: string; // locked
     dateRequest: Date;
 }

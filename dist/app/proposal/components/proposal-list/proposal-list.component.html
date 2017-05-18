@@ -97,7 +97,7 @@
         <td class="text-center col-md-1">
           {{ proposal.motivation }}
         </td>
-        <td class="text-center col-md-1 " *ngIf="proposal.status != 'Locked'">
+        <td class="text-center col-md-1 " *ngIf="(user.role == 'Manager') || ( user.role == 'TeamLeader' && proposal.status != 'Locked')">
           <button class="btn btn-primary btn-sm" (click)="openEditModal(proposal)">
                         <span class="fa fa-pencil" aria-hidden="true"></span>
                     </button>

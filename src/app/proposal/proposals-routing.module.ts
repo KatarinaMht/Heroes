@@ -17,7 +17,7 @@ const routes: Routes = [
         component: ProposalsPageComponent,
         children: [
             {
-                path: '',
+                path: 'proposals',
                 component: ProposalsComponent,
                 children: [
                     {

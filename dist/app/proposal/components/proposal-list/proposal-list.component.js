@@ -15,15 +15,21 @@ var user_acount_model_1 = require("../../../shared/models/user-acount.model");
 var proposal_service_1 = require("../../../shared/services/proposal.service");
 var sort_service_1 = require("../../../shared/services/sort/sort.service");
 var filter_service_1 = require("../../../shared/services/filter/filter.service");
+var auth_service_1 = require("../../../shared/services/auth.service");
 var ProposalListComponent = (function () {
-    function ProposalListComponent(proposalService, sortService, filterService) {
+    function ProposalListComponent(proposalService, sortService, filterService, authService) {
         this.proposalService = proposalService;
         this.sortService = sortService;
         this.filterService = filterService;
+        this.authService = authService;
         this.onEdit = new core_1.EventEmitter();
     }
     ProposalListComponent.prototype.ngOnInit = function () {
-        // change proposalCriteria!!!
+        // delete this afrter implemneting login process !!!!!!!!!!
+        this.authService.login('', '');
+        this.user = this.authService.getUser();
+        console.log("this.user.role = " + this.user.role);
+        // change proposalCriteria !!!!!!!!!!!!!
         this.proposalCriteria = null;
         this.getProposals(this.proposalCriteria);
         this.sortByProperties = [];
@@ -146,9 +152,10 @@ ProposalListComponent = __decorate([
         selector: 'esl-proposal-list',
         templateUrl: 'proposal-list.component.html',
         styleUrls: ['proposal-list.component.css'],
-        providers: [proposal_service_1.ProposalService, sort_service_1.SortService, filter_service_1.FilterService]
+        providers: [proposal_service_1.ProposalService, sort_service_1.SortService, filter_service_1.FilterService, auth_service_1.AuthService]
     }),
-    __metadata("design:paramtypes", [proposal_service_1.ProposalService, sort_service_1.SortService, filter_service_1.FilterService])
+    __metadata("design:paramtypes", [proposal_service_1.ProposalService, sort_service_1.SortService, filter_service_1.FilterService,
+        auth_service_1.AuthService])
 ], ProposalListComponent);
 exports.ProposalListComponent = ProposalListComponent;
 

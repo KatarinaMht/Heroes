@@ -21,7 +21,7 @@ var routes = [
         component: proposals_page_component_1.ProposalsPageComponent,
         children: [
             {
-                path: '',
+                path: 'proposals',
                 component: proposals_component_1.ProposalsComponent,
                 children: [
                     {

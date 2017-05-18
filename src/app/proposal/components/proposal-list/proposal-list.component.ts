@@ -9,18 +9,21 @@ import { UserAccount } from '../../../shared/models/user-acount.model';
 import { ProposalService } from '../../../shared/services/proposal.service';
 import { SortService } from '../../../shared/services/sort/sort.service';
 import { FilterService } from '../../../shared/services/filter/filter.service';
+import { AuthService } from '../../../shared/services/auth.service';
 
 @Component({
   moduleId: module.id,
   selector: 'esl-proposal-list',
   templateUrl: 'proposal-list.component.html',
   styleUrls: ['proposal-list.component.css'],
-  providers: [ ProposalService, SortService, FilterService ]
+  providers: [ ProposalService, SortService, FilterService, AuthService ]
 })
 
 export class ProposalListComponent implements OnInit {
 
     @Output() onEdit: EventEmitter<Proposal> = new EventEmitter<Proposal>();
+
+    user: any;
 
     proposals: Proposal[];
     proposalCriteria: ProposalCriteria;
@@ -37,11 +40,18 @@ export class ProposalListComponent implements OnInit {
     filterCompanyProfile: string;
     filterNationalWorkProfile: string;
 
-    constructor(private proposalService: ProposalService, private sortService: SortService, private filterService: FilterService) {}
+    constructor(private proposalService: ProposalService, private sortService: SortService, private filterService: FilterService,
+                private authService: AuthService) {}
 
     ngOnInit(): void {
 
-        // change proposalCriteria!!!
+        // delete this afrter implemneting login process !!!!!!!!!!
+        this.authService.login('','');
+
+        this.user = this.authService.getUser();
+        console.log("this.user.role = " + this.user.role);
+
+        // change proposalCriteria !!!!!!!!!!!!!
         this.proposalCriteria = null;
         this.getProposals(this.proposalCriteria);
 

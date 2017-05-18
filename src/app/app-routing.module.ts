@@ -3,10 +3,11 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { ProposalsComponent } from './proposal/proposals.component';
 import { ProposalEditComponent } from './proposal/components/proposal-edit/proposal-edit.component';
+import { LoginComponent } from './shared/login/login.component';
 
 const routes: Routes = [
-    { path: '', redirectTo: '/proposals-page', pathMatch: 'full' },
-    //{ path: 'login'}
+    { path: '', redirectTo: '/proposals-page/proposals', pathMatch: 'full' },
+    { path: 'login', component: LoginComponent }
     // { path: 'proposals',  component: ProposalsComponent },
     // { path: 'proposals/:id/edit',  component: ProposalEditComponent }
 ];

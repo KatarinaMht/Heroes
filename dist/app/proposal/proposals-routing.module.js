@@ -9,10 +9,34 @@ var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var proposals_component_1 = require("./proposals.component");
 var proposal_edit_component_1 = require("./components/proposal-edit/proposal-edit.component");
+var proposals_page_component_1 = require("./proposals-page.component");
+// const routes: Routes = [
+//     // { path: '', redirectTo: '/proposals', pathMatch: 'full' },
+//     { path: 'proposals',  component: ProposalsComponent },
+//     { path: 'proposals/:id/edit',  component: ProposalEditComponent }
+// ];
 var routes = [
-    // { path: '', redirectTo: '/proposals', pathMatch: 'full' },
-    { path: 'proposals', component: proposals_component_1.ProposalsComponent },
-    { path: 'proposals/:id/edit', component: proposal_edit_component_1.ProposalEditComponent }
+    {
+        path: 'proposals-page',
+        component: proposals_page_component_1.ProposalsPageComponent,
+        children: [
+            {
+                path: '',
+                component: proposals_component_1.ProposalsComponent,
+                children: [
+                    {
+                        path: ':id',
+                        children: [
+                            {
+                                path: 'edit',
+                                component: proposal_edit_component_1.ProposalEditComponent,
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
 ];
 var ProposalsRoutingModule = (function () {
     function ProposalsRoutingModule() {

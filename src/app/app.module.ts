@@ -13,10 +13,10 @@ import { ProposalsModule } from './proposal/proposals.module';
   imports: [ 
       BrowserModule,
       FormsModule,
-      AppRoutingModule,
-      //ProposalsRoutingModule,
       SharedModule,
-      ProposalsModule
+      ProposalsModule,
+      AppRoutingModule,
+      //ProposalsRoutingModule
     ],
   declarations: [ 
       AppComponent

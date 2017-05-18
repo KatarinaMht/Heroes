@@ -13,6 +13,7 @@ var proposals_component_1 = require("./proposals.component");
 var proposal_list_component_1 = require("./components/proposal-list/proposal-list.component");
 var proposal_edit_component_1 = require("./components/proposal-edit/proposal-edit.component");
 var proposals_routing_module_1 = require("./proposals-routing.module");
+var proposals_page_component_1 = require("./proposals-page.component");
 var ProposalsModule = (function () {
     function ProposalsModule() {
     }
@@ -34,7 +35,8 @@ ProposalsModule = __decorate([
         declarations: [
             proposals_component_1.ProposalsComponent,
             proposal_list_component_1.ProposalListComponent,
-            proposal_edit_component_1.ProposalEditComponent
+            proposal_edit_component_1.ProposalEditComponent,
+            proposals_page_component_1.ProposalsPageComponent
         ],
         providers: []
     })

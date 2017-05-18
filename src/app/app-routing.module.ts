@@ -5,7 +5,8 @@ import { ProposalsComponent } from './proposal/proposals.component';
 import { ProposalEditComponent } from './proposal/components/proposal-edit/proposal-edit.component';
 
 const routes: Routes = [
-    { path: '', redirectTo: '/proposals', pathMatch: 'full' },
+    { path: '', redirectTo: '/proposals-page', pathMatch: 'full' },
+    //{ path: 'login'}
     // { path: 'proposals',  component: ProposalsComponent },
     // { path: 'proposals/:id/edit',  component: ProposalEditComponent }
 ];

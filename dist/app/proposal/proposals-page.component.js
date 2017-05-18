@@ -6,21 +6,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var core_1 = require("@angular/core");
-var router_1 = require("@angular/router");
-var routes = [
-    { path: '', redirectTo: '/proposals-page', pathMatch: 'full' },
-];
-var AppRoutingModule = (function () {
-    function AppRoutingModule() {
+var ProposalsPageComponent = (function () {
+    function ProposalsPageComponent() {
     }
-    return AppRoutingModule;
+    return ProposalsPageComponent;
 }());
-AppRoutingModule = __decorate([
-    core_1.NgModule({
-        imports: [router_1.RouterModule.forRoot(routes, { useHash: true })],
-        exports: [router_1.RouterModule]
+ProposalsPageComponent = __decorate([
+    core_1.Component({
+        template: '<router-outlet></router-outlet>'
     })
-], AppRoutingModule);
-exports.AppRoutingModule = AppRoutingModule;
+], ProposalsPageComponent);
+exports.ProposalsPageComponent = ProposalsPageComponent;
 
-//# sourceMappingURL=app-routing.module.js.map
+//# sourceMappingURL=proposals-page.component.js.map

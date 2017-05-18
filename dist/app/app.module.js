@@ -23,10 +23,9 @@ AppModule = __decorate([
         imports: [
             platform_browser_1.BrowserModule,
             forms_1.FormsModule,
-            app_routing_module_1.AppRoutingModule,
-            //ProposalsRoutingModule,
             shared_module_1.SharedModule,
-            proposals_module_1.ProposalsModule
+            proposals_module_1.ProposalsModule,
+            app_routing_module_1.AppRoutingModule,
         ],
         declarations: [
             app_component_1.AppComponent

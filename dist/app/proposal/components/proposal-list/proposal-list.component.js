@@ -31,6 +31,7 @@ var ProposalListComponent = (function () {
         //                 console.log("this.user.role = " + this.user.role);
         //             }
         // );
+        console.log("ngOnInit proposal-list");
         this.user = this.authService.getUser();
         console.log("this.user.role = " + this.user.role);
         // change proposalCriteria !!!!!!!!!!!!!

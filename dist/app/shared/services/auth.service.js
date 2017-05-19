@@ -25,6 +25,7 @@ var AuthService = (function () {
     AuthService.prototype.login = function (username, password) {
         //this.user.role = 'Manager';
         //this.user.role = 'TeamLeader';
+        console.log("Usao u login servis: " + username + " " + password);
         for (var _i = 0, _a = this.userList; _i < _a.length; _i++) {
             var user = _a[_i];
             if (user.password == password && user.username == username) {

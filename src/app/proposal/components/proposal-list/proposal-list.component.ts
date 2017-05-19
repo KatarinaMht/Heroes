@@ -52,6 +52,8 @@ export class ProposalListComponent implements OnInit {
         //             }
         // );
 
+        console.log( "ngOnInit proposal-list");
+
         this.user = this.authService.getUser();
         console.log("this.user.role = " + this.user.role);
 

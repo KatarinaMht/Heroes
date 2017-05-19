@@ -26,6 +26,7 @@ export class AuthService {
     login(username:string, password:string): Promise<User> {
         //this.user.role = 'Manager';
         //this.user.role = 'TeamLeader';
+        console.log("Usao u login servis: " + username + " " + password);
 
         for (let user of this.userList) {
             if (user.password == password && user.username == username) {

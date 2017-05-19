@@ -13,7 +13,7 @@ import { ProposalsPageComponent } from './proposals-page.component';
     imports: [ 
         CommonModule,
         SharedModule,
-        ReactiveFormsModule ,
+        ReactiveFormsModule,
         ProposalsRoutingModule
     ],
     exports:  [ 

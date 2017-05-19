@@ -121,7 +121,7 @@ __decorate([
     __metadata("design:paramtypes", [Number])
 ], ProposalEditComponent.prototype, "proposalId", null);
 __decorate([
-    core_1.Output('onSummit'),
+    core_1.Output('onSubmit'),
     __metadata("design:type", core_1.EventEmitter)
 ], ProposalEditComponent.prototype, "onSubmitOutput", void 0);
 ProposalEditComponent = __decorate([

@@ -30,7 +30,7 @@ export class ProposalEditComponent implements OnInit {
     }
 
     //EHI we forget to comunicate to parent that you have submitted something
-    @Output('onSummit') onSubmitOutput: EventEmitter<Proposal> = new EventEmitter<Proposal>();
+    @Output('onSubmit') onSubmitOutput: EventEmitter<Proposal> = new EventEmitter<Proposal>();
 
 
     // proposalFormGroup = new FormGroup ({
@@ -99,9 +99,9 @@ export class ProposalEditComponent implements OnInit {
                 address: ['']
             }),
             proposalCombo: this.fb.group({
-                companyProfile: [ 'Nulla'],
-                nationalWorkProfile: [ 'Nulla'],
-                moneyProposal: [ 'Nulla'],
+                companyProfile: [ 'Nulla' ],
+                nationalWorkProfile: [ 'Nulla' ],
+                moneyProposal: [ 'Nulla' ],
                 motivation: ['']
             },
                 {

@@ -4,13 +4,15 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { ProposalsComponent } from './proposal/proposals.component';
 import { ProposalEditComponent } from './proposal/components/proposal-edit/proposal-edit.component';
+import { ProposalsPageComponent } from './proposal/proposals-page.component';
 
 
 const routes: Routes = [
     // { path: '', redirectTo: '/proposals-page/proposals', pathMatch: 'full' },
     
     { path: '', redirectTo: '/login', pathMatch: 'full' },
-    { path: 'login', component: LoginComponent }
+    { path: 'login', component: LoginComponent },
+    { path: 'proposlas-page', component: ProposalsPageComponent }
 
     // { path: 'proposals',  component: ProposalsComponent },
     // { path: 'proposals/:id/edit',  component: ProposalEditComponent }

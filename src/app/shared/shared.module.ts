@@ -6,11 +6,15 @@ import { NgModule }     from '@angular/core';
 import { FormsModule }  from '@angular/forms';
 import { CommonModule } from '@angular/common';  
 import { BrowserModule } from '@angular/platform-browser';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
 @NgModule({
-    imports: [ FormsModule, CommonModule ],
+    imports: [ FormsModule, 
+               CommonModule,
+               ReactiveFormsModule
+            ],
     exports: [ FormsModule,
                AlertComponent,
                LoginComponent 
@@ -19,7 +23,10 @@ import { BrowserModule } from '@angular/platform-browser';
                 AlertComponent, 
                 LoginComponent 
             ],
-    providers: [AuthService,ProposalService]
+    providers: [ 
+                AuthService, 
+                ProposalService 
+            ]
 })
 
 export class SharedModule { }

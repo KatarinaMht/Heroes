@@ -12,6 +12,7 @@ var alert_component_1 = require("./components/alert/alert.component");
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var common_1 = require("@angular/common");
+var forms_2 = require("@angular/forms");
 var SharedModule = (function () {
     function SharedModule() {
     }
@@ -19,7 +20,10 @@ var SharedModule = (function () {
 }());
 SharedModule = __decorate([
     core_1.NgModule({
-        imports: [forms_1.FormsModule, common_1.CommonModule],
+        imports: [forms_1.FormsModule,
+            common_1.CommonModule,
+            forms_2.ReactiveFormsModule
+        ],
         exports: [forms_1.FormsModule,
             alert_component_1.AlertComponent,
             login_component_1.LoginComponent
@@ -28,7 +32,10 @@ SharedModule = __decorate([
             alert_component_1.AlertComponent,
             login_component_1.LoginComponent
         ],
-        providers: [auth_service_1.AuthService, proposal_service_1.ProposalService]
+        providers: [
+            auth_service_1.AuthService,
+            proposal_service_1.ProposalService
+        ]
     })
 ], SharedModule);
 exports.SharedModule = SharedModule;

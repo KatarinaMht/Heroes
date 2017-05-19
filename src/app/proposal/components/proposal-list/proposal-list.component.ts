@@ -46,13 +46,14 @@ export class ProposalListComponent implements OnInit {
     ngOnInit(): void {
 
         // delete this after implemneting login process !!!!!!!!!!
-        this.authService.login('fabstaro','f').then(
-            user => { this.user = this.authService.getUser();
-                        console.log("this.user.role = " + this.user.role);
-                    }
-        );
+        // this.authService.login('fabstaro','f').then(
+        //     user => { this.user = this.authService.getUser();
+        //                 console.log("this.user.role = " + this.user.role);
+        //             }
+        // );
 
-        
+        this.user = this.authService.getUser();
+        console.log("this.user.role = " + this.user.role);
 
         // change proposalCriteria !!!!!!!!!!!!!
         this.proposalCriteria = null;

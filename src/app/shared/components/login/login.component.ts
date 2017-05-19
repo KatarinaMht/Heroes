@@ -1,6 +1,9 @@
-import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { Router } from '@angular/router';
 
+import { AuthService } from './../../services/auth.service';
+import { loginValidator } from './../../validators/login.validator';
 
 
 @Component({
@@ -13,15 +16,31 @@ import { Component, OnInit } from '@angular/core';
 export class LoginComponent implements OnInit {
 
     userCredentials: any = {};
+    loginForm: FormGroup;
     
-    constructor(private authService: AuthService) { }
+    constructor(private authService: AuthService, private router: Router, private fb: FormBuilder) { 
+        this.createForm();
+    }
 
     ngOnInit() { }
 
     login() {
-        this.authService.login(this.userCredentials.username, this.userCredentials.password).then(
-            user => {},
+        this.authService.login(this.loginForm.controls['username'].value, this.loginForm.controls['password'].value).then(
+            user => { 
+                    console.log("User = " + user.username);
+                    this.router.navigate(['/proposals-page/proposals']);
+                },
             reason => { console.log("ERROR: " + reason); }
         );
+    }
+
+    createForm() {
+        this.loginForm = this.fb.group({
+            username: [ '', Validators.required ],
+            password: [ '', Validators.required ]
+        },
+        {
+            validator: loginValidator
+        });
     }
 } 

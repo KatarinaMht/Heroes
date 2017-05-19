@@ -1,6 +1,7 @@
+import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 
-import { AuthService }  from '../services/auth.service'; 
+
 
 @Component({
     moduleId: module.id,
@@ -20,4 +21,4 @@ export class LoginComponent implements OnInit {
     login() {
         this.authService.login(this.userCredentials.username, this.userCredentials.password);
     }
-}
+} 

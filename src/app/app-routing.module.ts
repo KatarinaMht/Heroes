@@ -1,9 +1,10 @@
+import { LoginComponent } from './shared/components/login/login.component';
 import { NgModule }             from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { ProposalsComponent } from './proposal/proposals.component';
 import { ProposalEditComponent } from './proposal/components/proposal-edit/proposal-edit.component';
-import { LoginComponent } from './shared/login/login.component';
+
 
 const routes: Routes = [
     { path: '', redirectTo: '/proposals-page/proposals', pathMatch: 'full' },

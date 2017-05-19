@@ -1,6 +1,5 @@
+import { Alert } from './../../models/alert.model';
 import { Input, Component, OnInit } from '@angular/core';
-
-import { Alert } from './shared/alert.model';
 
 @Component({
      moduleId: module.id,

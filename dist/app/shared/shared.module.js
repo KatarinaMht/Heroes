@@ -5,11 +5,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var proposal_service_1 = require("./services/proposal.service");
+var auth_service_1 = require("./services/auth.service");
+var login_component_1 = require("./components/login/login.component");
+var alert_component_1 = require("./components/alert/alert.component");
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var common_1 = require("@angular/common");
-var alert_component_1 = require("./alert/alert.component");
-var login_component_1 = require("./login/login.component");
 var SharedModule = (function () {
     function SharedModule() {
     }
@@ -26,7 +28,7 @@ SharedModule = __decorate([
             alert_component_1.AlertComponent,
             login_component_1.LoginComponent
         ],
-        providers: []
+        providers: [auth_service_1.AuthService, proposal_service_1.ProposalService]
     })
 ], SharedModule);
 exports.SharedModule = SharedModule;

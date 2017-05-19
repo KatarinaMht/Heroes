@@ -8,11 +8,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var alert_model_1 = require("./../shared/models/alert.model");
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var $ = require("jquery");
 var proposal_list_component_1 = require("./components/proposal-list/proposal-list.component");
-var alert_model_1 = require("../shared/alert/shared/alert.model");
 var ProposalsComponent = (function () {
     function ProposalsComponent(router) {
         this.router = router;

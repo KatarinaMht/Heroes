@@ -1,10 +1,11 @@
+import { Alert } from './../shared/models/alert.model';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import * as $ from 'jquery';
 
 import { Proposal } from '../shared/models/proposal.model';
 import { ProposalListComponent } from './components/proposal-list/proposal-list.component';
-import { Alert } from '../shared/alert/shared/alert.model';
+
 
 @Component({
   moduleId: module.id,

@@ -1,10 +1,13 @@
+import { ProposalService } from './services/proposal.service';
+import { AuthService } from './services/auth.service';
+import { LoginComponent } from './components/login/login.component';
+import { AlertComponent } from './components/alert/alert.component';
 import { NgModule }     from '@angular/core';
 import { FormsModule }  from '@angular/forms';
 import { CommonModule } from '@angular/common';  
 import { BrowserModule } from '@angular/platform-browser';
 
-import { AlertComponent } from './alert/alert.component';
-import { LoginComponent } from './login/login.component';
+
 
 @NgModule({
     imports: [ FormsModule, CommonModule ],
@@ -16,7 +19,7 @@ import { LoginComponent } from './login/login.component';
                 AlertComponent, 
                 LoginComponent 
             ],
-    providers: []
+    providers: [AuthService,ProposalService]
 })
 
 export class SharedModule { }

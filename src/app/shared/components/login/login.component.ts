@@ -19,6 +19,9 @@ export class LoginComponent implements OnInit {
     ngOnInit() { }
 
     login() {
-        this.authService.login(this.userCredentials.username, this.userCredentials.password);
+        this.authService.login(this.userCredentials.username, this.userCredentials.password).then(
+            user => {},
+            reason => { console.log("ERROR: " + reason); }
+        );
     }
 } 

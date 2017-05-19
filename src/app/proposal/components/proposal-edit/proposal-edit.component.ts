@@ -5,7 +5,7 @@ import * as _ from "lodash";
 
 import { Proposal } from '../../../shared/models/proposal.model';
 import { ProposalService } from '../../../shared/services/proposal.service';
-import { MONEY_PROPOSAL, COMPANY_PROFILE, NATIONAL_WORK_PROFILE } from '../../shared/proposals-mock';
+import { MONEY_PROPOSAL, COMPANY_PROFILE, NATIONAL_WORK_PROFILE } from '../../../shared/mock/proposals-mock';
 import { editValidator } from '../../../shared/validators/edit-module.validator';
 
 @Component({

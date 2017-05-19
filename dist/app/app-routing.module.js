@@ -10,7 +10,6 @@ var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var routes = [
     { path: '', redirectTo: '/proposals-page/proposals', pathMatch: 'full' },
-    { path: 'login', component: login_component_1.LoginComponent }
 ];
 var AppRoutingModule = (function () {
     function AppRoutingModule() {

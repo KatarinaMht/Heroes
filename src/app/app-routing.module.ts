@@ -8,7 +8,10 @@ import { ProposalEditComponent } from './proposal/components/proposal-edit/propo
 
 const routes: Routes = [
     { path: '', redirectTo: '/proposals-page/proposals', pathMatch: 'full' },
-    { path: 'login', component: LoginComponent }
+    
+    // { path: '', redirectTo: '/login', pathMatch: 'full' },
+    // { path: 'login', component: LoginComponent }
+
     // { path: 'proposals',  component: ProposalsComponent },
     // { path: 'proposals/:id/edit',  component: ProposalEditComponent }
 ];

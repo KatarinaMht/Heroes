@@ -13,7 +13,8 @@ var ProposalsPageComponent = (function () {
 }());
 ProposalsPageComponent = __decorate([
     core_1.Component({
-        template: '<router-outlet></router-outlet>'
+        moduleId: module.id,
+        templateUrl: 'proposals-page.component.html'
     })
 ], ProposalsPageComponent);
 exports.ProposalsPageComponent = ProposalsPageComponent;

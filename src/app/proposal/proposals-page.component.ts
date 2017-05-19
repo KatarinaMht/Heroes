@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 
 @Component({
-  template:  '<router-outlet></router-outlet>'
+  moduleId: module.id,
+  templateUrl: 'proposals-page.component.html'
 })
 
 export class ProposalsPageComponent { }

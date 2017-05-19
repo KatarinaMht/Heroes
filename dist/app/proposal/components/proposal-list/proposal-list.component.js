@@ -25,10 +25,12 @@ var ProposalListComponent = (function () {
         this.onEdit = new core_1.EventEmitter();
     }
     ProposalListComponent.prototype.ngOnInit = function () {
-        // delete this afrter implemneting login process !!!!!!!!!!
-        this.authService.login('', '');
-        this.user = this.authService.getUser();
-        console.log("this.user.role = " + this.user.role);
+        var _this = this;
+        // delete this after implemneting login process !!!!!!!!!!
+        this.authService.login('fabstaro', 'f').then(function (user) {
+            _this.user = _this.authService.getUser();
+            console.log("this.user.role = " + _this.user.role);
+        });
         // change proposalCriteria !!!!!!!!!!!!!
         this.proposalCriteria = null;
         this.getProposals(this.proposalCriteria);

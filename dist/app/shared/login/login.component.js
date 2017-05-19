@@ -17,7 +17,7 @@ var LoginComponent = (function () {
     }
     LoginComponent.prototype.ngOnInit = function () { };
     LoginComponent.prototype.login = function () {
-        this.authService.login(this.userCredentials.username, this.userCredentials.password);
+        this.authService.login(this.userCredentials.username, this.userCredentials.password).then(function (user) { }, function (reason) { console.log("ERROR: " + reason); });
     };
     return LoginComponent;
 }());

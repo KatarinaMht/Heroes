@@ -4,7 +4,7 @@ import * as _ from "lodash";
 
 import { Proposal } from '../../shared/models/proposal.model';
 import { ProposalCriteria } from './../models/proposal-criteria.model';
-import { PROPOSALS } from '../../proposal/shared/proposals-mock';
+import { PROPOSALS } from '../mock/proposals-mock';
 
 @Injectable()
 export class ProposalService {

@@ -13,7 +13,7 @@ var forms_1 = require("@angular/forms");
 var router_1 = require("@angular/router");
 var _ = require("lodash");
 var proposal_service_1 = require("../../../shared/services/proposal.service");
-var proposals_mock_1 = require("../../shared/proposals-mock");
+var proposals_mock_1 = require("../../../shared/mock/proposals-mock");
 var edit_module_validator_1 = require("../../../shared/validators/edit-module.validator");
 var ProposalEditComponent = (function () {
     function ProposalEditComponent(proposalService, router, route, fb) {

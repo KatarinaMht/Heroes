@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var _ = require("lodash");
-var proposals_mock_1 = require("../../proposal/shared/proposals-mock");
+var proposals_mock_1 = require("../mock/proposals-mock");
 var ProposalService = (function () {
     function ProposalService() {
         this.proposalList = proposals_mock_1.PROPOSALS;

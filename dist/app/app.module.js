@@ -9,7 +9,6 @@ var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
 var forms_1 = require("@angular/forms");
 var app_routing_module_1 = require("./app-routing.module");
-//import { ProposalsRoutingModule } from './proposal/proposals-routing.module';
 var app_component_1 = require("./app.component");
 var shared_module_1 = require("./shared/shared.module");
 var proposals_module_1 = require("./proposal/proposals.module");

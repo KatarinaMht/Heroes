@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+import { UserService } from '../../../shared/services/user.service';
+import { User } from '../../../shared/models/user.model';
+
 @Component({
   moduleId: module.id,
   selector: 'esl-user-management',
@@ -9,7 +12,27 @@ import { Component, OnInit } from '@angular/core';
 
 export class UserManagement implements OnInit {
 
-    constructor() {}
+    emloyeeList: User[];
+    teamLeaderList: User[];
 
-    ngOnInit():void {}
+    constructor(private userService: UserService) {}
+
+    ngOnInit():void {
+
+        this.userService.getEmployees().then (
+            list => { 
+                console.log("this.emloyeeList = " + JSON.stringify(list));
+                this.emloyeeList = list; 
+            },
+            reject => { }
+        );
+
+        this.userService.getTemLeaders().then (
+            list => { 
+                console.log("this.teamLeaderList = " + JSON.stringify(list));
+                this.teamLeaderList = list; 
+            },
+            reject => { }
+        );
+    }
 }

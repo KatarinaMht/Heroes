@@ -7,6 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var proposal_service_1 = require("./services/proposal.service");
 var auth_service_1 = require("./services/auth.service");
+var user_service_1 = require("./services/user.service");
 var login_component_1 = require("./components/login/login.component");
 var alert_component_1 = require("./components/alert/alert.component");
 var core_1 = require("@angular/core");
@@ -34,7 +35,8 @@ SharedModule = __decorate([
         ],
         providers: [
             auth_service_1.AuthService,
-            proposal_service_1.ProposalService
+            proposal_service_1.ProposalService,
+            user_service_1.UserService
         ]
     })
 ], SharedModule);

@@ -6,9 +6,14 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var core_1 = require("@angular/core");
+var user_model_1 = require("../shared/models/user.model");
 var ProposalsPageComponent = (function () {
     function ProposalsPageComponent() {
     }
+    ProposalsPageComponent.prototype.ngOnInit = function () {
+        this.user = new user_model_1.User;
+        this.user.role = window.localStorage.getItem('userRole');
+    };
     return ProposalsPageComponent;
 }());
 ProposalsPageComponent = __decorate([

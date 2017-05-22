@@ -1,5 +1,6 @@
 import { ProposalService } from './services/proposal.service';
 import { AuthService } from './services/auth.service';
+import { UserService } from './services/user.service';
 import { LoginComponent } from './components/login/login.component';
 import { AlertComponent } from './components/alert/alert.component';
 import { NgModule }     from '@angular/core';
@@ -25,7 +26,8 @@ import { ReactiveFormsModule } from '@angular/forms';
             ],
     providers: [ 
                 AuthService, 
-                ProposalService 
+                ProposalService,
+                UserService
             ]
 })
 

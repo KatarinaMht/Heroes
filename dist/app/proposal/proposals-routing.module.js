@@ -10,6 +10,7 @@ var router_1 = require("@angular/router");
 var proposals_component_1 = require("./proposals.component");
 var proposal_edit_component_1 = require("./components/proposal-edit/proposal-edit.component");
 var proposals_page_component_1 = require("./proposals-page.component");
+var user_management_component_1 = require("./components/user-management/user-management.component");
 // const routes: Routes = [
 //     // { path: '', redirectTo: '/proposals', pathMatch: 'full' },
 //     { path: 'proposals',  component: ProposalsComponent },
@@ -34,6 +35,10 @@ var routes = [
                         ]
                     }
                 ]
+            },
+            {
+                path: 'user-management',
+                component: user_management_component_1.UserManagement
             }
         ]
     }

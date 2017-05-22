@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ProposalsComponent } from './proposals.component';
 import { ProposalEditComponent } from './components/proposal-edit/proposal-edit.component';
 import { ProposalsPageComponent } from './proposals-page.component';
+import { UserManagement } from './components/user-management/user-management.component';
 
 // const routes: Routes = [
 //     // { path: '', redirectTo: '/proposals', pathMatch: 'full' },
@@ -31,6 +32,10 @@ const routes: Routes = [
                         ] 
                     }
                 ]
+            },
+            {
+                path: 'user-management',
+                component: UserManagement
             }
         ]
     }

@@ -46,21 +46,20 @@ export class ProposalListComponent implements OnInit {
 
     ngOnInit(): void {
 
-        // delete this after implemneting login process !!!!!!!!!!
-        // this.authService.login('fabstaro','f').then(
-        //     user => { this.user = this.authService.getUser();
-        //                 console.log("this.user.role = " + this.user.role);
-        //             }
-        // );
-
         console.log( "ngOnInit proposal-list");
 
-        this.user = this.authService.getUser();
-        console.log("this.user.role = " + this.user.role);
+        //this.user = this.authService.getUser();
+        //console.log("this.user.role = " + this.user.role);
+
+        this.user = new User();
+        this.user.id = parseInt(window.localStorage.getItem('userId'));
+        this.user.role = window.localStorage.getItem('userRole');
+        console.log("window.localStorage.getItem('userId') = " + window.localStorage.getItem('userId'));
 
         // change proposalCriteria !!!!!!!!!!!!!
         this.proposalCriteria = {
-            id_manager:  this.user.id,
+            id_manager: this.user.id,
+            //id_manager: parseInt(window.localStorage.getItem('userId')),
             year: null
         };
         this.getProposals(this.proposalCriteria);
@@ -85,7 +84,7 @@ export class ProposalListComponent implements OnInit {
      * @param criteria ProposalCriteria
      */
     getProposals(criteria: ProposalCriteria) {
-console.log("getProposals");
+
         this.proposalService.getProposals(criteria).then (
             proposals => { this.proposals = proposals; 
                             this.proposalSortedFiltered = proposals;
@@ -123,7 +122,10 @@ console.log("getProposals");
         lockProposal.status = 'Locked';
 
         this.proposalService.updateProposal(lockProposal).then (
-            proposal => { console.log("proposal locked: " + JSON.stringify(proposal)); },
+            proposal => { 
+                console.log("proposal locked: " + JSON.stringify(proposal)); 
+                this.reload();
+            },
             reason => {}
         );
     }
@@ -132,6 +134,7 @@ console.log("getProposals");
      * Reloads proposal list.
      */
     public reload(){
+        console.log("reload");
         this.getProposals(this.proposalCriteria);
     }
 

@@ -12,6 +12,7 @@ export const PROPOSALS: Proposal[] = [
                         email: '',
                         role: 'Employee'
                     },
+        idManager: 1,
         manager: 'Staro Fabio',
         moneyProposal: 'Variabile',
         companyProfile: 'Nulla',
@@ -31,6 +32,7 @@ export const PROPOSALS: Proposal[] = [
                         email: '',
                         role: 'Employee'
                     },
+        idManager: 2,
         manager: 'Avolio Alessandro',
         moneyProposal: 'Premio Una tantum',
         companyProfile: 'Aumento di livello',
@@ -50,6 +52,7 @@ export const PROPOSALS: Proposal[] = [
                         email: '',
                         role: 'Employee'
                     },
+        idManager: 2,
         manager: 'Avolio Alessandro',
         moneyProposal: 'Aumento di stipendio',
         companyProfile: 'Nulla',

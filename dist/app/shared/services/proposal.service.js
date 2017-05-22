@@ -16,14 +16,19 @@ var ProposalService = (function () {
         this.proposalList = proposals_mock_1.PROPOSALS;
     }
     ProposalService.prototype.getProposals = function (criteria) {
-        for (var _i = 0, PROPOSALS_BY_MANAGER_1 = proposals_mock_1.PROPOSALS_BY_MANAGER; _i < PROPOSALS_BY_MANAGER_1.length; _i++) {
-            var poroposalList = PROPOSALS_BY_MANAGER_1[_i];
-            if (criteria.id_manager == poroposalList.id_manager) {
-                return Promise.resolve(poroposalList.proposals);
+        this.proposalList = [];
+        if (criteria.id_manager == 1) {
+            this.proposalList = proposals_mock_1.PROPOSALS;
+        }
+        else {
+            for (var _i = 0, PROPOSALS_1 = proposals_mock_1.PROPOSALS; _i < PROPOSALS_1.length; _i++) {
+                var porop = PROPOSALS_1[_i];
+                if (criteria.id_manager == porop.idManager) {
+                    this.proposalList.push(porop);
+                }
             }
         }
-        return null;
-        //return Promise.resolve(this.proposalList);
+        return Promise.resolve(this.proposalList);
     };
     ProposalService.prototype.getProposalById = function (id) {
         var proposal = null;

@@ -25,18 +25,17 @@ var ProposalListComponent = (function () {
         this.onEdit = new core_1.EventEmitter();
     }
     ProposalListComponent.prototype.ngOnInit = function () {
-        // delete this after implemneting login process !!!!!!!!!!
-        // this.authService.login('fabstaro','f').then(
-        //     user => { this.user = this.authService.getUser();
-        //                 console.log("this.user.role = " + this.user.role);
-        //             }
-        // );
         console.log("ngOnInit proposal-list");
-        this.user = this.authService.getUser();
-        console.log("this.user.role = " + this.user.role);
+        //this.user = this.authService.getUser();
+        //console.log("this.user.role = " + this.user.role);
+        this.user = new user_model_1.User();
+        this.user.id = parseInt(window.localStorage.getItem('userId'));
+        this.user.role = window.localStorage.getItem('userRole');
+        console.log("window.localStorage.getItem('userId') = " + window.localStorage.getItem('userId'));
         // change proposalCriteria !!!!!!!!!!!!!
         this.proposalCriteria = {
             id_manager: this.user.id,
+            //id_manager: parseInt(window.localStorage.getItem('userId')),
             year: null
         };
         this.getProposals(this.proposalCriteria);
@@ -59,7 +58,6 @@ var ProposalListComponent = (function () {
      */
     ProposalListComponent.prototype.getProposals = function (criteria) {
         var _this = this;
-        console.log("getProposals");
         this.proposalService.getProposals(criteria).then(function (proposals) {
             _this.proposals = proposals;
             _this.proposalSortedFiltered = proposals;
@@ -82,15 +80,20 @@ var ProposalListComponent = (function () {
      * Locks selected proposal.
      */
     ProposalListComponent.prototype.lock = function (proposal) {
+        var _this = this;
         console.log("lock proposal: " + JSON.stringify(proposal));
         var lockProposal = _.cloneDeep(proposal);
         lockProposal.status = 'Locked';
-        this.proposalService.updateProposal(lockProposal).then(function (proposal) { console.log("proposal locked: " + JSON.stringify(proposal)); }, function (reason) { });
+        this.proposalService.updateProposal(lockProposal).then(function (proposal) {
+            console.log("proposal locked: " + JSON.stringify(proposal));
+            _this.reload();
+        }, function (reason) { });
     };
     /**
      * Reloads proposal list.
      */
     ProposalListComponent.prototype.reload = function () {
+        console.log("reload");
         this.getProposals(this.proposalCriteria);
     };
     /**

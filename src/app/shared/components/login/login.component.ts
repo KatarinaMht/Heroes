@@ -15,7 +15,6 @@ import { loginValidator } from './../../validators/login.validator';
 
 export class LoginComponent implements OnInit {
 
-    userCredentials: any = {};
     loginForm: FormGroup;
     
     constructor(private authService: AuthService, private router: Router, private fb: FormBuilder) { 

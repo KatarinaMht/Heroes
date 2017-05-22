@@ -26,13 +26,17 @@ export class AuthService {
     }
 
     login(username:string, password:string): Promise<User> {
-        //this.user.role = 'Manager';
-        //this.user.role = 'TeamLeader';
+
         console.log("Usao u login servis: " + username + " " + password);
 
         for (let user of this.userList) {
             if (user.password == password && user.username == username) {
                 AuthService.user = _.cloneDeep(user);
+
+                // set user data into localStorage
+                window.localStorage.setItem('userId', user.id.toString());
+                window.localStorage.setItem('userRole', user.role);
+ 
                 return Promise.resolve(AuthService.user);
             }
         }
@@ -42,6 +46,8 @@ export class AuthService {
 
     logout(): void {
         AuthService.user = null;
+
+        // nothing here ??????? we have localStorage now
     }
     
 }

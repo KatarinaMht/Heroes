@@ -25,13 +25,14 @@ var AuthService = AuthService_1 = (function () {
         return AuthService_1.user;
     };
     AuthService.prototype.login = function (username, password) {
-        //this.user.role = 'Manager';
-        //this.user.role = 'TeamLeader';
         console.log("Usao u login servis: " + username + " " + password);
         for (var _i = 0, _a = this.userList; _i < _a.length; _i++) {
             var user = _a[_i];
             if (user.password == password && user.username == username) {
                 AuthService_1.user = _.cloneDeep(user);
+                // set user data into localStorage
+                window.localStorage.setItem('userId', user.id.toString());
+                window.localStorage.setItem('userRole', user.role);
                 return Promise.resolve(AuthService_1.user);
             }
         }
@@ -39,6 +40,7 @@ var AuthService = AuthService_1 = (function () {
     };
     AuthService.prototype.logout = function () {
         AuthService_1.user = null;
+        // nothing here ??????? we have localStorage now
     };
     return AuthService;
 }());

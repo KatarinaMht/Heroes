@@ -20,7 +20,6 @@ var ProposalsComponent = (function () {
     }
     ProposalsComponent.prototype.ngOnInit = function () {
         console.log("ngOninit proposal");
-        this.editProposal = null;
         this.alerts = [];
         // test
         this.onError("Test error!");
@@ -32,7 +31,6 @@ var ProposalsComponent = (function () {
      */
     ProposalsComponent.prototype.onEditClick = function (proposal) {
         var _this = this;
-        //this.editProposal = proposal;
         console.log("this.proposalEditId = " + proposal.id);
         this.proposalEditId = proposal.id;
         $('#myModal').on('hide.bs.modal', function () {
@@ -41,6 +39,13 @@ var ProposalsComponent = (function () {
         $('#myModal').modal('show');
         //this.router.navigate(['/proposal-edit', proposal.id]);
     };
+    ProposalsComponent.prototype.onEditedProposalSubmitted = function (proposalUpdated) {
+        if (proposalUpdated) {
+            this.proposalList.reload();
+        }
+        $('#myModal').modal('hide');
+        this.proposalEditId = undefined;
+    };
     /**
      * Handles errors from server.
      *
@@ -48,13 +53,6 @@ var ProposalsComponent = (function () {
      */
     ProposalsComponent.prototype.onError = function (errorMessage) {
         this.alerts.push(new alert_model_1.Alert(alert_model_1.Alert.TYPE_DANGER, errorMessage));
-    };
-    ProposalsComponent.prototype.onEditedProposalSubmitted = function (proposalUpdated) {
-        if (proposalUpdated) {
-            this.proposalList.reload();
-        }
-        $('#myModal').modal('hide');
-        this.proposalEditId = undefined;
     };
     return ProposalsComponent;
 }());

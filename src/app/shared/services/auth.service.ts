@@ -12,15 +12,17 @@ import { USERS } from '../mock/users-mock';
 @Injectable()
 export class AuthService {
 
-    private user: User;
+    static user: User;
     userList: User[];
 
     constructor(){
+        console.log("I am new one!");
         this.userList = USERS;
     }
 
     getUser(): User {
-        return this.user;
+        console.log("get user");
+        return AuthService.user;
     }
 
     login(username:string, password:string): Promise<User> {
@@ -30,8 +32,8 @@ export class AuthService {
 
         for (let user of this.userList) {
             if (user.password == password && user.username == username) {
-                this.user = _.cloneDeep(user);
-                return Promise.resolve(this.user);
+                AuthService.user = _.cloneDeep(user);
+                return Promise.resolve(AuthService.user);
             }
         }
 
@@ -39,7 +41,7 @@ export class AuthService {
     }
 
     logout(): void {
-        this.user = null;
+        AuthService.user = null;
     }
     
 }

@@ -56,10 +56,11 @@ var ProposalListComponent = (function () {
      */
     ProposalListComponent.prototype.getProposals = function (criteria) {
         var _this = this;
+        console.log("getProposals");
         this.proposalService.getProposals(criteria).then(function (proposals) {
             _this.proposals = proposals;
             _this.proposalSortedFiltered = proposals;
-            console.log(JSON.stringify(_this.proposals));
+            console.log("proposlas: " + JSON.stringify(_this.proposals));
         });
     };
     /**
@@ -73,6 +74,21 @@ var ProposalListComponent = (function () {
      */
     ProposalListComponent.prototype.deleteProposal = function (proposal) {
         this.proposalService.deleteProposal(proposal).then(function (proposal) { }, function (reason) { });
+    };
+    /**
+     * Locks selected proposal.
+     */
+    ProposalListComponent.prototype.lock = function (proposal) {
+        console.log("lock proposal: " + JSON.stringify(proposal));
+        var lockProposal = _.cloneDeep(proposal);
+        lockProposal.status = 'Locked';
+        this.proposalService.updateProposal(lockProposal).then(function (proposal) { console.log("proposal locked: " + JSON.stringify(proposal)); }, function (reason) { });
+    };
+    /**
+     * Reloads proposal list.
+     */
+    ProposalListComponent.prototype.reload = function () {
+        this.getProposals(this.proposalCriteria);
     };
     /**
      * Set sorting state arrays sortByProperties and sortByOrders by given parameters.
@@ -141,9 +157,6 @@ var ProposalListComponent = (function () {
         this.proposalSortedFiltered = this.filterService.filterBy(this.proposals, this.proposalFilter);
         // SORT
         this.proposalSortedFiltered = _.orderBy(this.proposalSortedFiltered, this.sortByProperties, this.sortByOrders);
-    };
-    ProposalListComponent.prototype.reload = function () {
-        this.getProposals(this.proposalCriteria);
     };
     return ProposalListComponent;
 }());

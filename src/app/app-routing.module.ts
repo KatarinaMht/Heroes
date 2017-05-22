@@ -12,7 +12,7 @@ const routes: Routes = [
     
     { path: '', redirectTo: '/login', pathMatch: 'full' },
     { path: 'login', component: LoginComponent },
-    { path: 'proposlas-page', component: ProposalsPageComponent }
+    //{ path: 'proposlas-page', component: ProposalsPageComponent }
 
     // { path: 'proposals',  component: ProposalsComponent },
     // { path: 'proposals/:id/edit',  component: ProposalEditComponent }

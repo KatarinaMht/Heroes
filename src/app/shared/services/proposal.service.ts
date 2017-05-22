@@ -33,7 +33,7 @@ export class ProposalService {
     }
 
     updateProposal(proposal: Proposal): Promise<Proposal> {
-        
+        console.log("updateProposal service: " + JSON.stringify(proposal));
         let index = -1;
         for (let prop of this.proposalList) { 
             if (prop.id === proposal.id) {

@@ -56,11 +56,13 @@ var ProposalEditComponent = (function () {
         this.proposalService.getProposalById(id).then(function (proposal) {
             _this.editProposal = proposal;
             console.log('proposal to edit', _this.editProposal);
-            _this.proposalForm.controls.proposalCombo.setValue({
-                companyProfile: _this.editProposal.companyProfile,
-                nationalWorkProfile: _this.editProposal.nationalWorkProfile,
-                moneyProposal: _this.editProposal.moneyProposal,
-                motivation: _this.editProposal.motivation
+            _this.proposalForm.setValue({
+                proposalCombo: {
+                    companyProfile: _this.editProposal.companyProfile,
+                    nationalWorkProfile: _this.editProposal.nationalWorkProfile,
+                    moneyProposal: _this.editProposal.moneyProposal,
+                    motivation: _this.editProposal.motivation
+                }
             });
         }, function (reason) { console.log("error: this.proposalService.getProposalById"); });
     };
@@ -75,9 +77,9 @@ var ProposalEditComponent = (function () {
     };
     ProposalEditComponent.prototype.createForm = function () {
         this.proposalForm = this.fb.group({
-            notUsedGroup: this.fb.group({
-                address: ['']
-            }),
+            // notUsedGroup: this.fb.group({
+            //     address: ['']
+            // }),
             proposalCombo: this.fb.group({
                 companyProfile: ['Nulla'],
                 nationalWorkProfile: ['Nulla'],

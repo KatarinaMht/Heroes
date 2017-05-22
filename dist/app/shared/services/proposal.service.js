@@ -30,6 +30,7 @@ var ProposalService = (function () {
         return Promise.resolve(proposal);
     };
     ProposalService.prototype.updateProposal = function (proposal) {
+        console.log("updateProposal service: " + JSON.stringify(proposal));
         var index = -1;
         for (var _i = 0, _a = this.proposalList; _i < _a.length; _i++) {
             var prop = _a[_i];

@@ -15,12 +15,14 @@ var users_mock_1 = require("../mock/users-mock");
 // class User {
 //     role:string = '';
 // }
-var AuthService = (function () {
+var AuthService = AuthService_1 = (function () {
     function AuthService() {
+        console.log("I am new one!");
         this.userList = users_mock_1.USERS;
     }
     AuthService.prototype.getUser = function () {
-        return this.user;
+        console.log("get user");
+        return AuthService_1.user;
     };
     AuthService.prototype.login = function (username, password) {
         //this.user.role = 'Manager';
@@ -29,21 +31,22 @@ var AuthService = (function () {
         for (var _i = 0, _a = this.userList; _i < _a.length; _i++) {
             var user = _a[_i];
             if (user.password == password && user.username == username) {
-                this.user = _.cloneDeep(user);
-                return Promise.resolve(this.user);
+                AuthService_1.user = _.cloneDeep(user);
+                return Promise.resolve(AuthService_1.user);
             }
         }
         return null; //Promise.reject("Wrong username or password.");
     };
     AuthService.prototype.logout = function () {
-        this.user = null;
+        AuthService_1.user = null;
     };
     return AuthService;
 }());
-AuthService = __decorate([
+AuthService = AuthService_1 = __decorate([
     core_1.Injectable(),
     __metadata("design:paramtypes", [])
 ], AuthService);
 exports.AuthService = AuthService;
+var AuthService_1;
 
 //# sourceMappingURL=auth.service.js.map

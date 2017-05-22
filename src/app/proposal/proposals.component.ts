@@ -16,14 +16,12 @@ import { ProposalListComponent } from './components/proposal-list/proposal-list.
 
 export class ProposalsComponent implements OnInit {
 
-  editProposal: Proposal;
   proposalEditId: number;
   public alerts: Array<Alert> = [];
   @ViewChild('proposalList') proposalList: ProposalListComponent;
 
   ngOnInit(): void {
     console.log("ngOninit proposal");
-    this.editProposal = null;
     this.alerts = [];
     // test
     this.onError("Test error!");
@@ -37,7 +35,6 @@ export class ProposalsComponent implements OnInit {
    * @param Proposal proposal to be edited
    */
   onEditClick(proposal: Proposal) {
-    //this.editProposal = proposal;
     console.log("this.proposalEditId = " + proposal.id);
 
     this.proposalEditId = proposal.id; 
@@ -51,6 +48,14 @@ export class ProposalsComponent implements OnInit {
     //this.router.navigate(['/proposal-edit', proposal.id]);
   }
 
+  onEditedProposalSubmitted(proposalUpdated: Proposal) {
+    if (proposalUpdated) { //if itsn't undefineed
+      this.proposalList.reload();
+    }
+    $('#myModal').modal('hide');
+    this.proposalEditId = undefined;
+  }
+
   /**
    * Handles errors from server.
    * 
@@ -60,11 +65,4 @@ export class ProposalsComponent implements OnInit {
     this.alerts.push(new Alert(Alert.TYPE_DANGER, errorMessage));
   }
 
-  onEditedProposalSubmitted(proposalUpdated: Proposal) {
-    if (proposalUpdated) { //if itsn't undefineed
-      this.proposalList.reload();
-    }
-    $('#myModal').modal('hide');
-    this.proposalEditId = undefined;
-  }
 }

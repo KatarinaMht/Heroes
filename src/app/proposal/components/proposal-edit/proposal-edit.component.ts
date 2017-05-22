@@ -70,11 +70,13 @@ export class ProposalEditComponent implements OnInit {
 
                 this.editProposal = proposal;
                 console.log('proposal to edit', this.editProposal);
-                this.proposalForm.controls.proposalCombo.setValue({
-                    companyProfile: this.editProposal.companyProfile,
-                    nationalWorkProfile: this.editProposal.nationalWorkProfile,
-                    moneyProposal: this.editProposal.moneyProposal,
-                    motivation: this.editProposal.motivation
+                this.proposalForm.setValue({
+                    proposalCombo: {
+                        companyProfile: this.editProposal.companyProfile,
+                        nationalWorkProfile: this.editProposal.nationalWorkProfile,
+                        moneyProposal: this.editProposal.moneyProposal,
+                        motivation: this.editProposal.motivation 
+                    }
                 });
             },
 
@@ -94,10 +96,10 @@ export class ProposalEditComponent implements OnInit {
 
     createForm() {
         this.proposalForm = this.fb.group({
-            notUsedGroup: this.fb.group({
+            // notUsedGroup: this.fb.group({
 
-                address: ['']
-            }),
+            //     address: ['']
+            // }),
             proposalCombo: this.fb.group({
                 companyProfile: [ 'Nulla' ],
                 nationalWorkProfile: [ 'Nulla' ],

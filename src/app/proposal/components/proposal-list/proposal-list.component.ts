@@ -22,6 +22,7 @@ import { AuthService } from '../../../shared/services/auth.service';
 export class ProposalListComponent implements OnInit {
 
     @Output() onEdit: EventEmitter<Proposal> = new EventEmitter<Proposal>();
+    // @Output() onLock: EventEmitter<Proposal> = new EventEmitter<Proposal>();   or like this????
 
     user: any;
 
@@ -81,11 +82,11 @@ export class ProposalListComponent implements OnInit {
      * @param criteria ProposalCriteria
      */
     getProposals(criteria: ProposalCriteria) {
-
+console.log("getProposals");
         this.proposalService.getProposals(criteria).then (
             proposals => { this.proposals = proposals; 
                             this.proposalSortedFiltered = proposals;
-                            console.log(JSON.stringify(this.proposals)); 
+                            console.log("proposlas: " + JSON.stringify(this.proposals)); 
                         }
         );
     }
@@ -106,6 +107,29 @@ export class ProposalListComponent implements OnInit {
             proposal => {},
             reason => {}
         );
+    }
+
+    /**
+     * Locks selected proposal.
+     */
+    lock(proposal: Proposal) {
+
+        console.log("lock proposal: " + JSON.stringify(proposal));
+
+        let lockProposal = _.cloneDeep(proposal);
+        lockProposal.status = 'Locked';
+        
+        this.proposalService.updateProposal(lockProposal).then (
+            proposal => { console.log("proposal locked: " + JSON.stringify(proposal)); },
+            reason => {}
+        );
+    }
+
+    /**
+     * Reloads proposal list.
+     */
+    public reload(){
+        this.getProposals(this.proposalCriteria);
     }
 
     /**
@@ -188,8 +212,4 @@ export class ProposalListComponent implements OnInit {
         this.proposalSortedFiltered = _.orderBy(this.proposalSortedFiltered, this.sortByProperties, this.sortByOrders);  
     }    
 
-
-    public reload(){
-        this.getProposals(this.proposalCriteria);
-    }
 }

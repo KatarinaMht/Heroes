@@ -16,7 +16,14 @@ var ProposalService = (function () {
         this.proposalList = proposals_mock_1.PROPOSALS;
     }
     ProposalService.prototype.getProposals = function (criteria) {
-        return Promise.resolve(this.proposalList);
+        for (var _i = 0, PROPOSALS_BY_MANAGER_1 = proposals_mock_1.PROPOSALS_BY_MANAGER; _i < PROPOSALS_BY_MANAGER_1.length; _i++) {
+            var poroposalList = PROPOSALS_BY_MANAGER_1[_i];
+            if (criteria.id_manager == poroposalList.id_manager) {
+                return Promise.resolve(poroposalList.proposals);
+            }
+        }
+        return null;
+        //return Promise.resolve(this.proposalList);
     };
     ProposalService.prototype.getProposalById = function (id) {
         var proposal = null;
@@ -30,7 +37,6 @@ var ProposalService = (function () {
         return Promise.resolve(proposal);
     };
     ProposalService.prototype.updateProposal = function (proposal) {
-        console.log("updateProposal service: " + JSON.stringify(proposal));
         var index = -1;
         for (var _i = 0, _a = this.proposalList; _i < _a.length; _i++) {
             var prop = _a[_i];

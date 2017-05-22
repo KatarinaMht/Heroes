@@ -4,7 +4,7 @@ import * as _ from "lodash";
 
 import { Proposal } from '../../shared/models/proposal.model';
 import { ProposalCriteria } from './../models/proposal-criteria.model';
-import { PROPOSALS } from '../mock/proposals-mock';
+import { PROPOSALS, PROPOSALS_BY_MANAGER } from '../mock/proposals-mock';
 
 @Injectable()
 export class ProposalService {
@@ -16,7 +16,15 @@ export class ProposalService {
     }
 
     getProposals(criteria: ProposalCriteria): Promise<Array<Proposal>> {
-        return Promise.resolve(this.proposalList);
+
+        for (let poroposalList of PROPOSALS_BY_MANAGER) {
+            if (criteria.id_manager == poroposalList.id_manager) {
+                return Promise.resolve(poroposalList.proposals);
+            }
+        }
+
+        return null;
+        //return Promise.resolve(this.proposalList);
     }
 
     getProposalById(id: number): Promise<Proposal> {
@@ -33,7 +41,7 @@ export class ProposalService {
     }
 
     updateProposal(proposal: Proposal): Promise<Proposal> {
-        console.log("updateProposal service: " + JSON.stringify(proposal));
+
         let index = -1;
         for (let prop of this.proposalList) { 
             if (prop.id === proposal.id) {

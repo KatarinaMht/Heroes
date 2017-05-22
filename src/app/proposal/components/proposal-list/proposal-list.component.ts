@@ -4,7 +4,7 @@ import * as $ from 'jquery';
 
 import { Proposal } from '../../../shared/models/proposal.model';
 import { ProposalCriteria } from '../../../shared/models/proposal-criteria.model';
-import { UserAccount } from '../../../shared/models/user-acount.model';
+import { User } from '../../../shared/models/user.model';
 
 import { ProposalService } from '../../../shared/services/proposal.service';
 import { SortService } from '../../../shared/services/sort/sort.service';
@@ -24,7 +24,7 @@ export class ProposalListComponent implements OnInit {
     @Output() onEdit: EventEmitter<Proposal> = new EventEmitter<Proposal>();
     // @Output() onLock: EventEmitter<Proposal> = new EventEmitter<Proposal>();   or like this????
 
-    user: any;
+    user: User;
 
     proposals: Proposal[];
     proposalCriteria: ProposalCriteria;
@@ -59,7 +59,10 @@ export class ProposalListComponent implements OnInit {
         console.log("this.user.role = " + this.user.role);
 
         // change proposalCriteria !!!!!!!!!!!!!
-        this.proposalCriteria = null;
+        this.proposalCriteria = {
+            id_manager:  this.user.id,
+            year: null
+        };
         this.getProposals(this.proposalCriteria);
 
         this.sortByProperties = [];
@@ -73,7 +76,7 @@ export class ProposalListComponent implements OnInit {
         };
 
         this.proposalFilter = new Proposal();
-        this.proposalFilter.userAccount = new UserAccount();
+        this.proposalFilter.userAccount = new User();
     }
 
     /**
@@ -118,7 +121,7 @@ console.log("getProposals");
 
         let lockProposal = _.cloneDeep(proposal);
         lockProposal.status = 'Locked';
-        
+
         this.proposalService.updateProposal(lockProposal).then (
             proposal => { console.log("proposal locked: " + JSON.stringify(proposal)); },
             reason => {}
@@ -198,7 +201,7 @@ console.log("getProposals");
 
         // Create filter object.
         this.proposalFilter = new Proposal();
-        this.proposalFilter.userAccount = new UserAccount();
+        this.proposalFilter.userAccount = new User();
         this.proposalFilter.userAccount.firstName = this.filterFirstName;
         this.proposalFilter.userAccount.lastName = this.filterLastName;
         this.proposalFilter.manager = this.filterManagerName;

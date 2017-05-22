@@ -1,8 +1,8 @@
-import { UserAccount } from './user-acount.model';
+import { User } from './user.model';
 
 export class Proposal {
     id: number;
-    userAccount: UserAccount;
+    userAccount: User;
     manager: string;
     moneyProposal: string;
     companyProfile: string;

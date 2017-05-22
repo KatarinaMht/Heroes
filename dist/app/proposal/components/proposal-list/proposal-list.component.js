@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var _ = require("lodash");
 var proposal_model_1 = require("../../../shared/models/proposal.model");
-var user_acount_model_1 = require("../../../shared/models/user-acount.model");
+var user_model_1 = require("../../../shared/models/user.model");
 var proposal_service_1 = require("../../../shared/services/proposal.service");
 var sort_service_1 = require("../../../shared/services/sort/sort.service");
 var filter_service_1 = require("../../../shared/services/filter/filter.service");
@@ -35,7 +35,10 @@ var ProposalListComponent = (function () {
         this.user = this.authService.getUser();
         console.log("this.user.role = " + this.user.role);
         // change proposalCriteria !!!!!!!!!!!!!
-        this.proposalCriteria = null;
+        this.proposalCriteria = {
+            id_manager: this.user.id,
+            year: null
+        };
         this.getProposals(this.proposalCriteria);
         this.sortByProperties = [];
         this.sortByOrders = [];
@@ -47,7 +50,7 @@ var ProposalListComponent = (function () {
             nationalWorkProfile: { asc: false, sort: false }
         };
         this.proposalFilter = new proposal_model_1.Proposal();
-        this.proposalFilter.userAccount = new user_acount_model_1.UserAccount();
+        this.proposalFilter.userAccount = new user_model_1.User();
     };
     /**
      * Get list of proposlas.
@@ -146,7 +149,7 @@ var ProposalListComponent = (function () {
         this.proposalSortedFiltered = this.proposals;
         // Create filter object.
         this.proposalFilter = new proposal_model_1.Proposal();
-        this.proposalFilter.userAccount = new user_acount_model_1.UserAccount();
+        this.proposalFilter.userAccount = new user_model_1.User();
         this.proposalFilter.userAccount.firstName = this.filterFirstName;
         this.proposalFilter.userAccount.lastName = this.filterLastName;
         this.proposalFilter.manager = this.filterManagerName;

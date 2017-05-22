@@ -18,6 +18,12 @@ export class AuthService {
     constructor(){
         console.log("I am new one!");
         this.userList = USERS;
+        //and check if user it's just logged
+        let tmpuser=JSON.parse(window.localStorage.getItem('user'));
+        if(tmpuser){
+            //here user just logged so navigate to main page
+            //TODO
+        }
     }
 
     getUser(): User {
@@ -36,6 +42,8 @@ export class AuthService {
                 // set user data into localStorage
                 window.localStorage.setItem('userId', user.id.toString());
                 window.localStorage.setItem('userRole', user.role);
+                //or more simple save all object
+                window.localStorage.setItem('user', JSON.stringify(user));
  
                 return Promise.resolve(AuthService.user);
             }

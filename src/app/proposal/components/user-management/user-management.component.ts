@@ -27,7 +27,7 @@ export class UserManagement implements OnInit {
             reject => { }
         );
 
-        this.userService.getTemLeaders().then (
+        this.userService.getTeamLeaders().then (
             list => { 
                 console.log("this.teamLeaderList = " + JSON.stringify(list));
                 this.teamLeaderList = list; 

@@ -12,25 +12,33 @@ export class ProposalService {
     proposalList: Proposal[];
 
     constructor(){
-        this.proposalList = PROPOSALS;
+        //check for local fake but permanent data
+          let tmpProposal=JSON.parse(window.localStorage.getItem('proposal'));
+          if(tmpProposal){
+               this.proposalList=tmpProposal;
+          }else{
+              this.proposalList = PROPOSALS;
+          }
+       
     }
 
     getProposals(criteria: ProposalCriteria): Promise<Array<Proposal>> {
 
-        this.proposalList = [];
-
+        //this.proposalList = []; //no total reset
+        let proposalToReturn;
         if (criteria.id_manager == 1) {             // manager fabio with role manager
-            this.proposalList = PROPOSALS;
+            proposalToReturn = this.proposalList;
         } else {
-            for (let porop of PROPOSALS) {  // else team leader
+            proposalToReturn=[];
+            for (let porop of this.proposalList) {  // else team leader
                 if (criteria.id_manager == porop.idManager) {
-                    this.proposalList.push(porop);
+                    proposalToReturn.push(porop);
                     //return Promise.resolve(poroposalList.proposals);
                 }
             }
         }
 
-        return Promise.resolve(this.proposalList);
+        return Promise.resolve(proposalToReturn);
     }
 
     getProposalById(id: number): Promise<Proposal> {
@@ -56,7 +64,8 @@ export class ProposalService {
                 }
         }
         this.proposalList.splice(index, 1, proposal);
-
+        //update localstorage 
+        window.localStorage.setItem('proposal',JSON.stringify( this.proposalList));
         return Promise.resolve(proposal);
     }
 
@@ -76,7 +85,8 @@ export class ProposalService {
                 }
         }
         console.log('new List',this.proposalList);
-
+ //update localstorage 
+        window.localStorage.setItem('proposal',JSON.stringify( this.proposalList));
         return Promise.resolve(proposal);
     }
 

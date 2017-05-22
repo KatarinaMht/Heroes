@@ -56,14 +56,11 @@ var ProposalEditComponent = (function () {
         this.proposalService.getProposalById(id).then(function (proposal) {
             _this.editProposal = proposal;
             console.log('proposal to edit', _this.editProposal);
-            _this.proposalForm.setValue({
-                proposalCombo: {
-                    companyProfile: _this.editProposal.companyProfile,
-                    nationalWorkProfile: _this.editProposal.nationalWorkProfile,
-                    moneyProposal: _this.editProposal.moneyProposal,
-                    motivation: _this.editProposal.motivation
-                }
-            });
+            console.log('actual form before adding value from service', _this.proposalForm, _this.proposalForm.controls['proposalCombo']);
+            _this.proposalForm.controls['proposalCombo'].controls['companyProfile'].setValue(_this.editProposal.companyProfile);
+            _this.proposalForm.controls['proposalCombo'].controls['nationalWorkProfile'].setValue(_this.editProposal.nationalWorkProfile);
+            _this.proposalForm.controls['proposalCombo'].controls['moneyProposal'].setValue(_this.editProposal.moneyProposal);
+            _this.proposalForm.controls['proposalCombo'].controls['motivation'].setValue(_this.editProposal.motivation);
         }, function (reason) { console.log("error: this.proposalService.getProposalById"); });
     };
     ProposalEditComponent.prototype.getProposalIdFromRoute = function () {
@@ -76,6 +73,7 @@ var ProposalEditComponent = (function () {
         });
     };
     ProposalEditComponent.prototype.createForm = function () {
+        console.log('createform');
         this.proposalForm = this.fb.group({
             // notUsedGroup: this.fb.group({
             //     address: ['']
@@ -93,8 +91,9 @@ var ProposalEditComponent = (function () {
     };
     ProposalEditComponent.prototype.onSubmit = function () {
         var _this = this;
+        console.log('onSubmit');
         // deep copy
-        var formModel = this.proposalForm.value;
+        var formModel = this.proposalForm.controls['proposalCombo'].value;
         var editProposalCopy = _.cloneDeep(this.editProposal); //if you do a deep copy in service you don't have to do here
         editProposalCopy.companyProfile = formModel.companyProfile;
         editProposalCopy.nationalWorkProfile = formModel.nationalWorkProfile;
@@ -107,7 +106,8 @@ var ProposalEditComponent = (function () {
         }, function (reason) { console.log("error on edit"); _this.onSubmitOutput.emit(undefined); });
     };
     ProposalEditComponent.prototype.revert = function () {
-        this.proposalForm.setValue({
+        console.log('revert');
+        this.proposalForm.controls['proposalCombo'].setValue({
             companyProfile: this.editProposal.companyProfile,
             nationalWorkProfile: this.editProposal.nationalWorkProfile,
             moneyProposal: this.editProposal.moneyProposal,

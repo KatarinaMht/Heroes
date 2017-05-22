@@ -70,14 +70,12 @@ export class ProposalEditComponent implements OnInit {
 
                 this.editProposal = proposal;
                 console.log('proposal to edit', this.editProposal);
-                this.proposalForm.setValue({
-                    proposalCombo: {
-                        companyProfile: this.editProposal.companyProfile,
-                        nationalWorkProfile: this.editProposal.nationalWorkProfile,
-                        moneyProposal: this.editProposal.moneyProposal,
-                        motivation: this.editProposal.motivation 
-                    }
-                });
+                console.log('actual form before adding value from service',  this.proposalForm,  this.proposalForm.controls['proposalCombo']);
+                this.proposalForm.controls['proposalCombo'].controls['companyProfile'].setValue(this.editProposal.companyProfile);
+                this.proposalForm.controls['proposalCombo'].controls['nationalWorkProfile'].setValue(this.editProposal.nationalWorkProfile);
+                this.proposalForm.controls['proposalCombo'].controls['moneyProposal'].setValue(this.editProposal.moneyProposal);
+                this.proposalForm.controls['proposalCombo'].controls['motivation'].setValue(this.editProposal.motivation);
+                
             },
 
             reason => { console.log("error: this.proposalService.getProposalById"); }
@@ -95,6 +93,7 @@ export class ProposalEditComponent implements OnInit {
     }
 
     createForm() {
+        console.log('createform');
         this.proposalForm = this.fb.group({
             // notUsedGroup: this.fb.group({
 
@@ -111,13 +110,14 @@ export class ProposalEditComponent implements OnInit {
                 })
         });
         console.log('form', this.proposalForm);
-    }
+    } 
 
 
 
     onSubmit() {
+        console.log('onSubmit');
         // deep copy
-        const formModel = this.proposalForm.value;
+        const formModel = this.proposalForm.controls['proposalCombo'].value;
         const editProposalCopy = _.cloneDeep(this.editProposal); //if you do a deep copy in service you don't have to do here
 
         editProposalCopy.companyProfile = formModel.companyProfile;
@@ -138,7 +138,8 @@ export class ProposalEditComponent implements OnInit {
     }
 
     revert() {
-        this.proposalForm.setValue({
+        console.log('revert');
+        this.proposalForm.controls['proposalCombo'].setValue({
             companyProfile: this.editProposal.companyProfile,
             nationalWorkProfile: this.editProposal.nationalWorkProfile,
             moneyProposal: this.editProposal.moneyProposal,

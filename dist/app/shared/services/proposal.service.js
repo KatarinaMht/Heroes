@@ -13,22 +13,31 @@ var _ = require("lodash");
 var proposals_mock_1 = require("../mock/proposals-mock");
 var ProposalService = (function () {
     function ProposalService() {
-        this.proposalList = proposals_mock_1.PROPOSALS;
-    }
-    ProposalService.prototype.getProposals = function (criteria) {
-        this.proposalList = [];
-        if (criteria.id_manager == 1) {
-            this.proposalList = proposals_mock_1.PROPOSALS;
+        //check for local fake but permanent data
+        var tmpProposal = JSON.parse(window.localStorage.getItem('proposal'));
+        if (tmpProposal) {
+            this.proposalList = tmpProposal;
         }
         else {
-            for (var _i = 0, PROPOSALS_1 = proposals_mock_1.PROPOSALS; _i < PROPOSALS_1.length; _i++) {
-                var porop = PROPOSALS_1[_i];
+            this.proposalList = proposals_mock_1.PROPOSALS;
+        }
+    }
+    ProposalService.prototype.getProposals = function (criteria) {
+        //this.proposalList = []; //no total reset
+        var proposalToReturn;
+        if (criteria.id_manager == 1) {
+            proposalToReturn = this.proposalList;
+        }
+        else {
+            proposalToReturn = [];
+            for (var _i = 0, _a = this.proposalList; _i < _a.length; _i++) {
+                var porop = _a[_i];
                 if (criteria.id_manager == porop.idManager) {
-                    this.proposalList.push(porop);
+                    proposalToReturn.push(porop);
                 }
             }
         }
-        return Promise.resolve(this.proposalList);
+        return Promise.resolve(proposalToReturn);
     };
     ProposalService.prototype.getProposalById = function (id) {
         var proposal = null;
@@ -50,6 +59,8 @@ var ProposalService = (function () {
             }
         }
         this.proposalList.splice(index, 1, proposal);
+        //update localstorage 
+        window.localStorage.setItem('proposal', JSON.stringify(this.proposalList));
         return Promise.resolve(proposal);
     };
     ProposalService.prototype.insertProposal = function (proposal) {
@@ -67,6 +78,8 @@ var ProposalService = (function () {
             }
         }
         console.log('new List', this.proposalList);
+        //update localstorage 
+        window.localStorage.setItem('proposal', JSON.stringify(this.proposalList));
         return Promise.resolve(proposal);
     };
     return ProposalService;

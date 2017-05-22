@@ -19,6 +19,10 @@ var AuthService = AuthService_1 = (function () {
     function AuthService() {
         console.log("I am new one!");
         this.userList = users_mock_1.USERS;
+        //and check if user it's just logged
+        var tmpuser = JSON.parse(window.localStorage.getItem('user'));
+        if (tmpuser) {
+        }
     }
     AuthService.prototype.getUser = function () {
         console.log("get user");
@@ -33,6 +37,8 @@ var AuthService = AuthService_1 = (function () {
                 // set user data into localStorage
                 window.localStorage.setItem('userId', user.id.toString());
                 window.localStorage.setItem('userRole', user.role);
+                //or more simple save all object
+                window.localStorage.setItem('user', JSON.stringify(user));
                 return Promise.resolve(AuthService_1.user);
             }
         }

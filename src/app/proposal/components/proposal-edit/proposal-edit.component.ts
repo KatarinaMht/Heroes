@@ -71,11 +71,20 @@ export class ProposalEditComponent implements OnInit {
                 this.editProposal = proposal;
                 console.log('proposal to edit', this.editProposal);
                 console.log('actual form before adding value from service',  this.proposalForm,  this.proposalForm.controls['proposalCombo']);
-                this.proposalForm.controls['proposalCombo'].controls['companyProfile'].setValue(this.editProposal.companyProfile);
-                this.proposalForm.controls['proposalCombo'].controls['nationalWorkProfile'].setValue(this.editProposal.nationalWorkProfile);
-                this.proposalForm.controls['proposalCombo'].controls['moneyProposal'].setValue(this.editProposal.moneyProposal);
-                this.proposalForm.controls['proposalCombo'].controls['motivation'].setValue(this.editProposal.motivation);
+
+                // this doesn't compile with me!!!
+
+                // this.proposalForm.controls['proposalCombo'].controls['companyProfile'].setValue(this.editProposal.companyProfile);
+                // this.proposalForm.controls['proposalCombo'].controls['nationalWorkProfile'].setValue(this.editProposal.nationalWorkProfile);
+                // this.proposalForm.controls['proposalCombo'].controls['moneyProposal'].setValue(this.editProposal.moneyProposal);
+                // this.proposalForm.controls['proposalCombo'].controls['motivation'].setValue(this.editProposal.motivation);
                 
+                this.proposalForm.controls['proposalCombo'].setValue({
+                    companyProfile: this.editProposal.companyProfile,
+                    nationalWorkProfile: this.editProposal.nationalWorkProfile,
+                    moneyProposal: this.editProposal.moneyProposal,
+                    motivation: this.editProposal.motivation
+                });
             },
 
             reason => { console.log("error: this.proposalService.getProposalById"); }

@@ -57,10 +57,17 @@ var ProposalEditComponent = (function () {
             _this.editProposal = proposal;
             console.log('proposal to edit', _this.editProposal);
             console.log('actual form before adding value from service', _this.proposalForm, _this.proposalForm.controls['proposalCombo']);
-            _this.proposalForm.controls['proposalCombo'].controls['companyProfile'].setValue(_this.editProposal.companyProfile);
-            _this.proposalForm.controls['proposalCombo'].controls['nationalWorkProfile'].setValue(_this.editProposal.nationalWorkProfile);
-            _this.proposalForm.controls['proposalCombo'].controls['moneyProposal'].setValue(_this.editProposal.moneyProposal);
-            _this.proposalForm.controls['proposalCombo'].controls['motivation'].setValue(_this.editProposal.motivation);
+            // this doesn't compile with me!!!
+            // this.proposalForm.controls['proposalCombo'].controls['companyProfile'].setValue(this.editProposal.companyProfile);
+            // this.proposalForm.controls['proposalCombo'].controls['nationalWorkProfile'].setValue(this.editProposal.nationalWorkProfile);
+            // this.proposalForm.controls['proposalCombo'].controls['moneyProposal'].setValue(this.editProposal.moneyProposal);
+            // this.proposalForm.controls['proposalCombo'].controls['motivation'].setValue(this.editProposal.motivation);
+            _this.proposalForm.controls['proposalCombo'].setValue({
+                companyProfile: _this.editProposal.companyProfile,
+                nationalWorkProfile: _this.editProposal.nationalWorkProfile,
+                moneyProposal: _this.editProposal.moneyProposal,
+                motivation: _this.editProposal.motivation
+            });
         }, function (reason) { console.log("error: this.proposalService.getProposalById"); });
     };
     ProposalEditComponent.prototype.getProposalIdFromRoute = function () {

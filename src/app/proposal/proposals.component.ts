@@ -50,6 +50,7 @@ export class ProposalsComponent implements OnInit {
 
   onEditedProposalSubmitted(proposalUpdated: Proposal) {
     if (proposalUpdated) { //if itsn't undefineed
+    console.log("reload - proposals.component.ts");
       this.proposalList.reload();
     }
     $('#myModal').modal('hide');

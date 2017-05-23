@@ -41,6 +41,7 @@ var ProposalsComponent = (function () {
     };
     ProposalsComponent.prototype.onEditedProposalSubmitted = function (proposalUpdated) {
         if (proposalUpdated) {
+            console.log("reload - proposals.component.ts");
             this.proposalList.reload();
         }
         $('#myModal').modal('hide');

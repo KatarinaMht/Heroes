@@ -93,7 +93,7 @@ var ProposalListComponent = (function () {
      * Reloads proposal list.
      */
     ProposalListComponent.prototype.reload = function () {
-        console.log("reload");
+        console.log("reload - proposal-list.component.ts");
         this.getProposals(this.proposalCriteria);
     };
     /**

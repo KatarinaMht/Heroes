@@ -134,7 +134,7 @@ export class ProposalListComponent implements OnInit {
      * Reloads proposal list.
      */
     public reload(){
-        console.log("reload");
+        console.log("reload - proposal-list.component.ts");
         this.getProposals(this.proposalCriteria);
     }
 

@@ -54,5 +54,14 @@ export const USERS: User[] = [
         password: '',
         email: '',
         role: 'Employee'
-    }
+    },
+    { 
+        id: 7,
+        firstName: 'Oliver',
+        lastName: 'Bradonjic',
+        username: 'oliver',
+        password: 'o',
+        email: 'oliver@mht.net',
+        role: 'TeamLeader'
+    },
 ];

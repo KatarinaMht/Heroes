@@ -6,44 +6,82 @@ User management
     <div class="form-group">
 
         <label> <b> Manager: </b>
-            <select class="form-control" formControlName="teamLeader">
-                <option *ngFor="let teamLeader of teamLeaderList" [value]="teamLeader"> {{ teamLeader.firstName }} {{ teamLeader.lastName }} </option>
+            <select class="form-control" (change)="onChange($event)" formControlName="teamLeader">
+                <option *ngFor="let teamLeader of teamLeaderList" [ngValue]="teamLeader"> {{ teamLeader.firstName }} {{ teamLeader.lastName }} </option>
             </select>
         </label> 
 
         <br>
+        My employees
         <br>
 
         <div class="table-responsive">
-        <table id="userList-table" class="table table-striped table-bordered table-hover table-condensed ">
-            <thead class="thead-primary">
-                <tr>
-                    <th class="text-center col-md-1">
-                    </th>
-                    <th class="text-center col-md-1">
-                        <span> First Name </span>
-                    </th>
-                    <th class="text-center col-md-1">
-                        <span> Last Name </span>
-                    </th>
-                </tr>
-            </thead>
-            <tbody *ngFor="let user of employeeList">
-                <td class="text-center col-md-1">
-                    <input type="checkbox" (click)="onCheck(user)"> 
-                </td>
-                <td class="text-center col-md-1">
-                    {{ user.firstName }}
-                </td>
-                <td class="text-center col-md-1">
-                    {{ user.lastName }}
-                </td>
-            </tbody>
-        </table>
+            <table id="userList-table" class="table table-striped table-bordered table-hover table-condensed ">
+                <thead class="thead-primary">
+                    <tr>
+                        <th class="text-center col-md-1">
+                            <span> First Name </span>
+                        </th>
+                        <th class="text-center col-md-1">
+                            <span> Last Name </span>
+                        </th>
+                        <th class="text-center col-md-1">
+                        </th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let user of teamLeadersEmpList">
+                    <td class="text-center col-md-1">
+                        {{ user.firstName }}
+                    </td>
+                    <td class="text-center col-md-1">
+                        {{ user.lastName }}
+                    </td>
+                    <td class="text-center col-md-1">
+                        <button type="button" class="btn btn-primary" (click)="removeEmployee(user)"> 
+                            <span class="fa fa-times" aria-hidden="true"></span> 
+                        </button> 
+                    </td>
+                </tbody>
+            </table>
+        </div>
+
+        <br>
+        Not my employees
+        <br>
+
+        <div class="table-responsive">
+            <table id="userList-table" class="table table-striped table-bordered table-hover table-condensed ">
+                <thead class="thead-primary">
+                    <tr>
+                        <th class="text-center col-md-1">
+                            <span> First Name </span>
+                        </th>
+                        <th class="text-center col-md-1">
+                            <span> Last Name </span>
+                        </th>
+                        <th class="text-center col-md-1">
+                        </th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let user of employeeList">
+                    <td class="text-center col-md-1">
+                        {{ user.firstName }}
+                    </td>
+                    <td class="text-center col-md-1">
+                        {{ user.lastName }}
+                    </td>
+                    <td class="text-center col-md-1">
+                        <button type="button" class="btn btn-primary" (click)="addEmployee(user)" 
+                            [disabled]="userForm.controls['teamLeader'].value == null"> 
+                            <span class="fa fa-plus" aria-hidden="true"></span> 
+                        </button> 
+                    </td>
+                </tbody>
+            </table>
         </div>
 
         <br>
         <br>
-        <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid"> <span aria-hidden="true"> Submit </span> </button>
+        <!--<button type="submit" class="btn btn-primary" [disabled]="userForm.invalid"> <span aria-hidden="true"> Submit </span> </button>-->
     </div>
 </form>

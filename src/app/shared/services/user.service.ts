@@ -5,14 +5,14 @@ import { USERS } from '../mock/users-mock';
 
 @Injectable()
 export class UserService {
-    mappingTeamLeaderEmployee: {};
+    mappingTeamLeaderEmployee: { [key:string]: User[]; };
 
     constructor(){
-        let tmpMappingTeamLeaderEmployee=localStorage.getItem('mappingTeamLeaderEmployee');
+        let tmpMappingTeamLeaderEmployee = localStorage.getItem('mappingTeamLeaderEmployee');
         if(tmpMappingTeamLeaderEmployee){
-            this.mappingTeamLeaderEmployee=tmpMappingTeamLeaderEmployee;
+            this.mappingTeamLeaderEmployee = JSON.parse(tmpMappingTeamLeaderEmployee);
         }else{
-            this.mappingTeamLeaderEmployee=[];
+            this.mappingTeamLeaderEmployee = {};
         }
     }
 
@@ -25,8 +25,8 @@ export class UserService {
 
         return Promise.resolve(list);
     }
-    //in the final version you can use only one method with criteria filter for role/who is him team leader to filter the list
-    //but for now without be it's okay use two method to skip complex filter on role and team leader attribute
+
+    // get all employees
     getEmployees(): Promise<Array<User>> {
 
         let list = [];
@@ -37,17 +37,63 @@ export class UserService {
         return Promise.resolve(list);
     }
 
-    addMapping(teamLeader: User, emplopee: User[]) {
+    // list of emplopees that are NOT already assigned to teamLeader
+    getEmpolyeesForTeamLeader(teamLeader: User): Promise<Array<User>> {
 
-        //i use email like unique id
-        this.mappingTeamLeaderEmployee[teamLeader.email] = emplopee;
-        //update info 
-        localStorage.setItem('mappingTeamLeaderEmployee', JSON.stringify(this.mappingTeamLeaderEmployee));
+        let list:User[] = [];
+        for (let key in this.mappingTeamLeaderEmployee) {
+            if (key != teamLeader.email) {
+                list = this.mappingTeamLeaderEmployee[key];
+            }
+        }
+
+        return Promise.resolve(list);
     }
 
-    getEmployeeByUser(user: User) {
+    // list of emplopees that are assigned to teamLeader
+    getEmpolyeesByTeamLeader(teamLeader: User): Promise<Array<User>> {
+
+        console.log("getEmpolyeesByTeamLeader - this.mappingTeamLeaderEmployee = " + JSON.stringify(this.mappingTeamLeaderEmployee));
+        let list:User[] = [];
+        for (let key in this.mappingTeamLeaderEmployee) {
+            if (key == teamLeader.email) {
+                console.log("this.mappingTeamLeaderEmployee[key] = " + JSON.stringify(this.mappingTeamLeaderEmployee[key]));
+                list = this.mappingTeamLeaderEmployee[key];
+            }
+        }
+
+        return Promise.resolve(list);
+    }
+
+    addMapping(teamLeader: User, employee: User) {
+
+        console.log("Mapping - leader = " ,  teamLeader , employee, this.mappingTeamLeaderEmployee );
+        //I use email like unique id
+        if (!this.mappingTeamLeaderEmployee[teamLeader.email]) {
+            this.mappingTeamLeaderEmployee[teamLeader.email] = [];
+        }
+        if (this.mappingTeamLeaderEmployee[teamLeader.email].indexOf(employee) == -1) {
+            this.mappingTeamLeaderEmployee[teamLeader.email].push(employee);
+        }
+        console.log("line 68");
+        //update info 
+        localStorage.setItem('mappingTeamLeaderEmployee', JSON.stringify(this.mappingTeamLeaderEmployee));
+        console.log("mappingTeamLeaderEmployee = " + JSON.stringify(this.mappingTeamLeaderEmployee));
+    }
+
+    removeMapping(teamLeader: User, employee: User) {
+        if (this.mappingTeamLeaderEmployee[teamLeader.email]) {
+            let index = this.mappingTeamLeaderEmployee[teamLeader.email].indexOf(employee);
+            if (index > -1) {
+                this.mappingTeamLeaderEmployee[teamLeader.email].splice(index,1);
+            }
+        }
+    }
+
+    getEmployeeByUser(user: User): User[] {
+        
         if (this.mappingTeamLeaderEmployee[user.email]) {
-            return this.mappingTeamLeaderEmployee[user.email];
+            return []; //this.mappingTeamLeaderEmployee[user.email];
         } else {
             return [];
         }

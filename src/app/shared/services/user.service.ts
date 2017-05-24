@@ -6,14 +6,28 @@ import { USERS } from '../mock/users-mock';
 @Injectable()
 export class UserService {
     mappingTeamLeaderEmployee: { [key:string]: User[]; };
+    employeeFilterList: string[];
 
     constructor(){
         let tmpMappingTeamLeaderEmployee = localStorage.getItem('mappingTeamLeaderEmployee');
-        if(tmpMappingTeamLeaderEmployee){
+        if(tmpMappingTeamLeaderEmployee) {
             this.mappingTeamLeaderEmployee = JSON.parse(tmpMappingTeamLeaderEmployee);
-        }else{
+        } else {
             this.mappingTeamLeaderEmployee = {};
         }
+        this.createEmployeeFilterList();
+    }
+
+    // Create list of employees for filtering purposes
+    createEmployeeFilterList() {
+
+        this.employeeFilterList = [];
+        for (let user of USERS) {
+            if (user.role == 'Employee') {
+                this.employeeFilterList.push(user.lastName + ' ' + user.firstName);
+            }
+        }
+        localStorage.setItem('employeeFilterList', JSON.stringify(this.employeeFilterList));
     }
 
     getTeamLeaders(): Promise<Array<User>> {

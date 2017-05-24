@@ -4,12 +4,14 @@ import { FormControl, FormGroup, FormBuilder, Validators, AbstractControl } from
 
 import { UserService } from '../../../shared/services/user.service';
 import { User } from '../../../shared/models/user.model';
+import { FilterService } from '../../../shared/services/filter/filter.service';
 
 @Component({
   moduleId: module.id,
   selector: 'esl-user-management',
   templateUrl: 'user-management.component.html',
-  styleUrls: ['user-management.component.css']
+  styleUrls: ['user-management.component.css'],
+  providers: [  FilterService ]
 })
 
 export class UserManagement implements OnInit {
@@ -17,13 +19,16 @@ export class UserManagement implements OnInit {
     employeeList: User[];
     teamLeaderList: User[];
     teamLeadersEmpList: User[];
+    allUsers: User[];
 
     //employeeSelectedList: User[];
     userForm: FormGroup;
+    //filterName: string;
 
-    constructor(private userService: UserService, private fb: FormBuilder) {
+    constructor(private userService: UserService, private fb: FormBuilder, private filterService: FilterService) {
         this.userForm = this.fb.group({
-            teamLeader: []
+            teamLeader: [],
+            filterName: []
         });
     }
 
@@ -52,6 +57,7 @@ export class UserManagement implements OnInit {
                 list => { 
                     console.log("this.teamLeadersEmpList = " + JSON.stringify(list));
                     this.teamLeadersEmpList = list;
+                    if (this.allUsers == null) this.allUsers = list;
                 },
                 reject => { }
             );
@@ -82,6 +88,11 @@ export class UserManagement implements OnInit {
 
     onChange() {
         this.loadEmployeeLists();
+    }
+
+    usersFilter() {
+        // NO GOOD !!!!!!!!!!!!!
+        //this.employeeList = this.filterService.filterBy(this.allUsers, this.userForm.controls['filterName'].value);
     }
 
     // onCheck(user: User) {

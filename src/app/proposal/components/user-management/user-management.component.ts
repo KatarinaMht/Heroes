@@ -11,7 +11,7 @@ import { FilterService } from '../../../shared/services/filter/filter.service';
   selector: 'esl-user-management',
   templateUrl: 'user-management.component.html',
   styleUrls: ['user-management.component.css'],
-  providers: [  FilterService ]
+  providers: [  FilterService ] //??
 })
 
 export class UserManagement implements OnInit {
@@ -42,7 +42,8 @@ export class UserManagement implements OnInit {
 
         this.userService.getTeamLeaders().then (
             list => { 
-                console.log("this.teamLeaderList = " + JSON.stringify(list));
+                console.log("NOT USE ME :D this.teamLeaderList = " + JSON.stringify(list));
+                console.log("THE BEST this.teamLeaderList = ", list); //it's best 
                 this.teamLeaderList = list; 
             },
             reject => { }

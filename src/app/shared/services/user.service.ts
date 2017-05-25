@@ -5,12 +5,12 @@ import { USERS } from '../mock/users-mock';
 
 @Injectable()
 export class UserService {
-    mappingTeamLeaderEmployee: { [key:string]: User[]; };
+    mappingTeamLeaderEmployee: { [key: string]: User[]; };
     employeeFilterList: string[];
 
-    constructor(){
+    constructor() {
         let tmpMappingTeamLeaderEmployee = localStorage.getItem('mappingTeamLeaderEmployee');
-        if(tmpMappingTeamLeaderEmployee) {
+        if (tmpMappingTeamLeaderEmployee) {
             this.mappingTeamLeaderEmployee = JSON.parse(tmpMappingTeamLeaderEmployee);
         } else {
             this.mappingTeamLeaderEmployee = {};
@@ -41,20 +41,26 @@ export class UserService {
     }
 
     // get all employees
-    getEmployees(): Promise<Array<User>> {
-
+    getEmployees(criteria: string): Promise<Array<User>> {
+        criteria = criteria || '';
+        criteria=criteria.toUpperCase()
+        // console.log('service getEmployees', criteria);
         let list = [];
         for (let user of USERS) {
-            if (user.role == 'Employee') list.push(user);
-        }
 
+            if (user.role == 'Employee' && (criteria === '' || (user.firstName + user.lastName).toUpperCase().indexOf(criteria) >= 0)) {
+                list.push(user);
+            }
+            //  console.log('service getEmployees check', criteria,user,(criteria === '' || (user.firstName + user.lastName).indexOf(criteria) >= 0), (user.firstName + user.lastName),(user.firstName + user.lastName).indexOf(criteria));
+        }
+        // console.log('service getEmployees result', list);
         return Promise.resolve(list);
     }
 
     // list of emplopees that are NOT already assigned to teamLeader
     getEmpolyeesForTeamLeader(teamLeader: User): Promise<Array<User>> {
 
-        let list:User[] = [];
+        let list: User[] = [];
         for (let key in this.mappingTeamLeaderEmployee) {
             if (key != teamLeader.email) {
                 list = this.mappingTeamLeaderEmployee[key];
@@ -68,7 +74,7 @@ export class UserService {
     getEmpolyeesByTeamLeader(teamLeader: User): Promise<Array<User>> {
 
         console.log("getEmpolyeesByTeamLeader - this.mappingTeamLeaderEmployee = " + JSON.stringify(this.mappingTeamLeaderEmployee));
-        let list:User[] = [];
+        let list: User[] = [];
         for (let key in this.mappingTeamLeaderEmployee) {
             if (key == teamLeader.email) {
                 console.log("this.mappingTeamLeaderEmployee[key] = " + JSON.stringify(this.mappingTeamLeaderEmployee[key]));
@@ -81,7 +87,7 @@ export class UserService {
 
     addMapping(teamLeader: User, employee: User) {
 
-        console.log("Mapping - leader = " ,  teamLeader , employee, this.mappingTeamLeaderEmployee );
+        console.log("Mapping - leader = ", teamLeader, employee, this.mappingTeamLeaderEmployee);
         //I use email like unique id
         if (!this.mappingTeamLeaderEmployee[teamLeader.email]) {
             this.mappingTeamLeaderEmployee[teamLeader.email] = [];
@@ -99,18 +105,18 @@ export class UserService {
         if (this.mappingTeamLeaderEmployee[teamLeader.email]) {
             let index = this.mappingTeamLeaderEmployee[teamLeader.email].indexOf(employee);
             if (index > -1) {
-                this.mappingTeamLeaderEmployee[teamLeader.email].splice(index,1);
+                this.mappingTeamLeaderEmployee[teamLeader.email].splice(index, 1);
             }
         }
     }
 
     getEmployeeByUser(user: User): User[] {
-        
+
         if (this.mappingTeamLeaderEmployee[user.email]) {
             return []; //this.mappingTeamLeaderEmployee[user.email];
         } else {
             return [];
         }
     }
-    
+
 }

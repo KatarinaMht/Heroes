@@ -6,7 +6,7 @@ User management
     <div class="form-group">
 
         <label> <b> Manager: </b>
-            <select class="form-control" (change)="onChange($event)" formControlName="teamLeader">
+            <select class="form-control" formControlName="teamLeader">
                 <option *ngFor="let teamLeader of teamLeaderList" [ngValue]="teamLeader"> {{ teamLeader.firstName }} {{ teamLeader.lastName }} </option>
             </select>
         </label> 
@@ -51,10 +51,10 @@ User management
         <br>
         <div class="input-group input-group-sm">
             <!--<input type="text" [(ngModel)]="filterName" (ngModelChange)="usersFilter()" class="form-control" />-->
-            <input type="text" class="form-control" (change)="usersFilter($event)" formControlName="filterName"/>
+            <input type="text" class="form-control" formControlName="filterName"/>
         </div>
         <br>
-        <div class="table-responsive">
+        <div class="table-responsive" *ngIf="employeeList?.length>0">
             <table id="userList-table" class="table table-striped table-bordered table-hover table-condensed ">
                 <thead class="thead-primary">
                     <tr>
@@ -76,10 +76,11 @@ User management
                         {{ user.lastName }}
                     </td>
                     <td class="text-center col-md-1">
-                        <button type="button" class="btn btn-primary" (click)="addEmployee(user)" 
+                        <button *ngIf="!user.assigned" type="button" class="btn btn-primary" (click)="addEmployee(user)" 
                             [disabled]="userForm.controls['teamLeader'].value == null"> 
                             <span class="fa fa-plus" aria-hidden="true"></span> 
                         </button> 
+                        <span *ngIf="user.assigned">Associato</span>
                     </td>
                 </tbody>
             </table>

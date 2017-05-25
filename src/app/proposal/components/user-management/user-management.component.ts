@@ -7,11 +7,11 @@ import { User } from '../../../shared/models/user.model';
 import { FilterService } from '../../../shared/services/filter/filter.service';
 
 @Component({
-  moduleId: module.id,
-  selector: 'esl-user-management',
-  templateUrl: 'user-management.component.html',
-  styleUrls: ['user-management.component.css'],
-  providers: [  FilterService ] //??
+    moduleId: module.id,
+    selector: 'esl-user-management',
+    templateUrl: 'user-management.component.html',
+    styleUrls: ['user-management.component.css'],
+    providers: [FilterService] //??
 })
 
 export class UserManagement implements OnInit {
@@ -30,6 +30,9 @@ export class UserManagement implements OnInit {
             teamLeader: [],
             filterName: []
         });
+
+        this.userForm.controls['filterName'].valueChanges.subscribe(this.search); //.debounceTime(850).distinctUntilChanged()
+        this.userForm.controls['teamLeader'].valueChanges.subscribe(this.onTeamLeaderChanged);
     }
 
     ngOnInit() {
@@ -37,59 +40,74 @@ export class UserManagement implements OnInit {
         //this.employeeSelectedList = [];
         //console.log("this.employeeSelectedList.length = " + this.employeeSelectedList.length);
         this.userForm.controls['teamLeader'].setValue(null);
-
-        this.loadEmployeeLists();
-
-        this.userService.getTeamLeaders().then (
-            list => { 
-                console.log("NOT USE ME :D this.teamLeaderList = " + JSON.stringify(list));
-                console.log("THE BEST this.teamLeaderList = ", list); //it's best 
-                this.teamLeaderList = list; 
-            },
-            reject => { }
-        );
+        this.loadTeamleader();        
     }
 
-    loadEmployeeLists() {
-        // my employees
-        if (this.userForm.controls['teamLeader'].value != null) {
-            this.userService.getEmpolyeesByTeamLeader(this.userForm.controls['teamLeader'].value).then (
-            //this.userService.getEmployees().then (
-                list => { 
-                    console.log("this.teamLeadersEmpList = " + JSON.stringify(list));
-                    this.teamLeadersEmpList = list;
-                    if (this.allUsers == null) this.allUsers = list;
-                },
-                reject => { }
-            );
-        }
-
+    search=(criteria: string)=> {
+         this.employeeList=[];
         // not my employees
         //this.userService.getEmpolyeesForTeamLeader(this.userForm.controls['teamLeader'].value).then (
-        this.userService.getEmployees().then (
-            list => { 
+        this.userService.getEmployees(criteria).then(
+            list => {
                 console.log("this.employeeList = " + JSON.stringify(list));
+                list.forEach((e) => {
+                    e.assigned = false;
+                    this.teamLeadersEmpList.forEach((assignedEmploy) => {
+                        if (assignedEmploy.email === e.email) {
+                            e.assigned = true;
+                        }
+                    });
+
+                });
                 this.employeeList = list;
             },
             reject => { }
         );
     }
 
+    loadTeamleader() {
+        this.userService.getTeamLeaders().then(
+            list => {
+                console.log("NOT USE ME :D this.teamLeaderList = " + JSON.stringify(list));
+                console.log("THE BEST this.teamLeaderList = ", list); //it's best 
+                this.teamLeaderList = list;
+            },
+            reject => { }
+        );
+    }
+
+    loadEmployeeAssignedLists() {
+        // my employees
+        if (this.userForm.controls['teamLeader'].value != null) {
+            this.userService.getEmpolyeesByTeamLeader(this.userForm.controls['teamLeader'].value).then(
+                //this.userService.getEmployees().then (
+                list => {
+                    console.log("this.teamLeadersEmpList = " + JSON.stringify(list));
+                    this.teamLeadersEmpList = list;
+                    if (this.allUsers == null) this.allUsers = list;
+                },
+                reject => { }
+            );
+        }       
+    }
+
     addEmployee(user: User) {
         console.log("Add employee: " + JSON.stringify(user));
         this.userService.addMapping(this.userForm.controls['teamLeader'].value, user);
-        this.loadEmployeeLists();
+        this.loadEmployeeAssignedLists();
     }
 
     removeEmployee(user: User) {
         console.log("Remove employee: " + JSON.stringify(user));
         this.userService.removeMapping(this.userForm.controls['teamLeader'].value, user);
-        this.loadEmployeeLists();
+        this.loadEmployeeAssignedLists();
     }
 
-    onChange() {
-        this.loadEmployeeLists();
+
+    onTeamLeaderChanged=(teamLeader:User)=>{
+        this.loadEmployeeAssignedLists();
     }
+    
 
     usersFilter() {
         // NO GOOD !!!!!!!!!!!!!

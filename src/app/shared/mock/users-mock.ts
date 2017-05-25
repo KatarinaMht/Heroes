@@ -34,7 +34,7 @@ export const USERS: User[] = [
         lastName: 'Patak',
         username: '',
         password: '',
-        email: '',
+        email: 'PajaPatak@mht.net',
         role: 'Employee'
     },
     { 
@@ -43,7 +43,7 @@ export const USERS: User[] = [
         lastName: 'Maus',
         username: '',
         password: '',
-        email: '',
+        email: 'Miki@mht.net',
         role: 'Employee'
     },
     { 
@@ -52,7 +52,7 @@ export const USERS: User[] = [
         lastName: 'Petao',
         username: '',
         password: '',
-        email: '',
+        email: 'Sofronije@mht.net',
         role: 'Employee'
     },
     { 

@@ -33,7 +33,7 @@ exports.USERS = [
         lastName: 'Patak',
         username: '',
         password: '',
-        email: '',
+        email: 'PajaPatak@mht.net',
         role: 'Employee'
     },
     {
@@ -42,7 +42,7 @@ exports.USERS = [
         lastName: 'Maus',
         username: '',
         password: '',
-        email: '',
+        email: 'Miki@mht.net',
         role: 'Employee'
     },
     {
@@ -51,7 +51,7 @@ exports.USERS = [
         lastName: 'Petao',
         username: '',
         password: '',
-        email: '',
+        email: 'Sofronije@mht.net',
         role: 'Employee'
     },
     {

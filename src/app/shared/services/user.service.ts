@@ -44,16 +44,16 @@ export class UserService {
     getEmployees(criteria: string): Promise<Array<User>> {
         criteria = criteria || '';
         criteria=criteria.toUpperCase()
-        // console.log('service getEmployees', criteria);
-        let list = [];
-        for (let user of USERS) {
 
-            if (user.role == 'Employee' && (criteria === '' || (user.firstName + user.lastName).toUpperCase().indexOf(criteria) >= 0)) {
-                list.push(user);
+        let list = [];
+        if (criteria) {
+            for (let user of USERS) {
+
+                if (user.role == 'Employee' && (criteria === '' || (user.firstName + user.lastName).toUpperCase().indexOf(criteria) >= 0)) {
+                    list.push(user);
+                }
             }
-            //  console.log('service getEmployees check', criteria,user,(criteria === '' || (user.firstName + user.lastName).indexOf(criteria) >= 0), (user.firstName + user.lastName),(user.firstName + user.lastName).indexOf(criteria));
         }
-        // console.log('service getEmployees result', list);
         return Promise.resolve(list);
     }
 

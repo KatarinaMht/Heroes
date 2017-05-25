@@ -5,6 +5,7 @@ import * as $ from 'jquery';
 
 import { Proposal } from '../shared/models/proposal.model';
 import { ProposalListComponent } from './components/proposal-list/proposal-list.component';
+import { ProposalService } from './../shared/services/proposal.service'
 
 
 @Component({
@@ -27,7 +28,7 @@ export class ProposalsComponent implements OnInit {
     this.onError("Test error!");
   }
 
-  constructor(private router: Router) { }
+  constructor(private proposalService: ProposalService, private router: Router) { }
 
   /**
    * Opens Edit Modal
@@ -48,11 +49,24 @@ export class ProposalsComponent implements OnInit {
     //this.router.navigate(['/proposal-edit', proposal.id]);
   }
 
+  /**
+   * Deletes proposal.
+   */
+  onDeleteClick(proposal: Proposal) {
+      console.log("2 prop onDeleteClick = " + JSON.stringify(proposal));
+      this.proposalService.deleteProposal(proposal).then (
+            proposal => {},
+            reason => {}
+        );
+  }
+
   onEditedProposalSubmitted(proposalUpdated: Proposal) {
+    
     if (proposalUpdated) { //if itsn't undefineed
-    console.log("reload - proposals.component.ts");
+      console.log("reload - proposals.component.ts");
       this.proposalList.reload();
     }
+
     $('#myModal').modal('hide');
     this.proposalEditId = undefined;
   }

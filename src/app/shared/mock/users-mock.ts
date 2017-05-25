@@ -8,7 +8,8 @@ export const USERS: User[] = [
         username: 'fabstaro',
         password: 'f',
         email: 'fabstaro@mht.net',
-        role: 'Manager'
+        role: 'Manager',
+        assigned: false
     },
     { 
         id: 2,
@@ -17,7 +18,8 @@ export const USERS: User[] = [
         username: 'alessandro',
         password: 'a',
         email: 'avolio@mht.net',
-        role: 'TeamLeader'
+        role: 'TeamLeader',
+        assigned: false
     },
     { 
         id: 3,
@@ -26,7 +28,8 @@ export const USERS: User[] = [
         username: 'katarina',
         password: 'k',
         email: 'kk@mht.net',
-        role: 'Employee'
+        role: 'Employee',
+        assigned: false
     },
     { 
         id: 4,
@@ -35,7 +38,8 @@ export const USERS: User[] = [
         username: '',
         password: '',
         email: 'PajaPatak@mht.net',
-        role: 'Employee'
+        role: 'Employee',
+        assigned: false
     },
     { 
         id: 5,
@@ -44,7 +48,8 @@ export const USERS: User[] = [
         username: '',
         password: '',
         email: 'Miki@mht.net',
-        role: 'Employee'
+        role: 'Employee',
+        assigned: false
     },
     { 
         id: 6,
@@ -53,7 +58,8 @@ export const USERS: User[] = [
         username: '',
         password: '',
         email: 'Sofronije@mht.net',
-        role: 'Employee'
+        role: 'Employee',
+        assigned: false
     },
     { 
         id: 7,
@@ -62,6 +68,7 @@ export const USERS: User[] = [
         username: 'oliver',
         password: 'o',
         email: 'oliver@mht.net',
-        role: 'TeamLeader'
+        role: 'TeamLeader',
+        assigned: false
     },
 ];

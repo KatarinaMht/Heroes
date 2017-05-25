@@ -7,7 +7,8 @@ exports.USERS = [
         username: 'fabstaro',
         password: 'f',
         email: 'fabstaro@mht.net',
-        role: 'Manager'
+        role: 'Manager',
+        assigned: false
     },
     {
         id: 2,
@@ -16,7 +17,8 @@ exports.USERS = [
         username: 'alessandro',
         password: 'a',
         email: 'avolio@mht.net',
-        role: 'TeamLeader'
+        role: 'TeamLeader',
+        assigned: false
     },
     {
         id: 3,
@@ -25,7 +27,8 @@ exports.USERS = [
         username: 'katarina',
         password: 'k',
         email: 'kk@mht.net',
-        role: 'Employee'
+        role: 'Employee',
+        assigned: false
     },
     {
         id: 4,
@@ -34,7 +37,8 @@ exports.USERS = [
         username: '',
         password: '',
         email: 'PajaPatak@mht.net',
-        role: 'Employee'
+        role: 'Employee',
+        assigned: false
     },
     {
         id: 5,
@@ -43,7 +47,8 @@ exports.USERS = [
         username: '',
         password: '',
         email: 'Miki@mht.net',
-        role: 'Employee'
+        role: 'Employee',
+        assigned: false
     },
     {
         id: 6,
@@ -52,7 +57,8 @@ exports.USERS = [
         username: '',
         password: '',
         email: 'Sofronije@mht.net',
-        role: 'Employee'
+        role: 'Employee',
+        assigned: false
     },
     {
         id: 7,
@@ -61,7 +67,8 @@ exports.USERS = [
         username: 'oliver',
         password: 'o',
         email: 'oliver@mht.net',
-        role: 'TeamLeader'
+        role: 'TeamLeader',
+        assigned: false
     },
 ];
 

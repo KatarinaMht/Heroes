@@ -11,10 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var _ = require("lodash");
 var users_mock_1 = require("../mock/users-mock");
-// Employee, TeamLeader, Manager
-// class User {
-//     role:string = '';
-// }
 var AuthService = AuthService_1 = (function () {
     function AuthService() {
         console.log("I am new one!");
@@ -46,7 +42,7 @@ var AuthService = AuthService_1 = (function () {
     };
     AuthService.prototype.logout = function () {
         AuthService_1.user = null;
-        // nothing here ??????? we have localStorage now
+        window.localStorage.clear();
     };
     return AuthService;
 }());

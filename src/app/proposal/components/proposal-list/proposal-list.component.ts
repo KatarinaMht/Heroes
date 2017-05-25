@@ -22,6 +22,7 @@ import { AuthService } from '../../../shared/services/auth.service';
 export class ProposalListComponent implements OnInit {
 
     @Output() onEdit: EventEmitter<Proposal> = new EventEmitter<Proposal>();
+    @Output() onDelete: EventEmitter<Proposal> = new EventEmitter<Proposal>();
     // @Output() onLock: EventEmitter<Proposal> = new EventEmitter<Proposal>();   or like this????
 
     user: User;
@@ -104,11 +105,9 @@ export class ProposalListComponent implements OnInit {
      * Delets selected propsal.
      */
     deleteProposal(proposal: Proposal) {
-        
-        this.proposalService.deleteProposal(proposal).then (
-            proposal => {},
-            reason => {}
-        );
+        console.log("1 prop list deleteProposal = " + JSON.stringify(proposal));
+        this.onDelete.emit(proposal);
+        this.reload();
     }
 
     /**

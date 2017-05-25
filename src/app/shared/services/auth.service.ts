@@ -4,11 +4,6 @@ import * as _ from "lodash";
 import { User } from '../models/user.model';
 import { USERS } from '../mock/users-mock';
 
-// Employee, TeamLeader, Manager
-// class User {
-//     role:string = '';
-// }
-
 @Injectable()
 export class AuthService {
 
@@ -54,8 +49,7 @@ export class AuthService {
 
     logout(): void {
         AuthService.user = null;
-
-        // nothing here ??????? we have localStorage now
+        window.localStorage.clear();
     }
     
 }

@@ -13,8 +13,10 @@ var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var $ = require("jquery");
 var proposal_list_component_1 = require("./components/proposal-list/proposal-list.component");
+var proposal_service_1 = require("./../shared/services/proposal.service");
 var ProposalsComponent = (function () {
-    function ProposalsComponent(router) {
+    function ProposalsComponent(proposalService, router) {
+        this.proposalService = proposalService;
         this.router = router;
         this.alerts = [];
     }
@@ -38,6 +40,13 @@ var ProposalsComponent = (function () {
         });
         $('#myModal').modal('show');
         //this.router.navigate(['/proposal-edit', proposal.id]);
+    };
+    /**
+     * Deletes proposal.
+     */
+    ProposalsComponent.prototype.onDeleteClick = function (proposal) {
+        console.log("2 prop onDeleteClick = " + JSON.stringify(proposal));
+        this.proposalService.deleteProposal(proposal).then(function (proposal) { }, function (reason) { });
     };
     ProposalsComponent.prototype.onEditedProposalSubmitted = function (proposalUpdated) {
         if (proposalUpdated) {
@@ -68,7 +77,7 @@ ProposalsComponent = __decorate([
         templateUrl: 'proposals.component.html',
         styleUrls: ['proposals.component.css']
     }),
-    __metadata("design:paramtypes", [router_1.Router])
+    __metadata("design:paramtypes", [proposal_service_1.ProposalService, router_1.Router])
 ], ProposalsComponent);
 exports.ProposalsComponent = ProposalsComponent;
 

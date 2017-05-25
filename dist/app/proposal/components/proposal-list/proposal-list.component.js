@@ -23,6 +23,7 @@ var ProposalListComponent = (function () {
         this.filterService = filterService;
         this.authService = authService;
         this.onEdit = new core_1.EventEmitter();
+        this.onDelete = new core_1.EventEmitter();
     }
     ProposalListComponent.prototype.ngOnInit = function () {
         console.log("ngOnInit proposal-list");
@@ -74,7 +75,9 @@ var ProposalListComponent = (function () {
      * Delets selected propsal.
      */
     ProposalListComponent.prototype.deleteProposal = function (proposal) {
-        this.proposalService.deleteProposal(proposal).then(function (proposal) { }, function (reason) { });
+        console.log("1 prop list deleteProposal = " + JSON.stringify(proposal));
+        this.onDelete.emit(proposal);
+        this.reload();
     };
     /**
      * Locks selected proposal.
@@ -170,6 +173,10 @@ __decorate([
     core_1.Output(),
     __metadata("design:type", core_1.EventEmitter)
 ], ProposalListComponent.prototype, "onEdit", void 0);
+__decorate([
+    core_1.Output(),
+    __metadata("design:type", core_1.EventEmitter)
+], ProposalListComponent.prototype, "onDelete", void 0);
 ProposalListComponent = __decorate([
     core_1.Component({
         moduleId: module.id,

@@ -120,6 +120,7 @@ var ProposalEditComponent = (function () {
             moneyProposal: this.editProposal.moneyProposal,
             motivation: this.editProposal.motivation
         });
+        this.proposalForm.reset();
         $('#myModal').modal('hide');
     };
     return ProposalEditComponent;

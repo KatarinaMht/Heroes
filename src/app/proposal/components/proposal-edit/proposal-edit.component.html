@@ -29,8 +29,8 @@
 
         <label> <b> Motivation: </b>
             <textarea type="text" class="form-control" value="{{ editProposal.motivation }}" formControlName="motivation" style="width:500px;"
-                [ngClass]="">
-                <!--[ngClass]="proposalForm.controls['motivation'].hasError('required') && !proposalForm.controls['motivation'].untouched ? 'borderValidation' : ''">-->
+                
+                [ngClass]="proposalForm.get('proposalCombo').get('motivation').hasError('motivationEmpty') && proposalForm.get('proposalCombo').get('motivation').touched ? 'borderValidation' : ''">
             </textarea>
         </label> <br>
         {{proposalForm.valid}}
@@ -44,3 +44,7 @@
     <!--<p> Form value: {{ proposalForm.value | json }} </p>
     <p> Form status: {{ proposalForm.status  }} </p>-->
 <!--test code-->
+
+<!--[ngClass]="proposalForm.controls['motivation'].hasError('required') && !proposalForm.controls['motivation'].untouched ? 'borderValidation' : ''">-->
+
+<!--[ngClass]="proposalForm.invalid ? 'borderValidation' : ''">-->

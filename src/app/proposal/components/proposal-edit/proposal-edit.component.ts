@@ -108,15 +108,17 @@ export class ProposalEditComponent implements OnInit {
 
             //     address: ['']
             // }),
-            proposalCombo: this.fb.group({
-                companyProfile: [ 'Nulla' ],
-                nationalWorkProfile: [ 'Nulla' ],
-                moneyProposal: [ 'Nulla' ],
-                motivation: ['']
-            },
+            proposalCombo: this.fb.group(
+                {
+                    companyProfile: [ 'Nulla' ],
+                    nationalWorkProfile: [ 'Nulla' ],
+                    moneyProposal: [ 'Nulla' ],
+                    motivation: ['']
+                },
                 {
                     validator: editValidator
-                })
+                }
+            )
         });
         console.log('form', this.proposalForm);
     } 
@@ -142,8 +144,6 @@ export class ProposalEditComponent implements OnInit {
             },
             (reason: any) => { console.log("error on edit"); this.onSubmitOutput.emit(undefined); }
         );
-
-
     }
 
     revert() {
@@ -154,7 +154,8 @@ export class ProposalEditComponent implements OnInit {
             moneyProposal: this.editProposal.moneyProposal,
             motivation: this.editProposal.motivation
         });
-
+        this.proposalForm.reset();
+        
         $('#myModal').modal('hide');
     }
 }

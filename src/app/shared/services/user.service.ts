@@ -10,6 +10,7 @@ export class UserService {
 
     constructor() {
         let tmpMappingTeamLeaderEmployee = localStorage.getItem('mappingTeamLeaderEmployee');
+        console.log("tmpMappingTeamLeaderEmployee: ", tmpMappingTeamLeaderEmployee );
         if (tmpMappingTeamLeaderEmployee) {
             this.mappingTeamLeaderEmployee = JSON.parse(tmpMappingTeamLeaderEmployee);
         } else {
@@ -106,6 +107,7 @@ export class UserService {
             let index = this.mappingTeamLeaderEmployee[teamLeader.email].indexOf(employee);
             if (index > -1) {
                 this.mappingTeamLeaderEmployee[teamLeader.email].splice(index, 1);
+                localStorage.setItem('mappingTeamLeaderEmployee', JSON.stringify(this.mappingTeamLeaderEmployee));
             }
         }
     }

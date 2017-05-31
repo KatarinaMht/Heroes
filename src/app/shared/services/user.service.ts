@@ -99,7 +99,8 @@ export class UserService {
         console.log("line 68");
         //update info 
         localStorage.setItem('mappingTeamLeaderEmployee', JSON.stringify(this.mappingTeamLeaderEmployee));
-        console.log("mappingTeamLeaderEmployee = " + JSON.stringify(this.mappingTeamLeaderEmployee));
+        console.log("mappingTeamLeaderEmployee JSON = " + JSON.stringify(this.mappingTeamLeaderEmployee));
+        console.log("mappingTeamLeaderEmployee obj = ", this.mappingTeamLeaderEmployee[teamLeader.email]);
     }
 
     removeMapping(teamLeader: User, employee: User) {

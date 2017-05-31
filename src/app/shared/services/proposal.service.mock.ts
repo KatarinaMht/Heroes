@@ -12,9 +12,6 @@ export class ProposalService {
     proposalList: Proposal[];
 
     constructor(){
-
-        this.endpointForProposal = this.confServer.getApiEndpoint('evanluator) + '/proposals';
-
         //check for local fake but permanent data
           let tmpProposal=JSON.parse(window.localStorage.getItem('proposal'));
           if(tmpProposal){

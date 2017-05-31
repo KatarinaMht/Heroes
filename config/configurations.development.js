@@ -5,10 +5,11 @@ module.exports = {
     base: 'http://localhost:8080',
     api: {
         hosts: {
-            profilazione: 'http://XXX/sviluppo'
+            evaluator: 'https://localhost:8443'
         },
         endpoint: {
-            profilazione: '/profilazione-api'
+            evaluator: '/json/evaluator',
+            eslPlanner: '/json/eslPlanner'
         }
     }
 };

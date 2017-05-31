@@ -9,7 +9,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ProposalService } from './services/proposal.service';
 import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
-import { FilterService } from './services/filter/filter.service'
+import { FilterService } from './services/filter/filter.service';
+import { HttpClientService } from './services/http-client/http-client.service';
 
 @NgModule({
     imports: [ FormsModule, 
@@ -28,7 +29,8 @@ import { FilterService } from './services/filter/filter.service'
                 AuthService, 
                 ProposalService,
                 UserService,
-                FilterService
+                FilterService,
+                HttpClientService
             ]
 })
 

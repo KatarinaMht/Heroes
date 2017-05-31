@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, RequestMethod, RequestOptions, Headers } from '@angular/http';
+import { Http, Response, RequestMethod, RequestOptions, Headers, URLSearchParams } from '@angular/http';
 import { Observable } from "rxjs/Observable";
 
 // create class RequestConfigOptions ( maybe remove this this)
@@ -57,7 +57,7 @@ export class HttpClientService {
 
     private request(options: RequestConfigOptions): Observable<any> {
         
-        //sageguards for missing option parameters
+        //safeguards for missing option parameters
         options.method = (options.method || RequestMethod.Get);
         options.url = (options.url || "");
         options.headers = (options.headers? options.headers : new Headers());
@@ -71,10 +71,18 @@ export class HttpClientService {
         requestOptions.method = options.method;
         requestOptions.url = options.url;
         requestOptions.headers = options.headers;
-        //requestOptions.search = provideSearchParams here
+        requestOptions.search = this.buildUrlSearchParams(options.params);
         requestOptions.body = JSON.stringify(options.data);
 
          return this.http.request(options.url, requestOptions);
+    }
+
+    private buildUrlSearchParams(params: any): URLSearchParams {
+        var searchParams = new URLSearchParams();
+        for (var key in params) {
+            searchParams.append(key, params[key])
+        }
+        return searchParams;
     }
 
     private setAuthorizationHeader(headers: Headers) {

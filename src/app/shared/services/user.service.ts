@@ -1,75 +1,39 @@
 import { Injectable } from '@angular/core';
+import { Http, Response, URLSearchParams, RequestOptions } from '@angular/http';
 
+import { ConfigurationsService } from './configuration/configuration.service';
 import { User } from '../models/user.model';
 import { USERS } from '../mock/users-mock';
 
 @Injectable()
 export class UserService {
-    mappingTeamLeaderEmployee: { [key: string]: User[]; };
-    employeeFilterList: string[];
 
-    constructor() {
-        let tmpMappingTeamLeaderEmployee = localStorage.getItem('mappingTeamLeaderEmployee');
-        console.log("tmpMappingTeamLeaderEmployee: ", tmpMappingTeamLeaderEmployee );
-        if (tmpMappingTeamLeaderEmployee) {
-            this.mappingTeamLeaderEmployee = JSON.parse(tmpMappingTeamLeaderEmployee);
-        } else {
-            this.mappingTeamLeaderEmployee = {};
-        }
-        this.createEmployeeFilterList();
+    //mappingTeamLeaderEmployee: { [key: string]: User[]; };
+    //employeeFilterList: string[];
+    private endpointForUser: string;
+
+    constructor(private confService: ConfigurationsService, private http: Http) {
+       
+       this.endpointForUser = this.confService.getApiEndpoint('/users');
     }
 
-    // Create list of employees for filtering purposes
-    createEmployeeFilterList() {
+    // get employees by paramethers
+    getEmployees(filterCriteria?: string, idTeamLeader?: number): Promise<Array<User>> {
 
-        this.employeeFilterList = [];
-        for (let user of USERS) {
-            if (user.role == 'Employee') {
-                this.employeeFilterList.push(user.lastName + ' ' + user.firstName);
-            }
-        }
-        localStorage.setItem('employeeFilterList', JSON.stringify(this.employeeFilterList));
+        filterCriteria = filterCriteria || '';
+        idTeamLeader = idTeamLeader || null;
+
+        let params: URLSearchParams = new URLSearchParams();
+        params.set('filter_criteria', JSON.stringify(filterCriteria));
+        params.set('id_team_leader', JSON.stringify(idTeamLeader));
+
+        return this.http.get(this.endpointForUser, {search: params})
+                    .toPromise()
+                    .then(this.extractData)
+                    .catch(this.handleError); 
     }
 
-    getTeamLeaders(): Promise<Array<User>> {
-
-        let list = [];
-        for (let user of USERS) {
-            if (user.role == 'TeamLeader') list.push(user);
-        }
-
-        return Promise.resolve(list);
-    }
-
-    // get all employees
-    getEmployees(criteria: string): Promise<Array<User>> {
-        criteria = criteria || '';
-        criteria=criteria.toUpperCase()
-
-        let list = [];
-        if (criteria) {
-            for (let user of USERS) {
-
-                if (user.role == 'Employee' && (criteria === '' || (user.firstName + user.lastName).toUpperCase().indexOf(criteria) >= 0)) {
-                    list.push(user);
-                }
-            }
-        }
-        return Promise.resolve(list);
-    }
-
-    // list of emplopees that are NOT already assigned to teamLeader
-    getEmpolyeesForTeamLeader(teamLeader: User): Promise<Array<User>> {
-
-        let list: User[] = [];
-        for (let key in this.mappingTeamLeaderEmployee) {
-            if (key != teamLeader.email) {
-                list = this.mappingTeamLeaderEmployee[key];
-            }
-        }
-
-        return Promise.resolve(list);
-    }
+// IN PROGRES....
 
     // list of emplopees that are assigned to teamLeader
     getEmpolyeesByTeamLeader(teamLeader: User): Promise<Array<User>> {
@@ -113,13 +77,13 @@ export class UserService {
         }
     }
 
-    getEmployeeByUser(user: User): User[] {
+   private extractData(res: Response) {
+        let body = res.json();
+        return body.data || { };
+    }
 
-        if (this.mappingTeamLeaderEmployee[user.email]) {
-            return []; //this.mappingTeamLeaderEmployee[user.email];
-        } else {
-            return [];
-        }
+    private handleError (error: Response | any) {
+        console.log("Prop. serv. error: " + error);
     }
 
 }

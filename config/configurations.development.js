@@ -9,7 +9,7 @@ module.exports = {
             otherexample: 'https://www.google.com/api'
         },
         endpoint: {
-            proposals: '/proposal',
+            proposals: '/proposals',
             teamLeaderUsers:'/team-mapping'
           
         }

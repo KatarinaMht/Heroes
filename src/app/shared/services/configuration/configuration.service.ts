@@ -5,12 +5,11 @@ import * as configurations from '../../configurations';
 export class ConfigurationsService {
 
 
-    public getApiEndpoint(attribute: string): string {
-
-        if (!configurations.api.hosts.hasOwnProperty(attribute) || !configurations.api.endpoint.hasOwnProperty(attribute)) 
-            throw new Error("Error: Invalid attribute " + attribute +".");
-
-        return configurations.api.hosts[attribute] + configurations.api.endpoint[attribute];
+    public getApiEndpoint(service: string,base?:string): string {
+        base=base||'base';
+        if ( !configurations.api.endpoint.hasOwnProperty(service)) 
+            throw new Error("Error: Invalid service " + service +".");
+        return configurations.api.hosts[base] + configurations.api.endpoint[service];
     }
 
     public isDevelopMode():boolean{

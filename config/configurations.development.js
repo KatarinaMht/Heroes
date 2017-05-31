@@ -5,11 +5,13 @@ module.exports = {
     base: 'http://localhost:8080',
     api: {
         hosts: {
-            evaluator: 'https://localhost:8443'
+            base: 'https://localhost:8443/json/evaluator',
+            otherexample: 'https://www.google.com/api'
         },
         endpoint: {
-            evaluator: '/json/evaluator',
-            eslPlanner: '/json/eslPlanner'
+            proposals: '/proposal',
+            teamLeaderUsers:'/team-mapping'
+          
         }
     }
 };

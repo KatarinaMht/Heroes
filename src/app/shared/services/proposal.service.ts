@@ -1,3 +1,5 @@
+import { Http } from '@angular/http';
+import { ConfigurationsService } from './configuration/configuration.service';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import * as _ from "lodash";
@@ -10,10 +12,10 @@ import { PROPOSALS } from '../mock/proposals-mock';
 export class ProposalService {
 
     proposalList: Proposal[];
+    private endpointForProposal:string;
+    constructor(private confService:ConfigurationsService, private http:Http){
 
-    constructor(){
-
-        this.endpointForProposal = this.confServer.getApiEndpoint('evanluator) + '/proposals';
+        this.endpointForProposal = this.confService.getApiEndpoint('proposals');
 
         //check for local fake but permanent data
           let tmpProposal=JSON.parse(window.localStorage.getItem('proposal'));
@@ -26,6 +28,9 @@ export class ProposalService {
     }
 
     getProposals(criteria: ProposalCriteria): Promise<Array<Proposal>> {
+        this.http.get(this.endpointForProposal).then(
+            ....
+        )
 
         //this.proposalList = []; //no total reset
         let proposalToReturn;

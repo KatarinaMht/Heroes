@@ -3,8 +3,7 @@ import { User } from './user.model';
 export class Proposal {
     id: number;
     userAccount: User;
-    idManager: number;
-    manager: string;
+    manager: User;
     moneyProposal: string;
     companyProfile: string;
     nationalWorkProfile: string;

@@ -11,6 +11,8 @@ import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
 import { FilterService } from './services/filter/filter.service';
 import { HttpClientService } from './services/http-client/http-client.service';
+import { ProposalConverter } from './services/converter/proposal.converter';
+import { UserConverter } from './services/converter/user.converter';
 
 @NgModule({
     imports: [ FormsModule, 
@@ -30,7 +32,9 @@ import { HttpClientService } from './services/http-client/http-client.service';
                 ProposalService,
                 UserService,
                 FilterService,
-                HttpClientService
+                HttpClientService,
+                ProposalConverter,
+                UserConverter
             ]
 })
 

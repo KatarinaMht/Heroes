@@ -22,6 +22,8 @@ export class UserManagement implements OnInit {
     teamLeaderList: User[];
     teamLeadersEmpList: User[];
     allUsers: User[];
+    loading:boolean=false;
+    loadingSearch:boolean=false;
 
     //employeeSelectedList: User[];
     userForm: FormGroup;
@@ -51,18 +53,23 @@ export class UserManagement implements OnInit {
     }
 
     loadTeamleader() {
+        this.loading=true;
 
         this.userService.getEmployees({ onlyTeamLeader: '1' }).then(
             list => {
-                console.log("THE BEST this.teamLeaderList = ", list); //it's best 
+                
+                // console.log("THE BEST this.teamLeaderList = ", list); //it's best 
                 this.teamLeaderList = list;
+                this.loading=false;
             },
-            reject => { }
+            reject => { this.loading=false;}
         );
     }
 
     addTeamLeader(user: User) {
+        this.loading=true;
         this.userService.addEvaluatorRole(user).then(()=>{
+            this.loading=false;
             this.loadTeamleader();
         });
         
@@ -70,12 +77,15 @@ export class UserManagement implements OnInit {
 
     // not my employees
     loadEmployeeNotAssignedLists(criteria: string) {
+        
         if (!criteria || criteria.length <= 0) {
+            
             return;
         }
+        this.loadingSearch=true;
         this.userService.getEmployees({ nameSearch: criteria }).then(
             list => {
-                console.log("this.employeeList = " + JSON.stringify(list));
+               // console.log("this.employeeList = " + JSON.stringify(list));
                 if (this.teamLeadersEmpList) {
                     list.forEach((e) => {
                         e.assigned = false;
@@ -86,44 +96,53 @@ export class UserManagement implements OnInit {
                         });
 
                     });
+                   
                 }
                 this.employeeList = list;
+                 this.loadingSearch=false;
             },
-            reject => { }
+            reject => {  this.loadingSearch=false;}
         );
     }
 
     // my employees
     loadEmployeeAssignedLists() {
+       
         if (this.userForm.controls['teamLeader'].value != null) {
-            console.log('da pulire', this.userForm.controls['teamLeader'].value);
+              this.loading=true;
+            // console.log('da pulire', this.userForm.controls['teamLeader'].value);
             this.userService.getEmployees({ teamLeaderId: this.userForm.controls['teamLeader'].value.id }).then(
                 list => {
-                    console.log("this.teamLeadersEmpList = " + JSON.stringify(list));
+                    // console.log("this.teamLeadersEmpList = " + JSON.stringify(list));
                     this.teamLeadersEmpList = list;
                     if (this.allUsers == null) this.allUsers = list;
+                    this.loading=false;
                 },
-                reject => { }
+                reject => {  this.loading=false; }
             );
         }
     }
 
     addEmployee(user: User) {
-        console.log("Add employee: " + JSON.stringify(user));
+          this.loading=true;
+        // console.log("Add employee: " + JSON.stringify(user));
         this.userService.addMapping(this.userForm.controls['teamLeader'].value, user).then(() => {
             this.loadEmployeeAssignedLists();
             this.loadEmployeeNotAssignedLists(this.userForm.controls['filterName'].value);
-        });
+              this.loading=false;
+        }).catch(()=>{  this.loading=false;});
 
 
     }
 
     removeEmployee(user: User) {
-        console.log("Remove employee: " + JSON.stringify(user));
+          this.loading=true;
+        // console.log("Remove employee: " + JSON.stringify(user));
         this.userService.removeMapping(this.userForm.controls['teamLeader'].value, user).then(() => {
             this.loadEmployeeAssignedLists();
             this.loadEmployeeNotAssignedLists(this.userForm.controls['filterName'].value);
-        });
+              this.loading=false;
+          }).catch(()=>{  this.loading=false;});
 
     }
 

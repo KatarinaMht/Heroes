@@ -29,7 +29,7 @@ var ProposalListComponent = (function () {
         this.allLockStatus = false;
     }
     ProposalListComponent.prototype.ngOnInit = function () {
-        console.log("ngOnInit proposal-list");
+        // console.log("ngOnInit proposal-list");
         //this.user = this.authService.getUser();
         //console.log("this.user.role = " + this.user.role);
         this.user = new user_model_1.User();
@@ -60,6 +60,7 @@ var ProposalListComponent = (function () {
      */
     ProposalListComponent.prototype.getProposals = function (criteria) {
         var _this = this;
+        this.loading = true;
         var usercriteria = { teamLeaderId: this.user.id };
         this.userService.getEmployees(usercriteria).then(function (users) {
             _this.proposalService.getProposals(criteria).then(function (proposals) {
@@ -84,8 +85,11 @@ var ProposalListComponent = (function () {
                 });
                 _this.proposals = finalProposal;
                 _this.proposalSortedFiltered = finalProposal;
+                _this.loading = false;
+            }).catch(function () {
+                _this.loading = false;
             });
-            console.log("proposlas: " + JSON.stringify(_this.proposals));
+            // console.log("proposlas: " + JSON.stringify(this.proposals));
         });
     };
     /**
@@ -210,7 +214,7 @@ var ProposalListComponent = (function () {
         this.proposalFilter.manager = this.filterManagerName;
         this.proposalFilter.companyProfile = this.filterCompanyProfile;
         this.proposalFilter.nationalWorkProfile = this.filterNationalWorkProfile;
-        console.log('proposalFilter: ' + JSON.stringify(this.proposalFilter));
+        // console.log('proposalFilter: ' + JSON.stringify(this.proposalFilter));
         // FILTER
         this.proposalSortedFiltered = this.filterService.filterBy(this.proposals, this.proposalFilter);
         // SORT

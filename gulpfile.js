@@ -45,11 +45,13 @@ var paths = {
             'src/**/*.json'
         ],
         css: [
+            'node_modules/bootstrap/dist/css/bootstrap.css',
+            'node_modules/font-awesome/css/font-awesome.css',
              'src/main.css'
            
         ],
         fonts: [
-          
+         'node_modules/font-awesome/fonts/*'
         ]
     },
     vendors: [
@@ -208,7 +210,7 @@ gulp.task('copy:assets:css', function () {
 });
 gulp.task('copy:assets:fonts', function () {
     return gulp.src(paths.assets.fonts)
-        .pipe(gulp.dest(dest + "/styles/themes/default/assets/fonts"));
+        .pipe(gulp.dest(dest + "/fonts"));
 });
 gulp.task('copy:configurations', function () {
     return gulp.src(paths.configurations[environment])
@@ -288,9 +290,9 @@ gulp.task('inline', function () {
 // inject
 gulp.task('inject:index', function () {
     var styleStream = gulp.src([
-        'build/styles/*.min.css',
-        'build/styles/semantic.min.css',
-        'build/styles/main.min.css'
+        'build/styles/*.css',
+        // 'build/styles/semantic.min.css',
+        // 'build/styles/main.min.css'
     ], {read: false});
     var jsStream = gulp.src([
         'build/vendors.min.js',
@@ -302,7 +304,7 @@ gulp.task('inject:index', function () {
         // injecting javascript
         .pipe(plugins.inject(jsStream, {ignorePath: dest, addRootSlash: false}))
         // replace base href
-        .pipe(plugins.replace('href="/"', 'href="/sisp-frontend/"'))
+        // .pipe(plugins.replace('href="/"', 'href="/sisp-frontend/"'))
         .pipe(gulp.dest(dest));
 });
 

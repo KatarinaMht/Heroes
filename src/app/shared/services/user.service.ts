@@ -35,13 +35,13 @@ export class UserService {
         return this.http.get(this.endpointForUser, { search: params })
             .toPromise()
             .then(response => {
-                console.log("works", response);
+                // console.log("works", response);
                 let body = response.json();
-                console.log(body);
+                // console.log(body);
                 let users = body || [];
                 let usersModel: User[] = [];
                 users.forEach((usr: any) => {
-                    console.log(usr);
+                    // console.log(usr);
                     usersModel.push(this.userConverter.convertUserToModel(usr));
                 });
                 return usersModel;
@@ -75,7 +75,7 @@ export class UserService {
         return this.http.post(url, null, { search: params })
             .toPromise()
             .then(response => { 
-                console.log("works", response);
+                // console.log("works", response);
                 return;
             })
             .catch(this.handleError);
@@ -89,7 +89,7 @@ export class UserService {
         return this.http.post(url, body)
             .toPromise()
             .then(response => {
-                console.log("works", response);
+                // console.log("works", response);
                 let body = response.json();
                 let users = body.data || [];
                 let usersModel: User[] = [];
@@ -108,7 +108,7 @@ export class UserService {
         return this.http.delete(url)
             .toPromise()
             .then(response => {
-                console.log("works", response);
+                // console.log("works", response);
                 let body = response.json();
                 let users = body.data || [];
                 let usersModel: User[] = [];

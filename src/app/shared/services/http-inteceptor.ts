@@ -1,3 +1,5 @@
+import { ErrorService } from './error.service';
+import { Message,MessageType } from './../models/message.model';
 
 import { Injectable } from '@angular/core';
 import { Http, XHRBackend, Request, RequestOptionsArgs, Response, RequestOptions, ConnectionBackend, Headers } from "@angular/http";
@@ -9,9 +11,10 @@ import { Observable } from "rxjs/Rx";
 export class HttpInterceptor extends Http {
     private http: Http;
 
-    constructor(backend: ConnectionBackend, defaultOptions: RequestOptions) {
+    constructor(backend: ConnectionBackend, defaultOptions: RequestOptions,private errorService:ErrorService) {
         super(backend, defaultOptions);
         this.http = new Http(backend, defaultOptions);
+        )
         // console.info('HttpInterceptor done.', loginService);
     }
 
@@ -75,6 +78,24 @@ export class HttpInterceptor extends Http {
 
         return cosaIntercettata.catch(err => {
 
+          
+            let errorre=err.json();
+              switch (err.status) {
+                //caso non c'è internet
+                case 0:
+                  this.errorService.throwErrorMessageSimple(MessageType.BLOCCANTE,"Non c'è internet","Problemi con la connessione!");
+                  break;
+                case 401:
+                case 403:
+                      this.errorService.throwErrorMessageSimple(MessageType.BLOCCANTE,"Non autorizzato","Non sei autorizzato all'operazione che stai tentato di fare");
+                      break;
+                default:
+                if(errorre){
+                this.errorService.throwErrorMessageSimple(MessageType.BLOCCANTE,errorre.title,errorre.message);
+                }
+                console.log("errore", err,errorre);
+              }
+
             
             return Observable.throw(err);
         });
@@ -87,6 +108,6 @@ export class HttpInterceptor extends Http {
 
 export const HttpInterceptorProvider: any = {
     provide: Http,
-    useFactory: (xhrBackend: XHRBackend, requestOptions: RequestOptions) => new HttpInterceptor(xhrBackend, requestOptions),
-    deps: [XHRBackend, RequestOptions]
+    useFactory: (xhrBackend: XHRBackend, requestOptions: RequestOptions, err:ErrorService) => new HttpInterceptor(xhrBackend, requestOptions,err),
+    deps: [XHRBackend, RequestOptions,ErrorService]
 };

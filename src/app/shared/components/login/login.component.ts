@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
     ngOnInit() { 
         if(this.authService.getUser()){
             console.log('user cè');
-             this.router.navigate(['/evaluations']);
+             this.router.navigate(['/evaluations/list']);
         }
     }
 
@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
         this.authService.login(this.loginForm.controls['username'].value, this.loginForm.controls['password'].value).then(
             user => { 
                     console.log("User = " + user.username);
-                    this.router.navigate(['/evaluations']);
+                    this.router.navigate(['/evaluations/list']);
                 },
             reason => { 
                 console.log("ERROR: " + reason); 

@@ -21,6 +21,9 @@ export class ProposalEditComponent implements OnInit {
     editProposal: Proposal;
     private _proposalId: number;
 
+    loading:boolean=false;
+    
+
     @Input()
     set proposalId(id: number) {
         if (id === undefined) return;
@@ -64,7 +67,7 @@ export class ProposalEditComponent implements OnInit {
      * @param proposalId number
      */
     getProposalById(id: number) {
-
+        this.loading=true;
         this.proposalService.getProposalById(id).then(
             proposal => {
 
@@ -85,9 +88,11 @@ export class ProposalEditComponent implements OnInit {
                     moneyProposal: this.editProposal.moneyProposal,
                     motivation: this.editProposal.motivation
                 });
+                this.loading=false;
             },
 
             reason => { 
+                  this.loading=false;
                 console.log("error: this.proposalService.getProposalById"); 
             }
         );
@@ -128,6 +133,7 @@ export class ProposalEditComponent implements OnInit {
 
 
     onSubmit() {
+          this.loading=true;
         console.log('onSubmit');
         // deep copy
         const formModel = this.proposalForm.controls['proposalCombo'].value;
@@ -143,8 +149,10 @@ export class ProposalEditComponent implements OnInit {
             (proposal: Proposal) => {
                 console.log("sucess on edit: " + JSON.stringify(proposal));
                 this.onSubmitOutput.emit(proposal);
+                  this.loading=false;
             },
             (reason: any) => { 
+                  this.loading=false;
                 console.log("error on edit"); this.onSubmitOutput.emit(undefined);
              }
         );

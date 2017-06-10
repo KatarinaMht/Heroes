@@ -21,6 +21,7 @@ var ProposalEditComponent = (function () {
         this.router = router;
         this.route = route;
         this.fb = fb;
+        this.loading = false;
         //EHI we forget to comunicate to parent that you have submitted something
         this.onSubmitOutput = new core_1.EventEmitter();
         this.createForm();
@@ -53,6 +54,7 @@ var ProposalEditComponent = (function () {
      */
     ProposalEditComponent.prototype.getProposalById = function (id) {
         var _this = this;
+        this.loading = true;
         this.proposalService.getProposalById(id).then(function (proposal) {
             _this.editProposal = proposal;
             console.log('proposal to edit', _this.editProposal);
@@ -68,7 +70,9 @@ var ProposalEditComponent = (function () {
                 moneyProposal: _this.editProposal.moneyProposal,
                 motivation: _this.editProposal.motivation
             });
+            _this.loading = false;
         }, function (reason) {
+            _this.loading = false;
             console.log("error: this.proposalService.getProposalById");
         });
     };
@@ -100,6 +104,7 @@ var ProposalEditComponent = (function () {
     };
     ProposalEditComponent.prototype.onSubmit = function () {
         var _this = this;
+        this.loading = true;
         console.log('onSubmit');
         // deep copy
         var formModel = this.proposalForm.controls['proposalCombo'].value;
@@ -112,7 +117,9 @@ var ProposalEditComponent = (function () {
         this.proposalService.updateProposal(editProposalCopy).then(function (proposal) {
             console.log("sucess on edit: " + JSON.stringify(proposal));
             _this.onSubmitOutput.emit(proposal);
+            _this.loading = false;
         }, function (reason) {
+            _this.loading = false;
             console.log("error on edit");
             _this.onSubmitOutput.emit(undefined);
         });

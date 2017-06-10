@@ -1,3 +1,4 @@
+<loading [loading]="loading"></loading>
 <div *ngIf="isAdmin"><h1>Gestione utenti</h1>
 <br>
 
@@ -46,7 +47,7 @@
       </div>
     </div>
 </div>
-    <div class="jumbotron">
+    <div class="jumbotron"><loading [loading]="loadingSearch"></loading>
       <p>Ricerca dipendenti</p>
      
       <div>

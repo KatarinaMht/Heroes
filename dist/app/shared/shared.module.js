@@ -5,6 +5,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var loading_component_1 = require("./components/loading/loading.component");
+var error_visualizer_component_1 = require("./components/error-visualizzer/error-visualizer.component");
+var error_service_1 = require("./services/error.service");
 var http_inteceptor_1 = require("./services/http-inteceptor");
 var configuration_service_1 = require("./services/configuration/configuration.service");
 var login_component_1 = require("./components/login/login.component");
@@ -32,11 +35,15 @@ SharedModule = __decorate([
         ],
         exports: [forms_1.FormsModule,
             alert_component_1.AlertComponent,
-            login_component_1.LoginComponent
+            login_component_1.LoginComponent,
+            error_visualizer_component_1.ErrorVisualizerComponent,
+            loading_component_1.LoadingComponent
         ],
         declarations: [
             alert_component_1.AlertComponent,
-            login_component_1.LoginComponent
+            login_component_1.LoginComponent,
+            error_visualizer_component_1.ErrorVisualizerComponent,
+            loading_component_1.LoadingComponent
         ],
         providers: [
             auth_service_1.AuthService,
@@ -47,7 +54,8 @@ SharedModule = __decorate([
             proposal_converter_1.ProposalConverter,
             user_converter_1.UserConverter,
             configuration_service_1.ConfigurationsService,
-            http_inteceptor_1.HttpInterceptorProvider
+            http_inteceptor_1.HttpInterceptorProvider,
+            error_service_1.ErrorService
         ]
     })
 ], SharedModule);

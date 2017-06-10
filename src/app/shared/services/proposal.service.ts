@@ -28,12 +28,12 @@ export class ProposalService {
             params.set('teamLeaderId',''+criteria.id_manager);
             // url+='/findByUserAccountManagerId';
         }
-        console.log('parte la chiamata');
+        // console.log('parte la chiamata');
         return this.http.get(url, {search: params})
                     .toPromise()
                     .then(response => {
                         let body = response.json();
-                        console.log('getProposals',body);
+                        // console.log('getProposals',body);
                         let proposals = body || [];
                         let proposalsModel: Proposal[] = [];
                         proposals.forEach((prop: any) => {
@@ -54,7 +54,7 @@ export class ProposalService {
                     .toPromise()
                     .then(response => {
                         let body = response.json();
-                        console.log('getProposals',body);
+                        // console.log('getProposals',body);
                         let proposals = body || [];
                         let proposalsModel: Proposal[] = [];
                         proposals.forEach((prop: any) => {

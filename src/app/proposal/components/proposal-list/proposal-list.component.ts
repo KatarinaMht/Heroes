@@ -28,6 +28,7 @@ export class ProposalListComponent implements OnInit {
     // @Output() onLock: EventEmitter<Proposal> = new EventEmitter<Proposal>();   or like this????
 
     user: User;
+    loading:boolean;
 
     proposals: Proposal[];
     proposalCriteria: ProposalCriteria;
@@ -49,7 +50,7 @@ export class ProposalListComponent implements OnInit {
 
     ngOnInit(): void {
 
-        console.log("ngOnInit proposal-list");
+        // console.log("ngOnInit proposal-list");
 
         //this.user = this.authService.getUser();
         //console.log("this.user.role = " + this.user.role);
@@ -86,6 +87,7 @@ export class ProposalListComponent implements OnInit {
      * @param criteria ProposalCriteria
      */
     getProposals(criteria: ProposalCriteria) {
+        this.loading=true;
         let usercriteria = { teamLeaderId: this.user.id };
         this.userService.getEmployees(usercriteria).then((users) => {
             this.proposalService.getProposals(criteria).then(
@@ -117,12 +119,15 @@ export class ProposalListComponent implements OnInit {
 
                     this.proposals = finalProposal;
                     this.proposalSortedFiltered = finalProposal;
+                    this.loading=false;
                 }
-            );
+            ).catch(()=>{
+                this.loading=false;
+            });
 
 
 
-            console.log("proposlas: " + JSON.stringify(this.proposals));
+            // console.log("proposlas: " + JSON.stringify(this.proposals));
         })
 
     }
@@ -269,7 +274,7 @@ export class ProposalListComponent implements OnInit {
         this.proposalFilter.manager = this.filterManagerName;
         this.proposalFilter.companyProfile = this.filterCompanyProfile;
         this.proposalFilter.nationalWorkProfile = this.filterNationalWorkProfile;
-        console.log('proposalFilter: ' + JSON.stringify(this.proposalFilter));
+        // console.log('proposalFilter: ' + JSON.stringify(this.proposalFilter));
 
         // FILTER
         this.proposalSortedFiltered = this.filterService.filterBy(this.proposals, this.proposalFilter);

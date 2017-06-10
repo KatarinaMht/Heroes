@@ -34,12 +34,12 @@ var ProposalService = (function () {
         if (criteria.id_manager) {
             params.set('teamLeaderId', '' + criteria.id_manager);
         }
-        console.log('parte la chiamata');
+        // console.log('parte la chiamata');
         return this.http.get(url, { search: params })
             .toPromise()
             .then(function (response) {
             var body = response.json();
-            console.log('getProposals', body);
+            // console.log('getProposals',body);
             var proposals = body || [];
             var proposalsModel = [];
             proposals.forEach(function (prop) {
@@ -60,7 +60,7 @@ var ProposalService = (function () {
             .toPromise()
             .then(function (response) {
             var body = response.json();
-            console.log('getProposals', body);
+            // console.log('getProposals',body);
             var proposals = body || [];
             var proposalsModel = [];
             proposals.forEach(function (prop) {

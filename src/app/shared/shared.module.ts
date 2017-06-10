@@ -1,3 +1,6 @@
+import { LoadingComponent } from './components/loading/loading.component';
+import { ErrorVisualizerComponent } from './components/error-visualizzer/error-visualizer.component';
+import { ErrorService } from './services/error.service';
 import {  HttpInterceptorProvider } from './services/http-inteceptor';
 
 import { ConfigurationsService } from './services/configuration/configuration.service';
@@ -24,11 +27,15 @@ import { UserConverter } from './services/converter/user.converter';
             ],
     exports: [ FormsModule,
                AlertComponent,
-               LoginComponent 
+               LoginComponent,
+               ErrorVisualizerComponent ,
+               LoadingComponent
             ],
     declarations: [ 
                 AlertComponent, 
-                LoginComponent 
+                LoginComponent ,
+                ErrorVisualizerComponent,
+                LoadingComponent
             ],
     providers: [   
                 AuthService, 
@@ -39,7 +46,8 @@ import { UserConverter } from './services/converter/user.converter';
                 ProposalConverter,
                 UserConverter,
                 ConfigurationsService,
-              HttpInterceptorProvider
+              HttpInterceptorProvider,
+              ErrorService
             ]
 })
 

@@ -21,17 +21,23 @@ export class ProposalService {
     }
 
     getProposals(criteria: ProposalCriteria): Promise<Proposal[]> {
-
+        let url=this.endpointForProposal;
         let params: URLSearchParams = new URLSearchParams();
-        params.set('id_manager', JSON.stringify(criteria.id_manager));
-
-        return this.http.get(this.endpointForProposal, {search: params})
+        
+        if(criteria.id_manager){
+            params.set('teamLeaderId',''+criteria.id_manager);
+            // url+='/findByUserAccountManagerId';
+        }
+        console.log('parte la chiamata');
+        return this.http.get(url, {search: params})
                     .toPromise()
                     .then(response => {
                         let body = response.json();
-                        let proposals = body.data || [];
+                        console.log('getProposals',body);
+                        let proposals = body || [];
                         let proposalsModel: Proposal[] = [];
                         proposals.forEach((prop: any) => {
+                            if(!prop)return;
                             proposalsModel.push(this.proposalConverter.convertProposalToModel(prop));
                         });
                         return proposalsModel;
@@ -39,45 +45,55 @@ export class ProposalService {
                     .catch(this.handleError);  
     }
 
-    getProposalById(id: number): Promise<Proposal> {
-
+    getProposalById(id: number) {
+        let url=this.endpointForProposal+'/'+id;
         let params: URLSearchParams = new URLSearchParams();
-        params.set('id_proposal', JSON.stringify(id));
+        //params.set('id_proposal', JSON.stringify(id));
 
-        return this.http.get(this.endpointForProposal, {search: params})
+        return this.http.get(url, {search: params})
                     .toPromise()
-                    .then(this.extractProposal)
+                    .then(response => {
+                        let body = response.json();
+                        console.log('getProposals',body);
+                        let proposals = body || [];
+                        let proposalsModel: Proposal[] = [];
+                        proposals.forEach((prop: any) => {
+                            if(!prop)return;
+                            proposalsModel.push(this.proposalConverter.convertProposalToModel(prop));
+                        });
+                        return proposalsModel[0];
+                    })
                     .catch(this.handleError); 
     }
 
     updateProposal(proposal: Proposal): Promise<Proposal> {
-        return this.http.put(this.endpointForProposal, JSON.stringify(proposal))
+         let url=this.endpointForProposal+'/'+proposal.id;
+        return this.http.put(url,proposal)
                     .toPromise()
                     .then(this.extractProposal)
                     .catch(this.handleError);
     }
 
     insertProposal(proposal: Proposal): Promise<Proposal> {
-        return this.http.post(this.endpointForProposal, JSON.stringify(proposal))
+        let url=this.endpointForProposal;
+        return this.http.post(url,proposal)
                     .toPromise()
                     .then(this.extractProposal)
                     .catch(this.handleError);
     }
 
     deleteProposal(proposal: Proposal): Promise<Proposal> {
-
-        let requestOptions = new RequestOptions();
-        requestOptions.body = JSON.stringify(proposal);
-
-        return this.http.delete(this.endpointForProposal, requestOptions)
+        let url=this.endpointForProposal+'/'+proposal.id;
+    
+        return this.http.delete(url)
                     .toPromise()
                     .then(this.extractProposal)
                     .catch(this.handleError);
     }
 
-    private extractProposal(response: Response) {
+    private extractProposal=(response: Response)=> {
         let body = response.json();
-        let proposal = body.data || {};
+        let proposal = body || {};
         let proposalModel: Proposal;
         proposalModel = this.proposalConverter.convertProposalToModel(proposal);
 

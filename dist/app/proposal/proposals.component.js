@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var auth_service_1 = require("./../shared/services/auth.service");
 var alert_model_1 = require("./../shared/models/alert.model");
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
@@ -15,9 +16,10 @@ var $ = require("jquery");
 var proposal_list_component_1 = require("./components/proposal-list/proposal-list.component");
 var proposal_service_1 = require("./../shared/services/proposal.service");
 var ProposalsComponent = (function () {
-    function ProposalsComponent(proposalService, router) {
+    function ProposalsComponent(proposalService, router, authService) {
         this.proposalService = proposalService;
         this.router = router;
+        this.authService = authService;
         this.alerts = [];
     }
     ProposalsComponent.prototype.ngOnInit = function () {
@@ -33,20 +35,40 @@ var ProposalsComponent = (function () {
      */
     ProposalsComponent.prototype.onEditClick = function (proposal) {
         var _this = this;
-        console.log("this.proposalEditId = " + proposal.id);
+        console.log("this.proposalEdit= ", proposal);
+        if (!proposal.id) {
+            proposal.manager = this.authService.getUser();
+            this.proposalService.insertProposal(proposal).then(function (proposalreturned) {
+                proposal.id = proposalreturned.id;
+                proposal.manager = proposal.manager;
+                _this.openEditModal(proposalreturned);
+            });
+        }
+        else {
+            this.openEditModal(proposal);
+        }
+        //this.router.navigate(['/proposal-edit', proposal.id]);
+    };
+    ProposalsComponent.prototype.openEditModal = function (proposal) {
+        var _this = this;
         this.proposalEditId = proposal.id;
         $('#myModal').on('hide.bs.modal', function () {
+            console.log('apri modal');
             _this.proposalEditId = undefined;
         });
+        // setTimeout(() => {
         $('#myModal').modal('show');
-        //this.router.navigate(['/proposal-edit', proposal.id]);
+        // }, 1000);
     };
     /**
      * Deletes proposal.
      */
     ProposalsComponent.prototype.onDeleteClick = function (proposal) {
+        var _this = this;
         console.log("2 prop onDeleteClick = " + JSON.stringify(proposal));
-        this.proposalService.deleteProposal(proposal).then(function (proposal) { }, function (reason) { });
+        this.proposalService.deleteProposal(proposal).then(function (proposal) {
+            _this.proposalList.reload();
+        }, function (reason) { });
     };
     ProposalsComponent.prototype.onEditedProposalSubmitted = function (proposalUpdated) {
         if (proposalUpdated) {
@@ -77,7 +99,7 @@ ProposalsComponent = __decorate([
         templateUrl: 'proposals.component.html',
         styleUrls: ['proposals.component.css']
     }),
-    __metadata("design:paramtypes", [proposal_service_1.ProposalService, router_1.Router])
+    __metadata("design:paramtypes", [proposal_service_1.ProposalService, router_1.Router, auth_service_1.AuthService])
 ], ProposalsComponent);
 exports.ProposalsComponent = ProposalsComponent;
 

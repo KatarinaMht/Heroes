@@ -8,7 +8,7 @@ import { User } from '../../../shared/models/user.model';
 export class ProposalConverter {
 
     convertProposalToModel(prop: any): Proposal {
-
+        console.log('converter of proposal',prop);
         let proposal = new Proposal();
         proposal.id = prop.id;
         proposal.userAccount = _.cloneDeep(prop.userAccount);
@@ -19,7 +19,7 @@ export class ProposalConverter {
         proposal.motivation = prop.motivation;
         proposal.status = prop.status;
         proposal.dateRequest = prop.dateRequest;
-
+console.log('after',proposal);
         return proposal;
     }
 

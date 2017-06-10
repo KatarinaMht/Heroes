@@ -1,3 +1,6 @@
+import {  HttpInterceptorProvider } from './services/http-inteceptor';
+
+import { ConfigurationsService } from './services/configuration/configuration.service';
 import { LoginComponent } from './components/login/login.component';
 import { AlertComponent } from './components/alert/alert.component';
 import { NgModule }     from '@angular/core';
@@ -10,7 +13,7 @@ import { ProposalService } from './services/proposal.service';
 import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
 import { FilterService } from './services/filter/filter.service';
-import { HttpClientService } from './services/http-client/http-client.service';
+
 import { ProposalConverter } from './services/converter/proposal.converter';
 import { UserConverter } from './services/converter/user.converter';
 
@@ -27,14 +30,16 @@ import { UserConverter } from './services/converter/user.converter';
                 AlertComponent, 
                 LoginComponent 
             ],
-    providers: [ 
+    providers: [   
                 AuthService, 
                 ProposalService,
                 UserService,
                 FilterService,
-                HttpClientService,
+                // HttpClientService,
                 ProposalConverter,
-                UserConverter
+                UserConverter,
+                ConfigurationsService,
+              HttpInterceptorProvider
             ]
 })
 

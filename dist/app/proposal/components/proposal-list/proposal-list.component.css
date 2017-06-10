@@ -2,5 +2,12 @@
     table-layout: fixed;
 }*/
 /*#proposalList-table th span {white-space: nowrap;}*/
+.locked {
+  opacity: 0.2; }
+  .locked:hover {
+    opacity: 1; }
+  .locked td {
+    color: #888;
+    background-clip: #efefef; }
 
 /*# sourceMappingURL=proposal-list.component.css.map */

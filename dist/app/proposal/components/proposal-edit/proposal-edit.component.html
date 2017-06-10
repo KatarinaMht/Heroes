@@ -1,47 +1,48 @@
 <form [formGroup]="proposalForm.controls.proposalCombo" (ngSubmit)="onSubmit()" novalidate>
-    <div *ngIf="editProposal" class="form-group">
+  <div *ngIf="editProposal" class="form-group">
 
-        <label> <b> Employee: </b>
+    <label> <b> Valutazione pers: </b>
             {{ editProposal.userAccount.firstName }} {{ editProposal.userAccount.lastName }}
         </label> <br>
 
-        <label> <b> Manager: </b>
-            {{ editProposal.manager }}
+    <label> <b> Valutatore: </b>
+            {{ editProposal.manager.firstName }} {{ editProposal.manager.lastName }}
         </label> <br>
 
-        <label> <b> Company Profile: </b> 
+    <label> <b>Profilo aziendale: </b> 
             <select class="form-control" formControlName="companyProfile">
                 <option *ngFor="let companyProfile of companyProfileList" [value]="companyProfile"> {{ companyProfile }} </option>
             </select>
         </label> <br>
 
-        <label> <b> National Work Profile: </b>
+    <label> <b>Livello sindacale: </b>
             <select class="form-control" formControlName="nationalWorkProfile">
                 <option *ngFor="let nationalWorkProfile of nationalWorkProfileList" [value]="nationalWorkProfile"> {{ nationalWorkProfile }} </option>
             </select>
         </label> <br>
 
-        <label> <b> Money Proposal: </b>
+    <label> <b> Proposta monetaria: </b>
             <select class="form-control" formControlName="moneyProposal">
                     <option *ngFor="let moneyProposal of moneyProposalList" [value]="moneyProposal"> {{ moneyProposal }} </option>
             </select>
         </label> <br>
 
-        <label> <b> Motivation: </b>
+    <label> <b> Motivation: </b>
+<p style="color:Red" *ngIf="proposalForm.get('proposalCombo').get('motivation').hasError('motivationEmpty')">La motivazione è obbligatoria.</p>
+            <p style="color:Red" *ngIf="proposalForm.get('proposalCombo').get('motivation').hasError('motivationMustBeEmpty')">La motivazione deve essere vuota.</p>
             <textarea type="text" class="form-control" value="{{ editProposal.motivation }}" formControlName="motivation" style="width:500px;"
                 
-                [ngClass]="proposalForm.get('proposalCombo').get('motivation').hasError('motivationEmpty') && proposalForm.get('proposalCombo').get('motivation').touched ? 'borderValidation' : ''">
+                [ngClass]="this.proposalForm.get('proposalCombo').get('motivation').hasError() && proposalForm.get('proposalCombo').get('motivation').touched ? 'borderValidation' : ''">
             </textarea>
-        </label> <br>
-        {{proposalForm.valid}}
-        
-        <button type="submit" class="btn btn-primary" [disabled]="proposalForm.pristine || proposalForm.invalid"> <span class="fa fa-check" aria-hidden="true"></span> </button>
-        <button type="button" class="btn btn-danger" (click)="revert()"> <span class="fa fa-times" aria-hidden="true"></span></button>
-    </div>
+        </label> <br> 
+
+    <button type="submit" class="btn btn-primary" [disabled]="proposalForm.pristine || proposalForm.invalid"> <span class="fa fa-check" aria-hidden="true"></span> </button>
+    <button type="button" class="btn btn-danger" (click)="revert()"> <span class="fa fa-times" aria-hidden="true"></span></button>
+  </div>
 </form>
 
 <!--test code-->
-    <!--<p> Form value: {{ proposalForm.value | json }} </p>
+<!--<p> Form value: {{ proposalForm.value | json }} </p>
     <p> Form status: {{ proposalForm.status  }} </p>-->
 <!--test code-->
 

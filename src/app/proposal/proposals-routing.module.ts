@@ -14,11 +14,11 @@ import { UserManagement } from './components/user-management/user-management.com
 
 const routes: Routes = [
     {
-        path: 'proposals-page',
+        path: 'evaluations',
         component: ProposalsPageComponent,
         children: [
             {
-                path: 'proposals',
+                path: 'list',
                 component: ProposalsComponent,
                 children: [
                     {

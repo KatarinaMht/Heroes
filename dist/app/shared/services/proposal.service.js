@@ -8,85 +8,99 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var http_1 = require("@angular/http");
 var core_1 = require("@angular/core");
-var _ = require("lodash");
-var proposals_mock_1 = require("../mock/proposals-mock");
+var configuration_service_1 = require("./configuration/configuration.service");
+var proposal_converter_1 = require("../services/converter/proposal.converter");
 var ProposalService = (function () {
-    function ProposalService() {
-        //check for local fake but permanent data
-        var tmpProposal = JSON.parse(window.localStorage.getItem('proposal'));
-        if (tmpProposal) {
-            this.proposalList = tmpProposal;
-        }
-        else {
-            this.proposalList = proposals_mock_1.PROPOSALS;
-        }
+    function ProposalService(confService, http, proposalConverter) {
+        var _this = this;
+        this.confService = confService;
+        this.http = http;
+        this.proposalConverter = proposalConverter;
+        this.extractProposal = function (response) {
+            var body = response.json();
+            var proposal = body || {};
+            var proposalModel;
+            proposalModel = _this.proposalConverter.convertProposalToModel(proposal);
+            return proposalModel;
+        };
+        this.endpointForProposal = this.confService.getApiEndpoint('proposals');
     }
     ProposalService.prototype.getProposals = function (criteria) {
-        //this.proposalList = []; //no total reset
-        var proposalToReturn;
-        if (criteria.id_manager == 1) {
-            proposalToReturn = this.proposalList;
+        var _this = this;
+        var url = this.endpointForProposal;
+        var params = new http_1.URLSearchParams();
+        if (criteria.id_manager) {
+            params.set('teamLeaderId', '' + criteria.id_manager);
         }
-        else {
-            proposalToReturn = [];
-            for (var _i = 0, _a = this.proposalList; _i < _a.length; _i++) {
-                var porop = _a[_i];
-                if (criteria.id_manager == porop.idManager) {
-                    proposalToReturn.push(porop);
-                }
-            }
-        }
-        return Promise.resolve(proposalToReturn);
+        console.log('parte la chiamata');
+        return this.http.get(url, { search: params })
+            .toPromise()
+            .then(function (response) {
+            var body = response.json();
+            console.log('getProposals', body);
+            var proposals = body || [];
+            var proposalsModel = [];
+            proposals.forEach(function (prop) {
+                if (!prop)
+                    return;
+                proposalsModel.push(_this.proposalConverter.convertProposalToModel(prop));
+            });
+            return proposalsModel;
+        })
+            .catch(this.handleError);
     };
     ProposalService.prototype.getProposalById = function (id) {
-        var proposal = null;
-        for (var _i = 0, _a = this.proposalList; _i < _a.length; _i++) {
-            var prop = _a[_i];
-            console.log(JSON.stringify(prop));
-            if (prop.id == id) {
-                proposal = _.cloneDeep(prop);
-            }
-        }
-        return Promise.resolve(proposal);
+        var _this = this;
+        var url = this.endpointForProposal + '/' + id;
+        var params = new http_1.URLSearchParams();
+        //params.set('id_proposal', JSON.stringify(id));
+        return this.http.get(url, { search: params })
+            .toPromise()
+            .then(function (response) {
+            var body = response.json();
+            console.log('getProposals', body);
+            var proposals = body || [];
+            var proposalsModel = [];
+            proposals.forEach(function (prop) {
+                if (!prop)
+                    return;
+                proposalsModel.push(_this.proposalConverter.convertProposalToModel(prop));
+            });
+            return proposalsModel[0];
+        })
+            .catch(this.handleError);
     };
     ProposalService.prototype.updateProposal = function (proposal) {
-        var index = -1;
-        for (var _i = 0, _a = this.proposalList; _i < _a.length; _i++) {
-            var prop = _a[_i];
-            if (prop.id === proposal.id) {
-                index = this.proposalList.indexOf(prop);
-            }
-        }
-        this.proposalList.splice(index, 1, proposal);
-        //update localstorage 
-        window.localStorage.setItem('proposal', JSON.stringify(this.proposalList));
-        return Promise.resolve(proposal);
+        var url = this.endpointForProposal + '/' + proposal.id;
+        return this.http.put(url, proposal)
+            .toPromise()
+            .then(this.extractProposal)
+            .catch(this.handleError);
     };
     ProposalService.prototype.insertProposal = function (proposal) {
-        return null;
+        var url = this.endpointForProposal;
+        return this.http.post(url, proposal)
+            .toPromise()
+            .then(this.extractProposal)
+            .catch(this.handleError);
     };
     ProposalService.prototype.deleteProposal = function (proposal) {
-        for (var _i = 0, _a = this.proposalList; _i < _a.length; _i++) {
-            var prop = _a[_i];
-            console.log('check', prop, prop.id === proposal.id);
-            if (prop.id === proposal.id) {
-                prop.companyProfile = 'N.A.';
-                prop.nationalWorkProfile = 'N.A.';
-                prop.moneyProposal = 'N.A.';
-                prop.motivation = '';
-            }
-        }
-        console.log('new List', this.proposalList);
-        //update localstorage 
-        window.localStorage.setItem('proposal', JSON.stringify(this.proposalList));
-        return Promise.resolve(proposal);
+        var url = this.endpointForProposal + '/' + proposal.id;
+        return this.http.delete(url)
+            .toPromise()
+            .then(this.extractProposal)
+            .catch(this.handleError);
+    };
+    ProposalService.prototype.handleError = function (error) {
+        console.log("Prop. serv. error: " + error);
     };
     return ProposalService;
 }());
 ProposalService = __decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [configuration_service_1.ConfigurationsService, http_1.Http, proposal_converter_1.ProposalConverter])
 ], ProposalService);
 exports.ProposalService = ProposalService;
 

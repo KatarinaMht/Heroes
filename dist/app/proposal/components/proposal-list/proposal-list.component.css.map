@@ -1,1 +1,1 @@
-{"version":3,"file":"proposal-list.component.css","sources":["proposal/components/proposal-list/proposal-list.component.scss"],"mappings":"AAAA;;GAEG;AACF,sDAAsD","names":[],"sourceRoot":"/src/app"}
+{"version":3,"file":"proposal-list.component.css","sources":["proposal/components/proposal-list/proposal-list.component.scss"],"mappings":"AAAA;;GAEG;AACF,sDAAsD;AAGtD,AAAA,OAAO,CAAA;EACD,OAAO,EAAE,GAAI,GAUlB;EAXD,AAAA,OAAO,AAEC,MAAM,CAAA;IACF,OAAO,EAAE,CAAE,GACd;EAJT,AAKI,OALG,CAKH,EAAE,CAAA;IAEE,KAAK,EAAC,IAAK;IACX,eAAe,EAAE,OAAQ,GAE5B","names":[],"sourceRoot":"/src/app"}

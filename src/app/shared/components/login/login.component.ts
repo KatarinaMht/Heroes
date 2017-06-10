@@ -21,15 +21,22 @@ export class LoginComponent implements OnInit {
         this.createForm();
     }
 
-    ngOnInit() { }
+    ngOnInit() { 
+        if(this.authService.getUser()){
+            console.log('user cè');
+             this.router.navigate(['/evaluations']);
+        }
+    }
 
     login() {
         this.authService.login(this.loginForm.controls['username'].value, this.loginForm.controls['password'].value).then(
             user => { 
                     console.log("User = " + user.username);
-                    this.router.navigate(['/proposals-page/proposals']);
+                    this.router.navigate(['/evaluations']);
                 },
-            reason => { console.log("ERROR: " + reason); }
+            reason => { 
+                console.log("ERROR: " + reason); 
+            }
         );
     }
 

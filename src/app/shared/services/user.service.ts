@@ -15,85 +15,117 @@ export class UserService {
     private endpointForUser: string;
 
     constructor(private confService: ConfigurationsService, private http: Http, private userConverter: UserConverter) {
-       
-       this.endpointForUser = this.confService.getApiEndpoint('/users');
+
+        this.endpointForUser = this.confService.getApiEndpoint('employees');
     }
 
     // get employees by paramethers
     // is this ok?????????????????????????????????????????????????
-    getEmployees(filterCriteria?: string, idTeamLeader?: number): Promise<Array<User>> {
-
-        filterCriteria = filterCriteria || '';
-        idTeamLeader = idTeamLeader || null;
+    getEmployees(criteria: any): Promise<Array<User>> {
+        criteria = criteria || {};
 
         let params: URLSearchParams = new URLSearchParams();
-        params.set('filter_criteria', JSON.stringify(filterCriteria));
-        params.set('id_team_leader', JSON.stringify(idTeamLeader));
+        if (criteria.nameSearch) params.set('name', criteria.nameSearch);
+        if (criteria.teamLeaderId) { params.set('teamLeaderId', criteria.teamLeaderId); }
+        if (criteria.onlyTeamLeader) { params.set('onlyteamleader', '1'); 
+    
+     }
 
-        return this.http.get(this.endpointForUser, {search: params})
-                    .toPromise()
-                    .then(response => {
-                        let body = response.json();
-                        let users = body.data || [];
-                        let usersModel: User[] = [];
-                        users.forEach((usr: any) => {
-                            usersModel.push(this.userConverter.convertUserToModel(usr));
-                        });
-                        return usersModel;
-                    })
-                    .catch(this.handleError); 
+        //console.log('request GET EMPLOYEE', this.endpointForUser, criteria, params);
+        return this.http.get(this.endpointForUser, { search: params })
+            .toPromise()
+            .then(response => {
+                console.log("works", response);
+                let body = response.json();
+                console.log(body);
+                let users = body || [];
+                let usersModel: User[] = [];
+                users.forEach((usr: any) => {
+                    console.log(usr);
+                    usersModel.push(this.userConverter.convertUserToModel(usr));
+                });
+                return usersModel;
+            })
+            .catch(this.handleError);
     }
 
-// IN PROGRES....
+    // // IN PROGRES....
 
-    // list of emplopees that are assigned to teamLeader
-    getEmpolyeesByTeamLeader(teamLeader: User): Promise<Array<User>> {
+    //     // list of emplopees that are assigned to teamLeader
+    //     getEmpolyeesByTeamLeader(teamLeader: User): Promise<Array<User>> {
 
-        //console.log("getEmpolyeesByTeamLeader - this.mappingTeamLeaderEmployee = " + JSON.stringify(this.mappingTeamLeaderEmployee));
-        let list: User[] = [];
-        // for (let key in this.mappingTeamLeaderEmployee) {
-        //     if (key == teamLeader.email) {
-        //         console.log("this.mappingTeamLeaderEmployee[key] = " + JSON.stringify(this.mappingTeamLeaderEmployee[key]));
-        //         list = this.mappingTeamLeaderEmployee[key];
-        //     }
-        // }
+    //         //console.log("getEmpolyeesByTeamLeader - this.mappingTeamLeaderEmployee = " + JSON.stringify(this.mappingTeamLeaderEmployee));
+    //         let list: User[] = [];
+    //         // for (let key in this.mappingTeamLeaderEmployee) {
+    //         //     if (key == teamLeader.email) {
+    //         //         console.log("this.mappingTeamLeaderEmployee[key] = " + JSON.stringify(this.mappingTeamLeaderEmployee[key]));
+    //         //         list = this.mappingTeamLeaderEmployee[key];
+    //         //     }
+    //         // }
 
-        return Promise.resolve(list);
+    //         return Promise.resolve(list);
+    //     }
+
+    addEvaluatorRole(teamLeader: User) {
+
+        let url = this.endpointForUser + '/' + teamLeader.id + '/roles';
+
+        let params: URLSearchParams = new URLSearchParams();
+        params.set('role', 'evaluator');
+        return this.http.post(url, null, { search: params })
+            .toPromise()
+            .then(response => { 
+                console.log("works", response);
+                return;
+            })
+            .catch(this.handleError);
     }
 
     addMapping(teamLeader: User, employee: User) {
 
-        //console.log("Mapping - leader = ", teamLeader, employee, this.mappingTeamLeaderEmployee);
-        //I use email like unique id
-        // if (!this.mappingTeamLeaderEmployee[teamLeader.email]) {
-        //     this.mappingTeamLeaderEmployee[teamLeader.email] = [];
-        // }
-        // if (this.mappingTeamLeaderEmployee[teamLeader.email].indexOf(employee) == -1) {
-        //     this.mappingTeamLeaderEmployee[teamLeader.email].push(employee);
-        // }
-        // console.log("line 68");
-        // //update info 
-        // localStorage.setItem('mappingTeamLeaderEmployee', JSON.stringify(this.mappingTeamLeaderEmployee));
-        // console.log("mappingTeamLeaderEmployee JSON = " + JSON.stringify(this.mappingTeamLeaderEmployee));
-        // console.log("mappingTeamLeaderEmployee obj = ", this.mappingTeamLeaderEmployee[teamLeader.email]);
+        let url = this.endpointForUser + '/' + teamLeader.id + '/managed';
+        let body = [employee.id];
+
+        return this.http.post(url, body)
+            .toPromise()
+            .then(response => {
+                console.log("works", response);
+                let body = response.json();
+                let users = body.data || [];
+                let usersModel: User[] = [];
+                users.forEach((usr: any) => {
+                    usersModel.push(this.userConverter.convertUserToModel(usr));
+                });
+                return usersModel;
+            })
+            .catch(this.handleError);
     }
 
     removeMapping(teamLeader: User, employee: User) {
-        // if (this.mappingTeamLeaderEmployee[teamLeader.email]) {
-        //     let index = this.mappingTeamLeaderEmployee[teamLeader.email].indexOf(employee);
-        //     if (index > -1) {
-        //         this.mappingTeamLeaderEmployee[teamLeader.email].splice(index, 1);
-        //         localStorage.setItem('mappingTeamLeaderEmployee', JSON.stringify(this.mappingTeamLeaderEmployee));
-        //     }
-        // }
+        let url = this.endpointForUser + '/' + teamLeader.id + '/managed/' + employee.id;
+        // let body=[employee.id];
+
+        return this.http.delete(url)
+            .toPromise()
+            .then(response => {
+                console.log("works", response);
+                let body = response.json();
+                let users = body.data || [];
+                let usersModel: User[] = [];
+                users.forEach((usr: any) => {
+                    usersModel.push(this.userConverter.convertUserToModel(usr));
+                });
+                return usersModel;
+            })
+            .catch(this.handleError);
     }
 
-   private extractData(res: Response) {
+    private extractData(res: Response) {
         let body = res.json();
-        return body.data || { };
+        return body.data || {};
     }
 
-    private handleError (error: Response | any) {
+    private handleError(error: Response | any) {
         console.log("Prop. serv. error: " + error);
     }
 

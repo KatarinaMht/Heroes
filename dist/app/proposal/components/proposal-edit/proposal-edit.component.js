@@ -68,7 +68,9 @@ var ProposalEditComponent = (function () {
                 moneyProposal: _this.editProposal.moneyProposal,
                 motivation: _this.editProposal.motivation
             });
-        }, function (reason) { console.log("error: this.proposalService.getProposalById"); });
+        }, function (reason) {
+            console.log("error: this.proposalService.getProposalById");
+        });
     };
     ProposalEditComponent.prototype.getProposalIdFromRoute = function () {
         var _this = this;
@@ -110,7 +112,10 @@ var ProposalEditComponent = (function () {
         this.proposalService.updateProposal(editProposalCopy).then(function (proposal) {
             console.log("sucess on edit: " + JSON.stringify(proposal));
             _this.onSubmitOutput.emit(proposal);
-        }, function (reason) { console.log("error on edit"); _this.onSubmitOutput.emit(undefined); });
+        }, function (reason) {
+            console.log("error on edit");
+            _this.onSubmitOutput.emit(undefined);
+        });
     };
     ProposalEditComponent.prototype.revert = function () {
         console.log('revert');

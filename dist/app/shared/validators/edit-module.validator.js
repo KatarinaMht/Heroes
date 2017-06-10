@@ -5,7 +5,7 @@ exports.editValidator = function (control) {
     var moneyProposal = control.get('moneyProposal');
     var motivation = control.get('motivation');
     if ((companyProfile.value != 'Nulla' || nationalWorkProfile.value != 'Nulla' || moneyProposal.value != 'Nulla')) {
-        console.log('Edit modal validator error: One field its not nulla!');
+        console.log('Edit modal validator error: One field its not nulla!', motivation.value);
         if (motivation.value === '') {
             console.log('motivation is empty', motivation.value);
             motivation.setErrors({ motivationEmpty: true });
@@ -13,13 +13,13 @@ exports.editValidator = function (control) {
             return { motivationEmpty: true };
         }
     }
-    if ((companyProfile.value == 'Nulla' || nationalWorkProfile.value == 'Nulla' || moneyProposal.value == 'Nulla')) {
+    if ((companyProfile.value === 'Nulla' && nationalWorkProfile.value === 'Nulla' && moneyProposal.value === 'Nulla')) {
         console.log('Edit modal validator error: All fields are nulla!');
         if (motivation.value != '') {
             console.log('motivation is not empty', motivation.value);
-            motivation.setErrors({ motivationEmpty: true });
+            motivation.setErrors({ motivationMustBeEmpty: true });
             console.log('motivation now invalid', motivation);
-            return { motivationEmpty: true };
+            return { motivationMustBeEmpty: true };
         }
     }
     return null;

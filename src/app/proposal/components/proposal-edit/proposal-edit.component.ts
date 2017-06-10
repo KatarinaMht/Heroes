@@ -87,7 +87,9 @@ export class ProposalEditComponent implements OnInit {
                 });
             },
 
-            reason => { console.log("error: this.proposalService.getProposalById"); }
+            reason => { 
+                console.log("error: this.proposalService.getProposalById"); 
+            }
         );
     }
 
@@ -142,7 +144,9 @@ export class ProposalEditComponent implements OnInit {
                 console.log("sucess on edit: " + JSON.stringify(proposal));
                 this.onSubmitOutput.emit(proposal);
             },
-            (reason: any) => { console.log("error on edit"); this.onSubmitOutput.emit(undefined); }
+            (reason: any) => { 
+                console.log("error on edit"); this.onSubmitOutput.emit(undefined);
+             }
         );
     }
 

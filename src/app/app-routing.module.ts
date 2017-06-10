@@ -9,8 +9,8 @@ import { ProposalsPageComponent } from './proposal/proposals-page.component';
 
 const routes: Routes = [
     // { path: '', redirectTo: '/proposals-page/proposals', pathMatch: 'full' },
-    
-    { path: '', redirectTo: '/login', pathMatch: 'full' },
+    // { path: '', redirectTo: '/login', pathMatch: 'full' },
+     { path: '', component: LoginComponent },
     { path: 'login', component: LoginComponent },
     //{ path: 'proposlas-page', component: ProposalsPageComponent }
 

@@ -1,3 +1,4 @@
+import { AuthService } from './../shared/services/auth.service';
 import { Component, OnInit } from '@angular/core';
 
 import { User } from '../shared/models/user.model';
@@ -10,10 +11,13 @@ import { User } from '../shared/models/user.model';
 export class ProposalsPageComponent implements OnInit { 
 
   user: User;
+  constructor(private auth:AuthService){
+
+  }
 
   ngOnInit(): void {
-    this.user = new User;
-    this.user.role = window.localStorage.getItem('userRole');
+    this.user = this.auth.getUser();
+    
   }
 
 }

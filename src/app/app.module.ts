@@ -1,3 +1,5 @@
+
+import { HttpModule } from '@angular/http';
 import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule }   from '@angular/forms';
@@ -12,15 +14,19 @@ import { ProposalsModule } from './proposal/proposals.module';
 @NgModule({
   imports: [ 
       BrowserModule,
+      HttpModule,
       FormsModule,
       SharedModule,
       ProposalsModule,
-      AppRoutingModule,
+      AppRoutingModule
+      
     ],
   declarations: [ 
       AppComponent
     ],
-  providers: [ ],
+   providers: [
+          
+    ],
   bootstrap: [ AppComponent ]
 })
 

@@ -5,6 +5,17 @@ export class User {
     username: string;
     password: string;
     email: string;
-    role: string;
+    roles: string[];
     assigned: boolean;
+
+    isRole(role:String){
+        if(!this.roles)return false;
+        let trovato=false;
+        this.roles.forEach((r)=>{
+            if(r===role){
+                trovato=true;
+            }
+        });
+        return trovato;
+    }
 }

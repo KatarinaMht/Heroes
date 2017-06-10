@@ -169,22 +169,16 @@ exports.PROPOSALS_BY_MANAGER = [
     }
 ];
 exports.MONEY_PROPOSAL = [
-    '',
-    'N.A.',
     'Nulla',
     'Premio Una tantum',
     'Aumento di stipendio',
     'Variabile'
 ];
 exports.COMPANY_PROFILE = [
-    '',
-    'N.A.',
     'Nulla',
     'Aumento di livello'
 ];
 exports.NATIONAL_WORK_PROFILE = [
-    '',
-    'N.A.',
     'Nulla',
     'Aumento di livello'
 ];

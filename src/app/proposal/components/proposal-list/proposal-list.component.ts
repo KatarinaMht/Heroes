@@ -1,3 +1,5 @@
+import { Proposal } from './../../../shared/models/proposal.model';
+import { UserService } from './../../../shared/services/user.service';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import * as _ from "lodash";
 import * as $ from 'jquery';
@@ -12,11 +14,11 @@ import { FilterService } from '../../../shared/services/filter/filter.service';
 import { AuthService } from '../../../shared/services/auth.service';
 
 @Component({
-  moduleId: module.id,
-  selector: 'esl-proposal-list',
-  templateUrl: 'proposal-list.component.html',
-  styleUrls: ['proposal-list.component.css'],
-  providers: [ ProposalService, SortService, FilterService, AuthService ]
+    moduleId: module.id,
+    selector: 'esl-proposal-list',
+    templateUrl: 'proposal-list.component.html',
+    styleUrls: ['proposal-list.component.css'],
+    providers: [ProposalService, SortService, FilterService, AuthService]
 })
 
 export class ProposalListComponent implements OnInit {
@@ -30,7 +32,7 @@ export class ProposalListComponent implements OnInit {
     proposals: Proposal[];
     proposalCriteria: ProposalCriteria;
 
-    proposalSortedFiltered: Proposal[]; 
+    proposalSortedFiltered: Proposal[];
     sortByProperties: string[];
     sortByOrders: string[];
     sortingIcons: any;
@@ -43,19 +45,18 @@ export class ProposalListComponent implements OnInit {
     filterNationalWorkProfile: string;
 
     constructor(private proposalService: ProposalService, private sortService: SortService, private filterService: FilterService,
-                private authService: AuthService) {}
+        private authService: AuthService, private userService: UserService) { }
 
     ngOnInit(): void {
 
-        console.log( "ngOnInit proposal-list");
+        console.log("ngOnInit proposal-list");
 
         //this.user = this.authService.getUser();
         //console.log("this.user.role = " + this.user.role);
 
         this.user = new User();
-        this.user.id = parseInt(window.localStorage.getItem('userId'));
-        this.user.role = window.localStorage.getItem('userRole');
-        console.log("window.localStorage.getItem('userId') = " + window.localStorage.getItem('userId'));
+      this.user= this.authService.getUser();
+        
 
         // change proposalCriteria !!!!!!!!!!!!!
         this.proposalCriteria = {
@@ -67,7 +68,7 @@ export class ProposalListComponent implements OnInit {
 
         this.sortByProperties = [];
         this.sortByOrders = [];
-        this.sortingIcons = { 
+        this.sortingIcons = {
             fisrtName: { asc: false, sort: false },
             lastName: { asc: false, sort: false },
             manager: { asc: false, sort: false },
@@ -85,13 +86,45 @@ export class ProposalListComponent implements OnInit {
      * @param criteria ProposalCriteria
      */
     getProposals(criteria: ProposalCriteria) {
+        let usercriteria = { teamLeaderId: this.user.id };
+        this.userService.getEmployees(usercriteria).then((users) => {
+            this.proposalService.getProposals(criteria).then(
+                proposals => {
+                    let finalProposal = [];
+                    users.forEach((u) => {
+                        let trovato = false;
+                        // console.log('ps', proposals);
+                        
+                        proposals.forEach((p) => {
+                           
+                            // console.log('check', p.userAccount.id, u.id);
+                            if (p.userAccount.id === u.id) {
+                                // console.log('trovato', p);
+                                trovato = true;
+                                finalProposal.push(p);
+                            }
 
-        this.proposalService.getProposals(criteria).then (
-            proposals => { this.proposals = proposals; 
-                            this.proposalSortedFiltered = proposals;
-                            console.log("proposlas: " + JSON.stringify(this.proposals)); 
+
+                        });
+                        if (!trovato) {
+                            // console.log('non trovato', u.id);
+                            let np = new Proposal();
+                            np.userAccount = u;
+                            finalProposal.push(np);
                         }
-        );
+                        
+                    });
+
+                    this.proposals = finalProposal;
+                    this.proposalSortedFiltered = finalProposal;
+                }
+            );
+
+
+
+            console.log("proposlas: " + JSON.stringify(this.proposals));
+        })
+
     }
 
     /**
@@ -99,41 +132,68 @@ export class ProposalListComponent implements OnInit {
      */
     openEditModal(proposal: Proposal) {
         this.onEdit.emit(proposal);
-    } 
+    }
 
     /**
      * Delets selected propsal.
      */
     deleteProposal(proposal: Proposal) {
-        console.log("1 prop list deleteProposal = " + JSON.stringify(proposal));
+        // console.log("1 prop list deleteProposal = " + JSON.stringify(proposal));
         this.onDelete.emit(proposal);
+        this.reload();
+    }
+
+    allLockStatus=false;
+    lockAll(){
+        this.proposals.forEach((p)=>{
+            this.lock(p,true,'Active');//this.allLockStatus?'Active':'Locked'
+        });
+        this.allLockStatus=!this.allLockStatus;
         this.reload();
     }
 
     /**
      * Locks selected proposal.
      */
-    lock(proposal: Proposal) {
+    lock(proposal: Proposal,all?:boolean,value?:string) {
 
-        console.log("lock proposal: " + JSON.stringify(proposal));
+        // console.log("lock proposal: " + JSON.stringify(proposal));
+        if (!proposal.id) {
+            
+            this.proposalService.insertProposal(proposal).then((proposalreturned: Proposal) => {
+                this.realLock(proposalreturned,all,value);
 
+            })
+        } else {
+            this.realLock(proposal,all,value);
+
+        }
+
+    }
+    private realLock(proposal: Proposal,all?:boolean,value?:string) {
         let lockProposal = _.cloneDeep(proposal);
-        lockProposal.status = 'Locked';
+        if(lockProposal.status==='Locked' &&!all){
+            lockProposal.status=value||'Active';
+        }else{
+  lockProposal.status = 'Locked';
+        }
+      
 
-        this.proposalService.updateProposal(lockProposal).then (
-            proposal => { 
-                console.log("proposal locked: " + JSON.stringify(proposal)); 
+        this.proposalService.updateProposal(lockProposal).then(
+            proposal => {
+                // console.log("proposal locked: " + JSON.stringify(proposal));
+                if(!all){
                 this.reload();
+                }
             },
-            reason => {}
+            reason => { }
         );
     }
-
     /**
      * Reloads proposal list.
      */
-    public reload(){
-        console.log("reload - proposal-list.component.ts");
+    public reload() {
+        // console.log("reload - proposal-list.component.ts");
         this.getProposals(this.proposalCriteria);
     }
 
@@ -149,7 +209,7 @@ export class ProposalListComponent implements OnInit {
         //                                                      this.sortByProperties, this.sortByOrders, this.sortingIcons);
 
         let index = this.sortByProperties.indexOf(columnName);
-        let isInSortArray =  index !== -1;
+        let isInSortArray = index !== -1;
 
         if (isInSortArray) {
             if (this.sortByOrders[index] == 'asc') {
@@ -160,8 +220,8 @@ export class ProposalListComponent implements OnInit {
                 this.sortingIcons[columnNameIcon].sort = true;
             }
             else {
-                _.pullAt(this.sortByProperties,[index]);
-                _.pullAt(this.sortByOrders,[index]);
+                _.pullAt(this.sortByProperties, [index]);
+                _.pullAt(this.sortByOrders, [index]);
 
                 this.sortingIcons[columnNameIcon].asc = false;
                 this.sortingIcons[columnNameIcon].sort = false;
@@ -185,7 +245,7 @@ export class ProposalListComponent implements OnInit {
      * Reset state of fa-sort icons in sortingIcons object to default values.
      */
     resetSortingIcons() {
-        this.sortingIcons = { 
+        this.sortingIcons = {
             fisrtName: { asc: false, sort: false },
             lastName: { asc: false, sort: false },
             manager: { asc: false, sort: false },
@@ -214,7 +274,7 @@ export class ProposalListComponent implements OnInit {
         // FILTER
         this.proposalSortedFiltered = this.filterService.filterBy(this.proposals, this.proposalFilter);
         // SORT
-        this.proposalSortedFiltered = _.orderBy(this.proposalSortedFiltered, this.sortByProperties, this.sortByOrders);  
-    }    
+        this.proposalSortedFiltered = _.orderBy(this.proposalSortedFiltered, this.sortByProperties, this.sortByOrders);
+    }
 
 }

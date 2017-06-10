@@ -7,7 +7,7 @@ exports.USERS = [
         username: 'fabstaro',
         password: 'f',
         email: 'fabstaro@mht.net',
-        role: 'Manager',
+        role: 'Admin',
         assigned: false
     },
     {
@@ -17,7 +17,7 @@ exports.USERS = [
         username: 'alessandro',
         password: 'a',
         email: 'avolio@mht.net',
-        role: 'TeamLeader',
+        role: 'Evaluator',
         assigned: false
     },
     {

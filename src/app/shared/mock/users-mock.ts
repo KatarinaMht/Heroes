@@ -8,7 +8,7 @@ export const USERS: User[] = [
         username: 'fabstaro',
         password: 'f',
         email: 'fabstaro@mht.net',
-        role: 'Manager',
+        role: 'Admin',
         assigned: false
     },
     { 
@@ -18,7 +18,7 @@ export const USERS: User[] = [
         username: 'alessandro',
         password: 'a',
         email: 'avolio@mht.net',
-        role: 'TeamLeader',
+        role: 'Evaluator',
         assigned: false
     },
     { 

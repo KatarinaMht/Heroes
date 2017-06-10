@@ -5,10 +5,15 @@ module.exports = {
     base: 'http://localhost:8080',
     api: {
         hosts: {
-            profilazione: 'http://XXX/sviluppo'
+            base: 'http://localhost:8080',
+            otherexample: 'https://www.google.com/api'
         },
         endpoint: {
-            profilazione: '/profilazione-api'
+            proposals: '/evaluation',
+            login: '/login',
+            teamLeaderUsers:'/team-mapping',
+            employees:'/employees'
+
         }
     }
 };

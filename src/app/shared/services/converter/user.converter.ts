@@ -15,7 +15,7 @@ export class UserConverter {
         user.username = usr.username;
         user.password = usr.password;
         user.email = usr.email;
-        user.role = usr.role;
+        user.roles = usr.roles;
         user.assigned = usr.assigned;
         
         return user;
@@ -30,7 +30,7 @@ export class UserConverter {
         user.username = usr.username;
         user.password = usr.password;
         user.email = usr.email;
-        user.role = usr.role;
+        user.roles = usr.roles;
         user.assigned = usr.assigned;
         
         return user;

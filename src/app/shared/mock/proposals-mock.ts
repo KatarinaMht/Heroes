@@ -173,8 +173,6 @@ export const PROPOSALS_BY_MANAGER: any[] = [
 ];
 
 export const MONEY_PROPOSAL: string[] = [
-    '',
-    'N.A.',
     'Nulla',
     'Premio Una tantum',
     'Aumento di stipendio',
@@ -182,15 +180,11 @@ export const MONEY_PROPOSAL: string[] = [
 ];
 
 export const COMPANY_PROFILE: string[] = [
-    '',
-    'N.A.',
     'Nulla',
     'Aumento di livello'
 ];
 
 export const NATIONAL_WORK_PROFILE: string[] = [
-    '',
-    'N.A.',
     'Nulla',
     'Aumento di livello'
 ];

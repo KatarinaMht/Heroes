@@ -18,11 +18,11 @@ var user_management_component_1 = require("./components/user-management/user-man
 // ];
 var routes = [
     {
-        path: 'proposals-page',
+        path: 'evaluations',
         component: proposals_page_component_1.ProposalsPageComponent,
         children: [
             {
-                path: 'proposals',
+                path: 'list',
                 component: proposals_component_1.ProposalsComponent,
                 children: [
                     {

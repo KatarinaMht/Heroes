@@ -1,3 +1,4 @@
+import { AuthService } from './../shared/services/auth.service';
 import { Alert } from './../shared/models/alert.model';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
@@ -28,7 +29,7 @@ export class ProposalsComponent implements OnInit {
     this.onError("Test error!");
   }
 
-  constructor(private proposalService: ProposalService, private router: Router) { }
+  constructor(private proposalService: ProposalService, private router: Router, private authService: AuthService) { }
 
   /**
    * Opens Edit Modal
@@ -36,32 +37,52 @@ export class ProposalsComponent implements OnInit {
    * @param Proposal proposal to be edited
    */
   onEditClick(proposal: Proposal) {
-    console.log("this.proposalEditId = " + proposal.id);
+    console.log("this.proposalEdit= ", proposal);
+    if (!proposal.id) {
+      proposal.manager = this.authService.getUser();
+      this.proposalService.insertProposal(proposal).then((proposalreturned: Proposal) => {
+        proposal.id=proposalreturned.id;
+        proposal.manager=proposal.manager;
+        this.openEditModal(proposalreturned);
+      })
+    } else {
+      this.openEditModal(proposal);
+    }
 
-    this.proposalEditId = proposal.id; 
-    
-    $('#myModal').on('hide.bs.modal',()=>{
-      this.proposalEditId=undefined;
-    });
-
-    $('#myModal').modal('show');
-    
     //this.router.navigate(['/proposal-edit', proposal.id]);
+  }
+
+  private openEditModal(proposal: Proposal) {
+
+    this.proposalEditId = proposal.id;
+    $('#myModal').on('hide.bs.modal', () => {
+      console.log('apri modal');
+      this.proposalEditId = undefined;
+    });
+    // setTimeout(() => {
+
+
+      $('#myModal').modal('show');
+    // }, 1000);
+
+
   }
 
   /**
    * Deletes proposal.
    */
   onDeleteClick(proposal: Proposal) {
-      console.log("2 prop onDeleteClick = " + JSON.stringify(proposal));
-      this.proposalService.deleteProposal(proposal).then (
-            proposal => {},
-            reason => {}
-        );
+    console.log("2 prop onDeleteClick = " + JSON.stringify(proposal));
+    this.proposalService.deleteProposal(proposal).then(
+      proposal => {
+        this.proposalList.reload();
+      },
+      reason => { }
+    );
   }
 
   onEditedProposalSubmitted(proposalUpdated: Proposal) {
-    
+
     if (proposalUpdated) { //if itsn't undefineed
       console.log("reload - proposals.component.ts");
       this.proposalList.reload();

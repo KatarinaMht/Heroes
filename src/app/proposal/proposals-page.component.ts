@@ -20,4 +20,8 @@ export class ProposalsPageComponent implements OnInit {
     
   }
 
+  public logout(){
+    this.auth.logout();
+  }
+
 }

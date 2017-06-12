@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { ConfigurationsService } from './configuration/configuration.service';
 import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
@@ -12,7 +13,7 @@ export class AuthService {
     static user: User;
     userList: User[];
     url: string;
-    constructor(private http: Http, private conf: ConfigurationsService) {
+    constructor(private http: Http, private conf: ConfigurationsService,private router: Router) {
         console.log("I am new one!");
         
         this.url = this.conf.getApiEndpoint('login');
@@ -67,6 +68,7 @@ export class AuthService {
     logout(): void {
         AuthService.user = null;
         window.localStorage.clear();
+          this.router.navigate(['/login']);
     }
 
 }

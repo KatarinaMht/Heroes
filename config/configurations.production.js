@@ -5,8 +5,7 @@ module.exports = {
     base: 'http://localhost:8080',
     api: {
         hosts: {
-            base: 'http://localhost:8080',
-            otherexample: 'https://www.google.com/api'
+            base: 'https://production.eng.it/esl-evaluator-be',
         },
         endpoint: {
             proposals: '/evaluation',

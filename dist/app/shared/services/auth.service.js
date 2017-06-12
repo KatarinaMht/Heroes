@@ -8,14 +8,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var router_1 = require("@angular/router");
 var configuration_service_1 = require("./configuration/configuration.service");
 var http_1 = require("@angular/http");
 var core_1 = require("@angular/core");
 var user_model_1 = require("../models/user.model");
 var AuthService = AuthService_1 = (function () {
-    function AuthService(http, conf) {
+    function AuthService(http, conf, router) {
         this.http = http;
         this.conf = conf;
+        this.router = router;
         console.log("I am new one!");
         this.url = this.conf.getApiEndpoint('login');
         //and check if user it's just logged
@@ -55,12 +57,13 @@ var AuthService = AuthService_1 = (function () {
     AuthService.prototype.logout = function () {
         AuthService_1.user = null;
         window.localStorage.clear();
+        this.router.navigate(['/login']);
     };
     return AuthService;
 }());
 AuthService = AuthService_1 = __decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http, configuration_service_1.ConfigurationsService])
+    __metadata("design:paramtypes", [http_1.Http, configuration_service_1.ConfigurationsService, router_1.Router])
 ], AuthService);
 exports.AuthService = AuthService;
 var AuthService_1;

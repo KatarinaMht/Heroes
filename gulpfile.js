@@ -304,7 +304,7 @@ gulp.task('inject:index', function () {
         // injecting javascript
         .pipe(plugins.inject(jsStream, {ignorePath: dest, addRootSlash: false}))
         // replace base href
-        // .pipe(plugins.replace('href="/"', 'href="/sisp-frontend/"'))
+        .pipe(plugins.replace('href="/"', 'href="/esl-evaluator/"'))
         .pipe(gulp.dest(dest));
 });
 

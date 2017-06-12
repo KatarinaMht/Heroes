@@ -17,6 +17,9 @@ var ProposalsPageComponent = (function () {
     ProposalsPageComponent.prototype.ngOnInit = function () {
         this.user = this.auth.getUser();
     };
+    ProposalsPageComponent.prototype.logout = function () {
+        this.auth.logout();
+    };
     return ProposalsPageComponent;
 }());
 ProposalsPageComponent = __decorate([

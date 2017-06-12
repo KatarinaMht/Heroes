@@ -88,6 +88,7 @@ export class ProposalListComponent implements OnInit {
      */
     getProposals(criteria: ProposalCriteria) {
         this.loading=true;
+        console.log('loading', this.loading);
         let usercriteria = { teamLeaderId: this.user.id };
         this.userService.getEmployees(usercriteria).then((users) => {
             this.proposalService.getProposals(criteria).then(
@@ -120,6 +121,7 @@ export class ProposalListComponent implements OnInit {
                     this.proposals = finalProposal;
                     this.proposalSortedFiltered = finalProposal;
                     this.loading=false;
+                    console.log('loading xx', this.loading);
                 }
             ).catch(()=>{
                 this.loading=false;

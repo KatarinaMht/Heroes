@@ -61,6 +61,7 @@ var ProposalListComponent = (function () {
     ProposalListComponent.prototype.getProposals = function (criteria) {
         var _this = this;
         this.loading = true;
+        console.log('loading', this.loading);
         var usercriteria = { teamLeaderId: this.user.id };
         this.userService.getEmployees(usercriteria).then(function (users) {
             _this.proposalService.getProposals(criteria).then(function (proposals) {
@@ -86,6 +87,7 @@ var ProposalListComponent = (function () {
                 _this.proposals = finalProposal;
                 _this.proposalSortedFiltered = finalProposal;
                 _this.loading = false;
+                console.log('loading xx', _this.loading);
             }).catch(function () {
                 _this.loading = false;
             });

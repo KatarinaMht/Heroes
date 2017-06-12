@@ -271,7 +271,7 @@ export class ProposalListComponent implements OnInit {
         this.proposalFilter.userAccount = new User();
         this.proposalFilter.userAccount.firstName = this.filterFirstName;
         this.proposalFilter.userAccount.lastName = this.filterLastName;
-        this.proposalFilter.manager = this.filterManagerName;
+        // this.proposalFilter.manager = this.filterManagerName;
         this.proposalFilter.companyProfile = this.filterCompanyProfile;
         this.proposalFilter.nationalWorkProfile = this.filterNationalWorkProfile;
         // console.log('proposalFilter: ' + JSON.stringify(this.proposalFilter));
